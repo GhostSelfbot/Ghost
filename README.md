@@ -1,4 +1,4 @@
-# 👻 Ghost Selfbot
+# 👻 Ghost Selfbot - Xellu was here
 
 The official code for Ghost which was recently discontinued and released to the public.  
 Feel free to use any of the code found in this project for your own project.  
