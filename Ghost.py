@@ -2022,7 +2022,6 @@ Arguments in `[]` are required, arguments in `()` are optional.
 `{Ghost.command_prefix}`**nsfw (page 1)** » NSFW commands.
 `{Ghost.command_prefix}`**proxy (page 1)** » Proxy commands.
 `{Ghost.command_prefix}`**tools (page 1)** » Discord and other tools.
-`{Ghost.command_prefix}`**malicious (page 1)** » Malicious commands.
 `{Ghost.command_prefix}`**customcommands** » Your custom commands.
 `{Ghost.command_prefix}`**customscripts** » Your scripts.
 
@@ -2057,7 +2056,6 @@ Arguments in [] are required, arguments in () are optional.
 {Ghost.command_prefix}nsfw (page 1) » NSFW commands.
 {Ghost.command_prefix}proxy (page 1) » Proxy commands.
 {Ghost.command_prefix}tools (page 1) » Discord and other tools.
-{Ghost.command_prefix}malicious (page 1)** » Malicious commands.
 {Ghost.command_prefix}customcommands » Your custom commands.
 {Ghost.command_prefix}customscripts » Your scripts.
 
@@ -2804,50 +2802,6 @@ You have risk mode disabled, you cant use this command.
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
 
 
-    @Ghost.command(name="malicious", description="Malicious commands.", usage="malicious")
-    async def abuse(ctx, page:int = 1):
-        if __riskmode__:
-            if __embedmode__:
-                if page == 1:
-                    embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**tokengrabber [path]** Â» Build token grabber to supplied path.
-`{Ghost.command_prefix}`**stopspam** Â» Stop spamming messages.
-
-                """)
-                    embed.set_author(name="Malicious Commands (1/1)")
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_image(url=__embedlargeimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    pass         
-            else:
-                await ctx.send(f"""```ini
-[ Malicious Commands ]
-
-{Ghost.command_prefix}tokengrabber [path] Â» Build token grabber to supplied path.
-{Ghost.command_prefix}stopspam Â» Stop spamming messages.
-
-
-
-# {__embedfooter__}```""", delete_after=__deletetimeout__)
-
-        else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Malicious Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
-[ Malicious Commands ]
-
-You have risk mode disabled, you cant use this command.
-
-
-# {__embedfooter__}```""", delete_after=__deletetimeout__)    
 
     @Ghost.command(name="giveaway", description="Giveaway related commands.", usage="giveaway")
     async def giveaway(ctx, page:int = 1):
@@ -4279,75 +4233,6 @@ Daily Bans: {data['watchdog_rollingDaily']}
         for count in range(number):
             await ctx.send(count)
 
-#[Malicious Commands]
-
-    @Ghost.command(name="tokengrabber", description="Builds a Token grabber with the specified name.", usage="tokengrabber [name]", aliases=["tg"])
-    async def pytoexe(ctx, *, name):
-        pyFile = False
-        #file = name.split("/")[-1]
-
-        if (name.endswith(".exe")):
-            pyFile = True
-        
-        if (pyFile):
-            #file = file[:-3]
-
-            if __embedmode__:
-                embed = discord.Embed(title=f"Token Grabber Build", description="Building of your file has started, check the console for more information.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-
-                message = await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                message = await ctx.send(f"""```ini
-[ Token Grabber Build ]
-
-Building of your file has started, check the console for more information.
-
-
-# {__embedfooter__}
-```""", delete_after=__deletetimeout__)
-
-            print_info("Converting your file to an exe using pyinstaller...\nThis will fill your console and possibly take a while.")
-            os.system(f'pyinstaller -n "{name}" -i "icon.ico" --onefile --distpath "pytoexe/" scripts/yoinker.py')
-            print_info("Conversion complete!")
-            print(f"{fg.cYellow}Path: {fg.cGrey}pytoexe/{name}")
-
-            if __embedmode__:
-                embed = discord.Embed(title=f"Token Grabber Build", description="Building of your file has completed! Check the console for more information.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()     
-
-                await message.edit(content="", embed=embed, delete_after=__deletetimeout__)  
-            else:
-                await message.edit(content=f"""```ini
-[ Token Grabber Build ]
-
-Building of your file has completed! Check the console for more information.
-
-
-# {__embedfooter__}
-```""", delete_after=__deletetimeout__)
-
-        else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Token Grabber Build", description="The path you submitted does not link to a EXE file.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)   
-            else:
-                await ctx.send(f"""```ini
-[ Token Grabber Build ]
-
-The path you submitted does not link to a EXE file.
-
-
-# {__embedfooter__}
-```""", delete_after=__deletetimeout__)
 
     @Ghost.command(name="massban", description="Ban all the members in the command server.", usage="massban")
     async def massban(ctx):
