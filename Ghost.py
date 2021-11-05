@@ -1,26 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# Copyright (C) 2021 Ben Tettmar
-
-# Permission is hereby granted, free of charge, to any person obtaining a copy of
-# this software and associated documentation files (the "Software"), to deal in
-# the Software without restriction, including without limitation the rights to
-# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-# of the Software, and to permit persons to whom the Software is furnished to do
-# so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 import os
 from re import T
 
@@ -469,9 +449,9 @@ try:
         f = open('config.json', "w")
         f.write("""
 {
-    "token": "",
-    "prefix": ".",
-    "delete_timeout": 15,
+    "token": "INSERT TOKEN HERE",
+    "prefix": "?",
+    "delete_timeout": 0,
     "theme": "Ghost"
 }
         """)
@@ -480,7 +460,7 @@ try:
         f = codecs.open('giveawaybots.json', "w", encoding="UTF-8")
         f.write("""
 {
-    "294882584201003009": "ğŸ‰"
+    "294882584201003009": "??"
 }
         """)
         f.close()        
@@ -516,7 +496,7 @@ try:
         if "small_image_key" not in jsonFile:
             jsonFile["small_image_key"] = "small"
         if "small_image_text" not in jsonFile:
-            jsonFile["small_image_text"] = "best sb for Â£2"
+            jsonFile["small_image_text"] = "best sb for £2"
         json.dump(jsonFile, open("richpresence.json", "w"), sort_keys=False, indent=4)
 
     if not os.path.isfile('themes/Ghost.json'):
@@ -950,12 +930,12 @@ async def example(Ghost):
     for index in GIVEAWAYBOTS:
         giveawayBots.append(int(index))
 
-    version = "2.3.7"
+    version = "2.3.8"
     cycleStatusText = ""
     cycleStatus = False
     discordServer = "discord.gg/reKgzfRrpt"
     uwuifyEnabled = False
-    channelBlankChar = "á²¼"
+    channelBlankChar = "?"
     spammingMessages = False
     rickRollEnabled = False
     nukingToken = False
@@ -970,10 +950,10 @@ async def example(Ghost):
             scriptsList.append(filename)
             exec(codecs.open(filename, encoding="utf-8").read(), globals(), locals())
 
-    # hideText = "||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||||â€‹||"
+    # hideText = "||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||||?||"
     
     if not __custommotd__:
-        motd = "Developed by Benny | Discontinued October 2021"
+        motd = "Developed by Benny | Discontinued October 2021 \nDeveloped by ChaosOfThe4 | Recontinued 11/03/2021"
     else:
         motd = __custommotdtext__
 
@@ -1018,28 +998,28 @@ async def example(Ghost):
         if consoleMode.lower() == "new":
             print("")
             print(fg.consoleColour + "")                    
-            print(" â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â•â•â• â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(" â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•â•â•â•â•â•   â•šâ•â•   ".center(width))
+            print(" ¦¦¦¦¦¦+ ¦¦+  ¦¦+ ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+----+ ¦¦¦  ¦¦¦¦¦+---¦¦+¦¦+----++--¦¦+--+".center(width))
+            print("¦¦¦  ¦¦¦+¦¦¦¦¦¦¦¦¦¦¦   ¦¦¦¦¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print("¦¦¦   ¦¦¦¦¦+--¦¦¦¦¦¦   ¦¦¦+----¦¦¦   ¦¦¦   ".center(width))
+            print("+¦¦¦¦¦¦++¦¦¦  ¦¦¦+¦¦¦¦¦¦++¦¦¦¦¦¦¦¦   ¦¦¦   ".center(width))
+            print(" +-----+ +-+  +-+ +-----+ +------+   +-+   ".center(width))
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")  
         if consoleMode.lower() == "rainbow":
             print("")
             print(fg.consoleColour + "")                    
-            print(fg.cRed + " â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print(fg.cOrange + "â–ˆâ–ˆâ•”â•â•â•â•â• â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print(fg.cYellow + "â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print(fg.cGreen + "â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(fg.cBlue + "â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(fg.cPurple + " â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•â•â•â•â•â•   â•šâ•â•   ".center(width))
+            print(fg.cRed + " ¦¦¦¦¦¦+ ¦¦+  ¦¦+ ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print(fg.cOrange + "¦¦+----+ ¦¦¦  ¦¦¦¦¦+---¦¦+¦¦+----++--¦¦+--+".center(width))
+            print(fg.cYellow + "¦¦¦  ¦¦¦+¦¦¦¦¦¦¦¦¦¦¦   ¦¦¦¦¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print(fg.cGreen + "¦¦¦   ¦¦¦¦¦+--¦¦¦¦¦¦   ¦¦¦+----¦¦¦   ¦¦¦   ".center(width))
+            print(fg.cBlue + "+¦¦¦¦¦¦++¦¦¦  ¦¦¦+¦¦¦¦¦¦++¦¦¦¦¦¦¦¦   ¦¦¦   ".center(width))
+            print(fg.cPurple + " +-----+ +-+  +-+ +-----+ +------+   +-+   ".center(width))
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                                       
         if consoleMode.lower() == "new2":
             print("")
@@ -1052,7 +1032,7 @@ async def example(Ghost):
             print("                                                     ".center(width)) 
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                      
         if consoleMode.lower() == "new3":
             print("")
@@ -1069,113 +1049,113 @@ async def example(Ghost):
             print('  "Y8bbdP"                                             '.center(width))  
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                    
         if consoleMode.lower() == "new4":
             print("")
             print(fg.consoleColour + "")                    
-            print("   â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–„     â–„â–ˆ    â–ˆâ–„     â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–„     â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     ".center(width))
-            print("  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–€â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–„ ".center(width))
-            print("  â–ˆâ–ˆâ–ˆ    â–ˆâ–€    â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–€     â–€â–ˆâ–ˆâ–ˆâ–€â–€â–ˆâ–ˆ ".center(width))
-            print(" â–„â–ˆâ–ˆâ–ˆ         â–„â–ˆâ–ˆâ–ˆâ–„â–„â–„â–„â–ˆâ–ˆâ–ˆâ–„â–„ â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ            â–ˆâ–ˆâ–ˆ   â–€ ".center(width))
-            print('â–€â–€â–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–„  â–€â–€â–ˆâ–ˆâ–ˆâ–€â–€â–€â–€â–ˆâ–ˆâ–ˆâ–€  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–€â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     '.center(width))
-            print('  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ          â–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     '.center(width))                       
-            print('  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ    â–„â–ˆ    â–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     '.center(width))                       
-            print('  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–€    â–ˆâ–ˆâ–ˆ    â–ˆâ–€     â–€â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–€   â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–€     â–„â–ˆâ–ˆâ–ˆâ–ˆâ–€   '.center(width))         
+            print("   _¦¦¦¦¦¦_     _¦    ¦_     _¦¦¦¦¦¦_     _¦¦¦¦¦¦¦¦     ¦¦¦     ".center(width))
+            print("  ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦ ¯¦¦¦¦¦¦¦¦¦_ ".center(width))
+            print("  ¦¦¦    ¦¯    ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¯     ¯¦¦¦¯¯¦¦ ".center(width))
+            print(" _¦¦¦         _¦¦¦____¦¦¦__ ¦¦¦    ¦¦¦   ¦¦¦            ¦¦¦   ¯ ".center(width))
+            print('¯¯¦¦¦ ¦¦¦¦_  ¯¯¦¦¦¯¯¯¯¦¦¦¯  ¦¦¦    ¦¦¦ ¯¦¦¦¦¦¦¦¦¦¦¦     ¦¦¦     '.center(width))
+            print('  ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦          ¦¦¦     ¦¦¦     '.center(width))                       
+            print('  ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦    _¦    ¦¦¦     ¦¦¦     '.center(width))                       
+            print('  ¦¦¦¦¦¦¦¦¯    ¦¦¦    ¦¯     ¯¦¦¦¦¦¦¯   _¦¦¦¦¦¦¦¦¯     _¦¦¦¦¯   '.center(width))         
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                                                                              
         if consoleMode.lower() == "bear":
             if is_windows():
                 os.system("mode con: cols=90 lines=24")                    
             print("")
             print(fg.consoleColour + "")                    
-            print("     â–„â–€â–€â–€â–„â–„â–„â–„â–„â–„â–„â–€â–€â–€â–„      ".center(os.get_terminal_size().columns))
-            print("     â–ˆâ–’â–’â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–’â–’â–ˆ      ".center(os.get_terminal_size().columns))
-            print("      â–ˆâ–‘â–‘â–ˆâ–‘â–‘â–‘â–‘â–‘â–ˆâ–‘â–‘â–ˆ       ".center(os.get_terminal_size().columns))
-            print("   â–„â–„  â–ˆâ–‘â–‘â–‘â–€â–ˆâ–€â–‘â–‘â–‘â–ˆ   â–„â–„   ".center(os.get_terminal_size().columns))
-            print("  â–ˆâ–‘â–‘â–ˆ â–€â–„â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–„â–€  â–ˆâ–‘â–‘â–ˆ  ".center(os.get_terminal_size().columns))
-            print("â–ˆâ–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–ˆ".center(os.get_terminal_size().columns))                                      
-            print("â–ˆâ–‘â–ˆâ–€â–€â–‘â–‘â–ˆ â–ˆâ–‘â–‘â–ˆâ–€â–ˆâ–‘â–‘â–ˆâ–€â–‘â–‘â–€â–ˆâ–€â–‘â–ˆ".center(os.get_terminal_size().columns))                                      
-            print("â–ˆâ–‘â–ˆâ–„â–ˆâ–‘â–‘â–ˆâ–€â–ˆâ–‘â–‘â–ˆâ–„â–ˆâ–‘â–‘â–„â–ˆâ–‘â–‘ â–ˆ â–‘â–ˆ".center(os.get_terminal_size().columns))                                      
-            print("â–ˆâ–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–ˆ".center(os.get_terminal_size().columns))    
+            print("     _¯¯¯_______¯¯¯_      ".center(os.get_terminal_size().columns))
+            print("     ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦      ".center(os.get_terminal_size().columns))
+            print("      ¦¦¦¦¦¦¦¦¦¦¦¦¦       ".center(os.get_terminal_size().columns))
+            print("   __  ¦¦¦¦¯¦¯¦¦¦¦   __   ".center(os.get_terminal_size().columns))
+            print("  ¦¦¦¦ ¯_¦¦¦¦¦¦¦_¯  ¦¦¦¦  ".center(os.get_terminal_size().columns))
+            print("¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦".center(os.get_terminal_size().columns))                                      
+            print("¦¦¦¯¯¦¦¦ ¦¦¦¦¯¦¦¦¦¯¦¦¯¦¯¦¦".center(os.get_terminal_size().columns))                                      
+            print("¦¦¦_¦¦¦¦¯¦¦¦¦_¦¦¦_¦¦¦ ¦ ¦¦".center(os.get_terminal_size().columns))                                      
+            print("¦________________________¦".center(os.get_terminal_size().columns))    
             print("")
             print(fg.cWhite + f"{motd}".center(os.get_terminal_size().columns))
-            print(fg.consoleColour + 'â”€'*os.get_terminal_size().columns)
+            print(fg.consoleColour + '-'*os.get_terminal_size().columns)
             print("")                                                      
         elif consoleMode.lower() == "old":
             print("")
             print(fg.consoleColour + "")                    
-            print("  â–„â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–‘ â–ˆâ–ˆ  â–’â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–„â–„â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–“".center(width))
-            print(" â–ˆâ–ˆâ–’ â–€â–ˆâ–’â–“â–ˆâ–ˆâ–‘ â–ˆâ–ˆâ–’â–’â–ˆâ–ˆâ–’  â–ˆâ–ˆâ–’â–’â–ˆâ–ˆ    â–’ â–“  â–ˆâ–ˆâ–’ â–“â–’".center(width))
-            print("â–’â–ˆâ–ˆâ–‘â–„â–„â–„â–‘â–’â–ˆâ–ˆâ–€â–€â–ˆâ–ˆâ–‘â–’â–ˆâ–ˆâ–‘  â–ˆâ–ˆâ–’â–‘ â–“â–ˆâ–ˆâ–„   â–’ â–“â–ˆâ–ˆâ–‘ â–’â–‘".center(width))
-            print("â–‘â–“â–ˆ  â–ˆâ–ˆâ–“â–‘â–“â–ˆ â–‘â–ˆâ–ˆ â–’â–ˆâ–ˆ   â–ˆâ–ˆâ–‘  â–’   â–ˆâ–ˆâ–’â–‘ â–“â–ˆâ–ˆâ–“ â–‘ ".center(width))
-            print("â–‘â–’â–“â–ˆâ–ˆâ–ˆâ–€â–’â–‘â–“â–ˆâ–’â–‘â–ˆâ–ˆâ–“â–‘ â–ˆâ–ˆâ–ˆâ–ˆâ–“â–’â–‘â–’â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–’â–’  â–’â–ˆâ–ˆâ–’ â–‘ ".center(width))
-            print(" â–‘â–’   â–’  â–’ â–‘â–‘â–’â–‘â–’â–‘ â–’â–‘â–’â–‘â–’â–‘ â–’ â–’â–“â–’ â–’ â–‘  â–’ â–‘â–‘   ".center(width))                    
-            print("  â–‘   â–‘  â–’ â–‘â–’â–‘ â–‘  â–‘ â–’ â–’â–‘ â–‘ â–‘â–’  â–‘ â–‘    â–‘    ".center(width))                    
-            print("â–‘ â–‘   â–‘  â–‘  â–‘â–‘ â–‘â–‘ â–‘ â–‘ â–’  â–‘  â–‘  â–‘    â–‘      ".center(width))                    
-            print("      â–‘  â–‘  â–‘  â–‘    â–‘ â–‘        â–‘           ".center(width))  
+            print("  _¦¦¦¦  ¦¦¦ ¦¦  ¦¦¦¦¦¦    ¦¦¦¦¦¦ ___¦¦¦¦¦¦".center(width))
+            print(" ¦¦¦ ¯¦¦¦¦¦¦ ¦¦¦¦¦¦¦  ¦¦¦¦¦¦    ¦ ¦  ¦¦¦ ¦¦".center(width))
+            print("¦¦¦¦___¦¦¦¦¯¯¦¦¦¦¦¦¦  ¦¦¦¦ ¦¦¦_   ¦ ¦¦¦¦ ¦¦".center(width))
+            print("¦¦¦  ¦¦¦¦¦¦ ¦¦¦ ¦¦¦   ¦¦¦  ¦   ¦¦¦¦ ¦¦¦¦ ¦ ".center(width))
+            print("¦¦¦¦¦¦¯¦¦¦¦¦¦¦¦¦¦ ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦  ¦¦¦¦ ¦ ".center(width))
+            print(" ¦¦   ¦  ¦ ¦¦¦¦¦¦ ¦¦¦¦¦¦ ¦ ¦¦¦ ¦ ¦  ¦ ¦¦   ".center(width))                    
+            print("  ¦   ¦  ¦ ¦¦¦ ¦  ¦ ¦ ¦¦ ¦ ¦¦  ¦ ¦    ¦    ".center(width))                    
+            print("¦ ¦   ¦  ¦  ¦¦ ¦¦ ¦ ¦ ¦  ¦  ¦  ¦    ¦      ".center(width))                    
+            print("      ¦  ¦  ¦  ¦    ¦ ¦        ¦           ".center(width))  
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                    
         elif consoleMode not in consoleModes:
             print("")
             print(fg.consoleColour + "")                    
-            print(" â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â•â•â• â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(" â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•â•â•â•â•â•   â•šâ•â•   ".center(width))                                      
+            print(" ¦¦¦¦¦¦+ ¦¦+  ¦¦+ ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+----+ ¦¦¦  ¦¦¦¦¦+---¦¦+¦¦+----++--¦¦+--+".center(width))
+            print("¦¦¦  ¦¦¦+¦¦¦¦¦¦¦¦¦¦¦   ¦¦¦¦¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print("¦¦¦   ¦¦¦¦¦+--¦¦¦¦¦¦   ¦¦¦+----¦¦¦   ¦¦¦   ".center(width))
+            print("+¦¦¦¦¦¦++¦¦¦  ¦¦¦+¦¦¦¦¦¦++¦¦¦¦¦¦¦¦   ¦¦¦   ".center(width))
+            print(" +-----+ +-+  +-+ +-----+ +------+   +-+   ".center(width))                                      
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")
         if consoleMode.lower() == "react":
             print("")
             print(fg.consoleColour + "")                    
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘        â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•  â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘        â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ•â•  â•šâ•â•â•šâ•â•â•â•â•â•â•â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â•   â•šâ•â•   ".center(width))
+            print("¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+ ¦¦¦¦¦+  ¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+--¦¦+¦¦+----+¦¦+--¦¦+¦¦+----++--¦¦+--+".center(width))
+            print("¦¦¦¦¦¦++¦¦¦¦¦+  ¦¦¦¦¦¦¦¦¦¦¦        ¦¦¦   ".center(width))
+            print("¦¦+--¦¦+¦¦+--+  ¦¦+--¦¦¦¦¦¦        ¦¦¦   ".center(width))
+            print("¦¦¦  ¦¦¦¦¦¦¦¦¦¦+¦¦¦  ¦¦¦+¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print("+-+  +-++------++-+  +-+ +-----+   +-+   ".center(width))
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")  
         if consoleMode.lower() == "rise":
             print(fg.cBlue + "")                    
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•—     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â•â•â•    â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—      â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•      â•šâ•â•â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•  â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ•”â•â•â•  â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ•â•  â•šâ•â•â•šâ•â•â•šâ•â•â•â•â•â•â•â•šâ•â•â•â•â•â•â•    â•šâ•â•â•â•â•â•â•â•šâ•â•â•â•â•â•â•â•šâ•â•â•â•â•â•â•â•šâ•â•     â•šâ•â•â•â•â•â•  â•šâ•â•â•â•â•â•    â•šâ•â•   ".center(width))
-            print("â•­â”€â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”€â•®")
+            print("¦¦¦¦¦¦+ ¦¦+¦¦¦¦¦¦¦+¦¦¦¦¦¦¦+    ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦+¦¦+     ¦¦¦¦¦¦¦+¦¦¦¦¦¦+  ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+--¦¦+¦¦¦¦¦+----+¦¦+----+    ¦¦+----+¦¦+----+¦¦¦     ¦¦+----+¦¦+--¦¦+¦¦+---¦¦++--¦¦+--+".center(width))
+            print("¦¦¦¦¦¦++¦¦¦¦¦¦¦¦¦¦+¦¦¦¦¦+      ¦¦¦¦¦¦¦+¦¦¦¦¦+  ¦¦¦     ¦¦¦¦¦+  ¦¦¦¦¦¦++¦¦¦   ¦¦¦   ¦¦¦   ".center(width))
+            print("¦¦+--¦¦+¦¦¦+----¦¦¦¦¦+--+      +----¦¦¦¦¦+--+  ¦¦¦     ¦¦+--+  ¦¦+--¦¦+¦¦¦   ¦¦¦   ¦¦¦   ".center(width))
+            print("¦¦¦  ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦+    ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦+¦¦¦¦¦¦¦+¦¦¦     ¦¦¦¦¦¦+++¦¦¦¦¦¦++   ¦¦¦   ".center(width))
+            print("+-+  +-++-++------++------+    +------++------++------++-+     +-----+  +-----+    +-+   ".center(width))
+            print("?-????????????????????????????????????????????????????????????????????????????????????????????????????????????????????-?")
             print(fg.cGrey + f"Connected: {Ghost.user} | Prefix: {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}".center(width))
-            print(fg.cBlue + "â•°â”€â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”€â•¯")
+            print(fg.cBlue + "?-????????????????????????????????????????????????????????????????????????????????????????????????????????????????????-?")
             print("")
-            print(fg.cBlue + 'â”'*width)
+            print(fg.cBlue + '?'*width)
             print("")         
 
         if consoleMode.lower() == "nighty":
             if is_windows():
                 os.system("mode con: cols=90 lines=24")
             print("")                    
-            print(f"                     {fg.cWhite}â–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•â•â•â•â• {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘â•šâ•â•{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•â•â•â•š{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘  {fg.cWhite}â–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘    â•š{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•”â• ")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘â•š{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•â•{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘     â•š{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•  ")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘ â•š{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘â•š{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•”â•{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘      {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   ")
-            print(fg.consoleColour + f"                     â•šâ•â•  â•šâ•â•â•â•â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â•   â•šâ•â•      â•šâ•â•   ")
+            print(f"                     {fg.cWhite}¦¦¦{fg.consoleColour}+   {fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}+ {fg.cWhite}¦¦¦¦¦¦{fg.consoleColour}+ {fg.cWhite}¦¦{fg.consoleColour}+  {fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦¦¦¦¦¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}+   {fg.cWhite}¦¦{fg.consoleColour}+")
+            print(f"                     {fg.cWhite}¦¦¦¦{fg.consoleColour}+  {fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}+----+ {fg.cWhite}¦¦{fg.consoleColour}¦  {fg.cWhite}¦¦{fg.consoleColour}¦+--{fg.cWhite}¦¦{fg.consoleColour}+--++{fg.cWhite}¦¦{fg.consoleColour}+ {fg.cWhite}¦¦{fg.consoleColour}++")
+            print(f"                     {fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}+ {fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦  {fg.cWhite}¦¦¦{fg.consoleColour}+{fg.cWhite}¦¦¦¦¦¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦    +{fg.cWhite}¦¦¦¦{fg.consoleColour}++ ")
+            print(f"                     {fg.cWhite}¦¦{fg.consoleColour}¦+{fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}+--{fg.cWhite}¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦     +{fg.cWhite}¦¦{fg.consoleColour}++  ")
+            print(f"                     {fg.cWhite}¦¦{fg.consoleColour}¦ +{fg.cWhite}¦¦¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦+{fg.cWhite}¦¦¦¦¦¦{fg.consoleColour}++{fg.cWhite}¦¦{fg.consoleColour}¦  {fg.cWhite}¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦      {fg.cWhite}¦¦{fg.consoleColour}¦   ")
+            print(fg.consoleColour + f"                     +-+  +---++-+ +-----+ +-+  +-+   +-+      +-+   ")
             print("")
             print(f"{fg.cWhite}Status:    {fg.cGreen}Connected")
             print(f"{fg.cWhite}Account:   {Ghost.user} [{len(Ghost.guilds)} servers] [{len(get_friends(__token__))} friends]")
             print(f"{fg.cWhite}Prefix:    {Ghost.command_prefix}")
-            print(fg.cWhite + 'â”€'*os.get_terminal_size().columns)                                                          
+            print(fg.cWhite + '-'*os.get_terminal_size().columns)                                                          
 
             # def getCurrentTime():
             #     return datetime.now().strftime("%H:%M")
@@ -1814,7 +1794,7 @@ async def example(Ghost):
                             #             webhook.add_embed(embed)
                             #             response = webhook.execute() 
 
-                            #         send_notification("Giveaway Sniper", f"You won a giveaway for {prize} ğŸ‰!", 10)                                                                       
+                            #         send_notification("Giveaway Sniper", f"You won a giveaway for {prize} ??!", 10)                                                                       
                             #         if __sounds__:
                             #             if str(sounddevice.query_devices()) != "":
                             #                 pygame.mixer.music.load(resource_path("sounds/giveaway-win.mp3"))
@@ -1985,8 +1965,8 @@ Please enter a command to search for.
             for cmd in Ghost.commands:
                 if command in cmd.name or command in cmd.description or command in cmd.aliases:
                     searchedItems += 1
-                    text += f"`{Ghost.command_prefix}`**{cmd.usage}** Â» {cmd.description}\n"
-                    text2 += f"{Ghost.command_prefix}{cmd.usage} Â» {cmd.description}\n"
+                    text += f"`{Ghost.command_prefix}`**{cmd.usage}** » {cmd.description}\n"
+                    text2 += f"{Ghost.command_prefix}{cmd.usage} » {cmd.description}\n"
 
             try:
                 if __embedmode__:
@@ -2028,25 +2008,26 @@ Please enter a command to search for.
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
 Arguments in `[]` are required, arguments in `()` are optional.
 
-`{Ghost.command_prefix}`**text (page 1/2)** Â» Text commands.
-`{Ghost.command_prefix}`**fun (page 1)** Â» Fun commands.
-`{Ghost.command_prefix}`**image (page 1)** Â» Image commands.
-`{Ghost.command_prefix}`**moderation (page 1)** Â» Moderation commands.
-`{Ghost.command_prefix}`**info (page 1)** Â» Info commands.
-`{Ghost.command_prefix}`**user (page 1)** Â» User commands.
-`{Ghost.command_prefix}`**selfbot (page 1)** Â» Selfbot commands.
-`{Ghost.command_prefix}`**webhook (page 1)** Â» Webhook commands.
-`{Ghost.command_prefix}`**abuse (page 1)** Â» Abuse commands.
-`{Ghost.command_prefix}`**themes (page 1)** Â» Theme commands.
-`{Ghost.command_prefix}`**giveaway (page 1)** Â» Giveaway commands.
-`{Ghost.command_prefix}`**nsfw (page 1)** Â» NSFW commands.
-`{Ghost.command_prefix}`**proxy (page 1)** Â» Proxy commands.
-`{Ghost.command_prefix}`**tools (page 1)** Â» Discord and other tools.
-`{Ghost.command_prefix}`**customcommands** Â» Your custom commands.
-`{Ghost.command_prefix}`**customscripts** Â» Your scripts.
+`{Ghost.command_prefix}`**text (page 1/2)** » Text commands.
+`{Ghost.command_prefix}`**fun (page 1)** » Fun commands.
+`{Ghost.command_prefix}`**image (page 1)** » Image commands.
+`{Ghost.command_prefix}`**moderation (page 1)** » Moderation commands.
+`{Ghost.command_prefix}`**info (page 1)** » Info commands.
+`{Ghost.command_prefix}`**user (page 1)** » User commands.
+`{Ghost.command_prefix}`**selfbot (page 1)** » Selfbot commands.
+`{Ghost.command_prefix}`**webhook (page 1)** » Webhook commands.
+`{Ghost.command_prefix}`**abuse (page 1)** » Abuse commands.
+`{Ghost.command_prefix}`**themes (page 1)** » Theme commands.
+`{Ghost.command_prefix}`**giveaway (page 1)** » Giveaway commands.
+`{Ghost.command_prefix}`**nsfw (page 1)** » NSFW commands.
+`{Ghost.command_prefix}`**proxy (page 1)** » Proxy commands.
+`{Ghost.command_prefix}`**tools (page 1)** » Discord and other tools.
+`{Ghost.command_prefix}`**malicious (page 1)** » Malicious commands.
+`{Ghost.command_prefix}`**customcommands** » Your custom commands.
+`{Ghost.command_prefix}`**customscripts** » Your scripts.
 
-`{Ghost.command_prefix}`**search [term]** Â» Search for a command.
-`{Ghost.command_prefix}`**help (command)** Â» Help for a specific command.
+`{Ghost.command_prefix}`**search [term]** » Search for a command.
+`{Ghost.command_prefix}`**help (command)** » Help for a specific command.
 
 There is a total of `{totalcmds}` commands.
             """)
@@ -2062,25 +2043,26 @@ There is a total of `{totalcmds}` commands.
 
 Arguments in [] are required, arguments in () are optional.
 
-{Ghost.command_prefix}text (page 1/2) Â» Text commands.
-{Ghost.command_prefix}fun (page 1) Â» Fun commands.
-{Ghost.command_prefix}image (page 1) Â» Image commands.
-{Ghost.command_prefix}moderation (page 1) Â» Moderation commands.
-{Ghost.command_prefix}info (page 1) Â» Info commands.
-{Ghost.command_prefix}user (page 1) Â» User commands.
-{Ghost.command_prefix}selfbot (page 1) Â» Selfbot commands.
-{Ghost.command_prefix}webhook (page 1) Â» Webhook commands.
-{Ghost.command_prefix}abuse (page 1) Â» Abuse commands.
-{Ghost.command_prefix}themes (page 1) Â» Theme commands.
-{Ghost.command_prefix}giveaway (page 1) Â» Giveaway commands.
-{Ghost.command_prefix}nsfw (page 1) Â» NSFW commands.
-{Ghost.command_prefix}proxy (page 1) Â» Proxy commands.
-{Ghost.command_prefix}tools (page 1) Â» Discord and other tools.
-{Ghost.command_prefix}customcommands Â» Your custom commands.
-{Ghost.command_prefix}customscripts Â» Your scripts.
+{Ghost.command_prefix}text (page 1/2) » Text commands.
+{Ghost.command_prefix}fun (page 1) » Fun commands.
+{Ghost.command_prefix}image (page 1) » Image commands.
+{Ghost.command_prefix}moderation (page 1) » Moderation commands.
+{Ghost.command_prefix}info (page 1) » Info commands.
+{Ghost.command_prefix}user (page 1) » User commands.
+{Ghost.command_prefix}selfbot (page 1) » Selfbot commands.
+{Ghost.command_prefix}webhook (page 1) » Webhook commands.
+{Ghost.command_prefix}abuse (page 1) » Abuse commands.
+{Ghost.command_prefix}themes (page 1) » Theme commands.
+{Ghost.command_prefix}giveaway (page 1) » Giveaway commands.
+{Ghost.command_prefix}nsfw (page 1) » NSFW commands.
+{Ghost.command_prefix}proxy (page 1) » Proxy commands.
+{Ghost.command_prefix}tools (page 1) » Discord and other tools.
+{Ghost.command_prefix}malicious (page 1)** » Malicious commands.
+{Ghost.command_prefix}customcommands » Your custom commands.
+{Ghost.command_prefix}customscripts » Your scripts.
 
-{Ghost.command_prefix}search [term] Â» Search for a command.
-{Ghost.command_prefix}help (command) Â» Help for a specific command.
+{Ghost.command_prefix}search [term] » Search for a command.
+{Ghost.command_prefix}help (command) » Help for a specific command.
 
 There is a total of {totalcmds} commands.
 
@@ -2123,7 +2105,7 @@ Description: {cmd.description}
             embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__)
             embed.add_field(name="Current Theme", value=f"{__theme__}", inline=False)
             embed.add_field(name="Other Themes", value=f"{themes}", inline=False)
-            embed.add_field(name="Commands", value=f"`{Ghost.command_prefix}`**newtheme [name]** Â» Create a new theme with the given name.\n`{Ghost.command_prefix}`**deltheme [name]** Â» Delete the named theme.\n`{Ghost.command_prefix}`**theme [theme]** Â» Change your current theme.\n`{Ghost.command_prefix}`**ctheme** Â» Community themes.", inline=False)
+            embed.add_field(name="Commands", value=f"`{Ghost.command_prefix}`**newtheme [name]** » Create a new theme with the given name.\n`{Ghost.command_prefix}`**deltheme [name]** » Delete the named theme.\n`{Ghost.command_prefix}`**theme [theme]** » Change your current theme.\n`{Ghost.command_prefix}`**ctheme** » Community themes.", inline=False)
             embed.set_author(name="Theme Commands")
             embed.set_thumbnail(url=__embedimage__)
             embed.set_image(url=__embedlargeimage__)
@@ -2140,10 +2122,10 @@ Current Theme: {__theme__}
 {themes}
 
 [ Commands ]
-{Ghost.command_prefix}newtheme [name] Â» Create a new theme with the given name.
-{Ghost.command_prefix}deltheme [name] Â» Delete the named theme.
-{Ghost.command_prefix}theme [theme] Â» Change your current theme.
-{Ghost.command_prefix}cthemes Â» Community themes.
+{Ghost.command_prefix}newtheme [name] » Create a new theme with the given name.
+{Ghost.command_prefix}deltheme [name] » Delete the named theme.
+{Ghost.command_prefix}theme [theme] » Change your current theme.
+{Ghost.command_prefix}cthemes » Community themes.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2209,22 +2191,22 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**js [message]** Â» Send all your messages in a JavaScript code block.
-`{Ghost.command_prefix}`**lua [message]** Â» Send all your messages in a Lua code block.
-`{Ghost.command_prefix}`**php [message]** Â» Send all your messages in a PHP code block.
-`{Ghost.command_prefix}`**html [message]** Â» Send all your messages in a HTML code block.
-`{Ghost.command_prefix}`**css [message]** Â» Send all your messages in a CSS code block.
-`{Ghost.command_prefix}`**yaml [message]** Â» Send all your messages in a YAML code block.
-`{Ghost.command_prefix}`**json [message]** Â» Send all your messages in a JSON code block.
-`{Ghost.command_prefix}`**cpp [message]** Â» Send all your messages in a C++ code block.
-`{Ghost.command_prefix}`**cs [message]** Â» Send all your messages in a C# code block.
-`{Ghost.command_prefix}`**java [message]** Â» Send all your messages in a Java code block.
-`{Ghost.command_prefix}`**python [message]** Â» Send all your messages in a Python code block.
-`{Ghost.command_prefix}`**secret [message]** Â» Send all your messages in a secret block.
-`{Ghost.command_prefix}`**secretletters [message]** Â» Put all lettes from your message into separate secret blocks
-`{Ghost.command_prefix}`**regional [message]** Â» Replace all letters with emoji.
-`{Ghost.command_prefix}`**bold [message]** Â» Send all your messages in bold.
-`{Ghost.command_prefix}`**italic [message]** Â» Send all your messages in italics.
+`{Ghost.command_prefix}`**js [message]** » Send all your messages in a JavaScript code block.
+`{Ghost.command_prefix}`**lua [message]** » Send all your messages in a Lua code block.
+`{Ghost.command_prefix}`**php [message]** » Send all your messages in a PHP code block.
+`{Ghost.command_prefix}`**html [message]** » Send all your messages in a HTML code block.
+`{Ghost.command_prefix}`**css [message]** » Send all your messages in a CSS code block.
+`{Ghost.command_prefix}`**yaml [message]** » Send all your messages in a YAML code block.
+`{Ghost.command_prefix}`**json [message]** » Send all your messages in a JSON code block.
+`{Ghost.command_prefix}`**cpp [message]** » Send all your messages in a C++ code block.
+`{Ghost.command_prefix}`**cs [message]** » Send all your messages in a C# code block.
+`{Ghost.command_prefix}`**java [message]** » Send all your messages in a Java code block.
+`{Ghost.command_prefix}`**python [message]** » Send all your messages in a Python code block.
+`{Ghost.command_prefix}`**secret [message]** » Send all your messages in a secret block.
+`{Ghost.command_prefix}`**secretletters [message]** » Put all lettes from your message into separate secret blocks
+`{Ghost.command_prefix}`**regional [message]** » Replace all letters with emoji.
+`{Ghost.command_prefix}`**bold [message]** » Send all your messages in bold.
+`{Ghost.command_prefix}`**italic [message]** » Send all your messages in italics.
             """)
                 embed.set_author(name="Text Commands (1/2)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2234,28 +2216,28 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
                 await ctx.send(embed=embed, delete_after=__deletetimeout__)
             elif page == 2:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**rembed (delay) [title]** Â» Kill Discord's API with a sexy rainbow embedded message.
-`{Ghost.command_prefix}`**cembed [title] [description] [colour]** Â» Create a custom embedded message.
-`{Ghost.command_prefix}`**embed [title]** Â» Create an embedded message.
-`{Ghost.command_prefix}`**suggest [suggestion]** Â» Suggest something.
-`{Ghost.command_prefix}`**privatemsg [message]** Â» Send an encrypted message.
-`{Ghost.command_prefix}`**privatemsgdecode [message]** Â» Decode an encrypted message.
-`{Ghost.command_prefix}`**blank** Â» Send a blank message
-`{Ghost.command_prefix}`**length [string]** Â» Get the length of a string.
-`{Ghost.command_prefix}`**chatbypass [text]** Â» Bypass chat language restrictions.
-`{Ghost.command_prefix}`**shrug** Â» Shrug your arms.
-`{Ghost.command_prefix}`**tableflip** Â» Flip the table.
-`{Ghost.command_prefix}`**unflip** Â» Put the table back.
-`{Ghost.command_prefix}`**lmgtfy [search]** Â» Let me Google that for you.
-`{Ghost.command_prefix}`**typing [start/stop]** Â» Start or stop typing.
-`{Ghost.command_prefix}`**aesthetic [text]** Â» Send your text s p a c e d out.
-`{Ghost.command_prefix}`**lowercase [msg]** Â» Send your message in lowercase.
-`{Ghost.command_prefix}`**uppercase [msg]** Â» Send your message in uppercase.
-`{Ghost.command_prefix}`**sentencecase [msg]** Â» Send your messages in sentence case.
-`{Ghost.command_prefix}`**ascii [text]** Â» Send your message in ascii.
-`{Ghost.command_prefix}`**zalgo [text]** Â» Unleash the zalgo into your message.  
-`{Ghost.command_prefix}`**leet [text]** Â» Turn your text into 1337 text.
-`{Ghost.command_prefix}`**fakeedited [message]** Â» "Edit" a message.
+`{Ghost.command_prefix}`**rembed (delay) [title]** » Kill Discord's API with a sexy rainbow embedded message.
+`{Ghost.command_prefix}`**cembed [title] [description] [colour]** » Create a custom embedded message.
+`{Ghost.command_prefix}`**embed [title]** » Create an embedded message.
+`{Ghost.command_prefix}`**suggest [suggestion]** » Suggest something.
+`{Ghost.command_prefix}`**privatemsg [message]** » Send an encrypted message.
+`{Ghost.command_prefix}`**privatemsgdecode [message]** » Decode an encrypted message.
+`{Ghost.command_prefix}`**blank** » Send a blank message
+`{Ghost.command_prefix}`**length [string]** » Get the length of a string.
+`{Ghost.command_prefix}`**chatbypass [text]** » Bypass chat language restrictions.
+`{Ghost.command_prefix}`**shrug** » Shrug your arms.
+`{Ghost.command_prefix}`**tableflip** » Flip the table.
+`{Ghost.command_prefix}`**unflip** » Put the table back.
+`{Ghost.command_prefix}`**lmgtfy [search]** » Let me Google that for you.
+`{Ghost.command_prefix}`**typing [start/stop]** » Start or stop typing.
+`{Ghost.command_prefix}`**aesthetic [text]** » Send your text s p a c e d out.
+`{Ghost.command_prefix}`**lowercase [msg]** » Send your message in lowercase.
+`{Ghost.command_prefix}`**uppercase [msg]** » Send your message in uppercase.
+`{Ghost.command_prefix}`**sentencecase [msg]** » Send your messages in sentence case.
+`{Ghost.command_prefix}`**ascii [text]** » Send your message in ascii.
+`{Ghost.command_prefix}`**zalgo [text]** » Unleash the zalgo into your message.  
+`{Ghost.command_prefix}`**leet [text]** » Turn your text into 1337 text.
+`{Ghost.command_prefix}`**fakeedited [message]** » "Edit" a message.
             """)
                 embed.set_author(name="Text Commands (2/2)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2270,22 +2252,22 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
                 await ctx.send(f"""```ini
 [ Text Commands (1/2) ]
 
-{Ghost.command_prefix}js [message] Â» Send all your messages in a JavaScript code block.
-{Ghost.command_prefix}lua [message] Â» Send all your messages in a Lua code block.
-{Ghost.command_prefix}php [message] Â» Send all your messages in a PHP code block.
-{Ghost.command_prefix}html [message] Â» Send all your messages in a HTML code block.
-{Ghost.command_prefix}css [message] Â» Send all your messages in a CSS code block.
-{Ghost.command_prefix}yaml [message] Â» Send all your messages in a YAML code block.
-{Ghost.command_prefix}json [message] Â» Send all your messages in a JSON code block.
-{Ghost.command_prefix}cpp [message] Â» Send all your messages in a C++ code block.
-{Ghost.command_prefix}cs [message] Â» Send all your messages in a C# code block.
-{Ghost.command_prefix}java [message] Â» Send all your messages in a Java code block.
-{Ghost.command_prefix}python [message] Â» Send all your messages in a Python code block.
-{Ghost.command_prefix}secret [message] Â» Send all your messages in a secret block.
-{Ghost.command_prefix}secretletters [message] Â» Put all lettes from your message into separate secret blocks
-{Ghost.command_prefix}regional [message] Â» Replace all letters with emoji.
-{Ghost.command_prefix}bold [message] Â» Send all your messages in bold.
-{Ghost.command_prefix}italic [message] Â» Send all your messages in italics.
+{Ghost.command_prefix}js [message] » Send all your messages in a JavaScript code block.
+{Ghost.command_prefix}lua [message] » Send all your messages in a Lua code block.
+{Ghost.command_prefix}php [message] » Send all your messages in a PHP code block.
+{Ghost.command_prefix}html [message] » Send all your messages in a HTML code block.
+{Ghost.command_prefix}css [message] » Send all your messages in a CSS code block.
+{Ghost.command_prefix}yaml [message] » Send all your messages in a YAML code block.
+{Ghost.command_prefix}json [message] » Send all your messages in a JSON code block.
+{Ghost.command_prefix}cpp [message] » Send all your messages in a C++ code block.
+{Ghost.command_prefix}cs [message] » Send all your messages in a C# code block.
+{Ghost.command_prefix}java [message] » Send all your messages in a Java code block.
+{Ghost.command_prefix}python [message] » Send all your messages in a Python code block.
+{Ghost.command_prefix}secret [message] » Send all your messages in a secret block.
+{Ghost.command_prefix}secretletters [message] » Put all lettes from your message into separate secret blocks
+{Ghost.command_prefix}regional [message] » Replace all letters with emoji.
+{Ghost.command_prefix}bold [message] » Send all your messages in bold.
+{Ghost.command_prefix}italic [message] » Send all your messages in italics.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2294,28 +2276,28 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
                 await ctx.send(f"""```ini
 [ Text Commands (2/2) ]
 
-{Ghost.command_prefix}rembed (delay) [title] Â» Kill Discord's API with a sexy rainbow embedded message.
-{Ghost.command_prefix}cembed [title] [description] [colour] Â» Create a custom embedded message.
-{Ghost.command_prefix}embed [title] Â» Create an embedded message.
-{Ghost.command_prefix}suggest [suggestion] Â» Suggest something.
-{Ghost.command_prefix}privatemsg [message] Â» Send an encrypted message.
-{Ghost.command_prefix}privatemsgdecode [message] Â» Decode an encrypted message.
-{Ghost.command_prefix}blank Â» Send a blank message
-{Ghost.command_prefix}length [string] Â» Get the length of a string.
-{Ghost.command_prefix}chatbypass [text] Â» Bypass chat language restrictions.
-{Ghost.command_prefix}shrug Â» Shrug your arms.
-{Ghost.command_prefix}tableflip Â» Flip the table.
-{Ghost.command_prefix}unflip Â» Put the table back.
-{Ghost.command_prefix}lmgtfy [search] Â» Let me Google that for you.
-{Ghost.command_prefix}typing [start/stop] Â» Start or stop typing.
-{Ghost.command_prefix}aesthetic [text] Â» Send your text s p a c e d out.
-{Ghost.command_prefix}lowercase [msg] Â» Send your message in lowercase.
-{Ghost.command_prefix}uppercase [msg] Â» Send your message in uppercase.
-{Ghost.command_prefix}sentencecase [msg] Â» Send your messages in sentence case.
-{Ghost.command_prefix}ascii [text] Â» Send your message in ascii.
-{Ghost.command_prefix}zalgo [text] Â» Unleash the zalgo into your message. 
-{Ghost.command_prefix}leet [text] Â» Turn your text into 1337 text.
-{Ghost.command_prefix}fakeedited [message] Â» "Edit" a message.
+{Ghost.command_prefix}rembed (delay) [title] » Kill Discord's API with a sexy rainbow embedded message.
+{Ghost.command_prefix}cembed [title] [description] [colour] » Create a custom embedded message.
+{Ghost.command_prefix}embed [title] » Create an embedded message.
+{Ghost.command_prefix}suggest [suggestion] » Suggest something.
+{Ghost.command_prefix}privatemsg [message] » Send an encrypted message.
+{Ghost.command_prefix}privatemsgdecode [message] » Decode an encrypted message.
+{Ghost.command_prefix}blank » Send a blank message
+{Ghost.command_prefix}length [string] » Get the length of a string.
+{Ghost.command_prefix}chatbypass [text] » Bypass chat language restrictions.
+{Ghost.command_prefix}shrug » Shrug your arms.
+{Ghost.command_prefix}tableflip » Flip the table.
+{Ghost.command_prefix}unflip » Put the table back.
+{Ghost.command_prefix}lmgtfy [search] » Let me Google that for you.
+{Ghost.command_prefix}typing [start/stop] » Start or stop typing.
+{Ghost.command_prefix}aesthetic [text] » Send your text s p a c e d out.
+{Ghost.command_prefix}lowercase [msg] » Send your message in lowercase.
+{Ghost.command_prefix}uppercase [msg] » Send your message in uppercase.
+{Ghost.command_prefix}sentencecase [msg] » Send your messages in sentence case.
+{Ghost.command_prefix}ascii [text] » Send your message in ascii.
+{Ghost.command_prefix}zalgo [text] » Unleash the zalgo into your message. 
+{Ghost.command_prefix}leet [text] » Turn your text into 1337 text.
+{Ghost.command_prefix}fakeedited [message] » "Edit" a message.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2325,30 +2307,30 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**slots** Â» Play the slot machine.
-`{Ghost.command_prefix}`**yomomma** Â» Random yo momma joke.
-`{Ghost.command_prefix}`**socialcredit [@user]** Â» A users social credit score. 
-`{Ghost.command_prefix}`**roast [@user]** Â» Roast a user.
-`{Ghost.command_prefix}`**howgay [@user]** Â» How gay a user is.
-`{Ghost.command_prefix}`**howskid [@user]** Â» Check the percentage of a skid.
-`{Ghost.command_prefix}`**iq [@user]** Â» Check how smart a user is.
-`{Ghost.command_prefix}`**pp [@user]** Â» The length of a user's penis.
-`{Ghost.command_prefix}`**rainbowrole [@role]** Â» Kill Discord's API with a sexy rainbow role.
-`{Ghost.command_prefix}`**coinflip** Â» Flip a coin.
-`{Ghost.command_prefix}`**dice** Â» Roll a dice.
-`{Ghost.command_prefix}`**8ball [question]** Â» Ask the magic eight ball a question.
-`{Ghost.command_prefix}`**choice [choice1] [choice2]** Â» Pick a random choice.
-`{Ghost.command_prefix}`**dox [@user]** Â» Dox the mentioned user.
-`{Ghost.command_prefix}`**fakenitro [url]** Â» Hide a link in a nitro URL.
-`{Ghost.command_prefix}`**purgehack** Â» Purge without permissions.
-`{Ghost.command_prefix}`**dadjoke** Â» A random dad joke.
-`{Ghost.command_prefix}`**randommessage** Â» A random message.
-`{Ghost.command_prefix}`**randomquestion** Â» A random question.
-`{Ghost.command_prefix}`**rickroll** Â» Send never gonna give you up lyrics one by one.
-`{Ghost.command_prefix}`**stoprickroll** Â» Stop sending rick astley lyrics.
-`{Ghost.command_prefix}`**countdown [number]** Â» Count down from a number.
-`{Ghost.command_prefix}`**countup [number]** Â» Count up from a number.
-`{Ghost.command_prefix}`**pytoexe [path]** Â» Convert a PY file to an executable.
+`{Ghost.command_prefix}`**slots** » Play the slot machine.
+`{Ghost.command_prefix}`**yomomma** » Random yo momma joke.
+`{Ghost.command_prefix}`**socialcredit [@user]** » A users social credit score. 
+`{Ghost.command_prefix}`**roast [@user]** » Roast a user.
+`{Ghost.command_prefix}`**howgay [@user]** » How gay a user is.
+`{Ghost.command_prefix}`**howskid [@user]** » Check the percentage of a skid.
+`{Ghost.command_prefix}`**iq [@user]** » Check how smart a user is.
+`{Ghost.command_prefix}`**pp [@user]** » The length of a user's penis.
+`{Ghost.command_prefix}`**rainbowrole [@role]** » Kill Discord's API with a sexy rainbow role.
+`{Ghost.command_prefix}`**coinflip** » Flip a coin.
+`{Ghost.command_prefix}`**dice** » Roll a dice.
+`{Ghost.command_prefix}`**8ball [question]** » Ask the magic eight ball a question.
+`{Ghost.command_prefix}`**choice [choice1] [choice2]** » Pick a random choice.
+`{Ghost.command_prefix}`**dox [@user]** » Dox the mentioned user.
+`{Ghost.command_prefix}`**fakenitro [url]** » Hide a link in a nitro URL.
+`{Ghost.command_prefix}`**purgehack** » Purge without permissions.
+`{Ghost.command_prefix}`**dadjoke** » A random dad joke.
+`{Ghost.command_prefix}`**randommessage** » A random message.
+`{Ghost.command_prefix}`**randomquestion** » A random question.
+`{Ghost.command_prefix}`**rickroll** » Send never gonna give you up lyrics one by one.
+`{Ghost.command_prefix}`**stoprickroll** » Stop sending rick astley lyrics.
+`{Ghost.command_prefix}`**countdown [number]** » Count down from a number.
+`{Ghost.command_prefix}`**countup [number]** » Count up from a number.
+`{Ghost.command_prefix}`**pytoexe [path]** » Convert a PY file to an executable.
             """)
                 embed.set_author(name="Fun Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2362,30 +2344,30 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ Fun Commands ]
 
-{Ghost.command_prefix}slots Â» Play the slot machine.
-{Ghost.command_prefix}yomomma Â» Random yo momma joke.
-{Ghost.command_prefix}socialcredit [@user] Â» A users social credit score. 
-{Ghost.command_prefix}roast [@user] Â» Roast a user.
-{Ghost.command_prefix}howgay [@user] Â» How gay a user is.
-{Ghost.command_prefix}howskid [@user] Â» Check the percentage of a skid.
-{Ghost.command_prefix}iq [@user] Â» Check how smart a user is.
-{Ghost.command_prefix}pp [@user] Â» The length of a user's penis.
-{Ghost.command_prefix}rainbowrole [@role] Â» Kill Discord's API with a sexy rainbow role.
-{Ghost.command_prefix}coinflip Â» Flip a coin.
-{Ghost.command_prefix}dice Â» Roll a dice.
-{Ghost.command_prefix}8ball [question] Â» Ask the magic eight ball a question.
-{Ghost.command_prefix}choice [choice1] [choice2] Â» Pick a random choice.
-{Ghost.command_prefix}dox [@user] Â» Dox the mentioned user.
-{Ghost.command_prefix}fakenitro [url] Â» Hide a link in a nitro URL.
-{Ghost.command_prefix}purgehack Â» Purge without permissions.
-{Ghost.command_prefix}dadjoke Â» A random dad joke.
-{Ghost.command_prefix}randommessage Â» A random message.
-{Ghost.command_prefix}randomquestion Â» A random question.
-{Ghost.command_prefix}rickroll Â» Send never gonna give you up lyrics one by one.
-{Ghost.command_prefix}stoprickroll Â» Stop sending rick astley lyrics.
-{Ghost.command_prefix}countdown [number] Â» Count down from a number.
-{Ghost.command_prefix}countup [number] Â» Count up from a number.
-{Ghost.command_prefix}pytoexe [path] Â» Convert a PY file to an executable.
+{Ghost.command_prefix}slots » Play the slot machine.
+{Ghost.command_prefix}yomomma » Random yo momma joke.
+{Ghost.command_prefix}socialcredit [@user] » A users social credit score. 
+{Ghost.command_prefix}roast [@user] » Roast a user.
+{Ghost.command_prefix}howgay [@user] » How gay a user is.
+{Ghost.command_prefix}howskid [@user] » Check the percentage of a skid.
+{Ghost.command_prefix}iq [@user] » Check how smart a user is.
+{Ghost.command_prefix}pp [@user] » The length of a user's penis.
+{Ghost.command_prefix}rainbowrole [@role] » Kill Discord's API with a sexy rainbow role.
+{Ghost.command_prefix}coinflip » Flip a coin.
+{Ghost.command_prefix}dice » Roll a dice.
+{Ghost.command_prefix}8ball [question] » Ask the magic eight ball a question.
+{Ghost.command_prefix}choice [choice1] [choice2] » Pick a random choice.
+{Ghost.command_prefix}dox [@user] » Dox the mentioned user.
+{Ghost.command_prefix}fakenitro [url] » Hide a link in a nitro URL.
+{Ghost.command_prefix}purgehack » Purge without permissions.
+{Ghost.command_prefix}dadjoke » A random dad joke.
+{Ghost.command_prefix}randommessage » A random message.
+{Ghost.command_prefix}randomquestion » A random question.
+{Ghost.command_prefix}rickroll » Send never gonna give you up lyrics one by one.
+{Ghost.command_prefix}stoprickroll » Stop sending rick astley lyrics.
+{Ghost.command_prefix}countdown [number] » Count down from a number.
+{Ghost.command_prefix}countup [number] » Count up from a number.
+{Ghost.command_prefix}pytoexe [path] » Convert a PY file to an executable.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2395,27 +2377,27 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**meme** Â» A random meme.
-`{Ghost.command_prefix}`**cat** Â» A random cat image.
-`{Ghost.command_prefix}`**dog** Â» A random dog image.
-`{Ghost.command_prefix}`**shiba** Â» A random shiba image.
-`{Ghost.command_prefix}`**fox** Â» A random fox image. (Thanks Imf44 <3)
-`{Ghost.command_prefix}`**avatar [@user]** Â» Get the mentioned user's avatar.
-`{Ghost.command_prefix}`**servericon** Â» Get the server's icon. 
-`{Ghost.command_prefix}`**achievement ["text"] (icon)** Â» Create a fake minecraft achievement image.
-`{Ghost.command_prefix}`**challenge ["text"] (icon)** Â» Create a fake minecraft challenge image.
-`{Ghost.command_prefix}`**captcha [text]** Â» Create a fake reCaptcha.
-`{Ghost.command_prefix}`**amiajoke [@user]** Â» Make a user a joke.
-`{Ghost.command_prefix}`**didyoumean ["text 1"] ["text 2"]** Â» Create a google did you mean image.
-`{Ghost.command_prefix}`**drake ["text 1"] ["text 2"]** Â» Create a drake meme image.
-`{Ghost.command_prefix}`**facts [text]** Â» Create a facts meme image.
-`{Ghost.command_prefix}`**jokeoverhead [image url]** Â» Create a joke over head image.
-`{Ghost.command_prefix}`**pornhub ["text 1"] ["text 2"]** Â» Create a pornhub logo image.
-`{Ghost.command_prefix}`**salty [@user]** Â» Make someone salty.
-`{Ghost.command_prefix}`**ship [@user 1] [@user 2]** Â» Ship two people.
-`{Ghost.command_prefix}`**supreme [text]** Â» Create a supreme logo image.
-`{Ghost.command_prefix}`**trash [@user]** Â» Put someone in the trash.
-`{Ghost.command_prefix}`**what [image url]** Â» Make a what meme.
+`{Ghost.command_prefix}`**meme** » A random meme.
+`{Ghost.command_prefix}`**cat** » A random cat image.
+`{Ghost.command_prefix}`**dog** » A random dog image.
+`{Ghost.command_prefix}`**shiba** » A random shiba image.
+`{Ghost.command_prefix}`**fox** » A random fox image. (Thanks Imf44 <3)
+`{Ghost.command_prefix}`**avatar [@user]** » Get the mentioned user's avatar.
+`{Ghost.command_prefix}`**servericon** » Get the server's icon. 
+`{Ghost.command_prefix}`**achievement ["text"] (icon)** » Create a fake minecraft achievement image.
+`{Ghost.command_prefix}`**challenge ["text"] (icon)** » Create a fake minecraft challenge image.
+`{Ghost.command_prefix}`**captcha [text]** » Create a fake reCaptcha.
+`{Ghost.command_prefix}`**amiajoke [@user]** » Make a user a joke.
+`{Ghost.command_prefix}`**didyoumean ["text 1"] ["text 2"]** » Create a google did you mean image.
+`{Ghost.command_prefix}`**drake ["text 1"] ["text 2"]** » Create a drake meme image.
+`{Ghost.command_prefix}`**facts [text]** » Create a facts meme image.
+`{Ghost.command_prefix}`**jokeoverhead [image url]** » Create a joke over head image.
+`{Ghost.command_prefix}`**pornhub ["text 1"] ["text 2"]** » Create a pornhub logo image.
+`{Ghost.command_prefix}`**salty [@user]** » Make someone salty.
+`{Ghost.command_prefix}`**ship [@user 1] [@user 2]** » Ship two people.
+`{Ghost.command_prefix}`**supreme [text]** » Create a supreme logo image.
+`{Ghost.command_prefix}`**trash [@user]** » Put someone in the trash.
+`{Ghost.command_prefix}`**what [image url]** » Make a what meme.
 
             """)
                 embed.set_author(name="Image Commands (1/1)")
@@ -2430,27 +2412,27 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ Image Commands ]
 
-{Ghost.command_prefix}meme Â» A random meme.
-{Ghost.command_prefix}cat Â» A random cat image.
-{Ghost.command_prefix}dog Â» A random dog image.
-{Ghost.command_prefix}shiba Â» A random shiba image.
-{Ghost.command_prefix}fox Â» A random fox image. (Thanks Imf44 <3)
-{Ghost.command_prefix}avatar [@user] Â» Get the mentioned user's avatar.
-{Ghost.command_prefix}servericon Â» Get the server's icon. 
-{Ghost.command_prefix}achievement ["text"] (icon) Â» Create a fake minecraft achievement image.
-{Ghost.command_prefix}challenge ["text"] (icon) Â» Create a fake minecraft challenge image.
-{Ghost.command_prefix}captcha [text] Â» Create a fake reCaptcha.
-{Ghost.command_prefix}amiajoke [@user] Â» Make a user a joke.
-{Ghost.command_prefix}didyoumean ["text 1"] ["text 2"] Â» Create a google did you mean image.
-{Ghost.command_prefix}drake ["text 1"] ["text 2"] Â» Create a drake meme image.
-{Ghost.command_prefix}facts [text] Â» Create a facts meme image.
-{Ghost.command_prefix}jokeoverhead [image url] Â» Create a joke over head image.
-{Ghost.command_prefix}pornhub ["text 1"] ["text 2"] Â» Create a pornhub logo image.
-{Ghost.command_prefix}salty [@user] Â» Make someone salty.
-{Ghost.command_prefix}ship [@user 1] [@user 2] Â» Ship two people.
-{Ghost.command_prefix}supreme [text] Â» Create a supreme logo image.
-{Ghost.command_prefix}trash [@user] Â» Put someone in the trash.
-{Ghost.command_prefix}what [image url] Â» Make a what meme.
+{Ghost.command_prefix}meme » A random meme.
+{Ghost.command_prefix}cat » A random cat image.
+{Ghost.command_prefix}dog » A random dog image.
+{Ghost.command_prefix}shiba » A random shiba image.
+{Ghost.command_prefix}fox » A random fox image. (Thanks Imf44 <3)
+{Ghost.command_prefix}avatar [@user] » Get the mentioned user's avatar.
+{Ghost.command_prefix}servericon » Get the server's icon. 
+{Ghost.command_prefix}achievement ["text"] (icon) » Create a fake minecraft achievement image.
+{Ghost.command_prefix}challenge ["text"] (icon) » Create a fake minecraft challenge image.
+{Ghost.command_prefix}captcha [text] » Create a fake reCaptcha.
+{Ghost.command_prefix}amiajoke [@user] » Make a user a joke.
+{Ghost.command_prefix}didyoumean ["text 1"] ["text 2"] » Create a google did you mean image.
+{Ghost.command_prefix}drake ["text 1"] ["text 2"] » Create a drake meme image.
+{Ghost.command_prefix}facts [text] » Create a facts meme image.
+{Ghost.command_prefix}jokeoverhead [image url] » Create a joke over head image.
+{Ghost.command_prefix}pornhub ["text 1"] ["text 2"] » Create a pornhub logo image.
+{Ghost.command_prefix}salty [@user] » Make someone salty.
+{Ghost.command_prefix}ship [@user 1] [@user 2] » Ship two people.
+{Ghost.command_prefix}supreme [text] » Create a supreme logo image.
+{Ghost.command_prefix}trash [@user] » Put someone in the trash.
+{Ghost.command_prefix}what [image url] » Make a what meme.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2460,11 +2442,11 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**boobs** Â» Pictures or videos of boobs.
-`{Ghost.command_prefix}`**ass** Â» Pictures or videos of ass.
-`{Ghost.command_prefix}`**pussy** Â» Pictures or videos of pussy.
-`{Ghost.command_prefix}`**porngif** Â» Porn gifs.
-`{Ghost.command_prefix}`**hentai** Â» Pictures or videos of hentai.
+`{Ghost.command_prefix}`**boobs** » Pictures or videos of boobs.
+`{Ghost.command_prefix}`**ass** » Pictures or videos of ass.
+`{Ghost.command_prefix}`**pussy** » Pictures or videos of pussy.
+`{Ghost.command_prefix}`**porngif** » Porn gifs.
+`{Ghost.command_prefix}`**hentai** » Pictures or videos of hentai.
             """)
                 embed.set_author(name="NSFW Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2478,11 +2460,11 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ NSFW Commands ]
 
-{Ghost.command_prefix}boobs Â» Pictures or videos of boobs.
-{Ghost.command_prefix}ass Â» Pictures or videos of ass.
-{Ghost.command_prefix}pussy Â» Pictures or videos of pussy.
-{Ghost.command_prefix}porngif Â» Porn gifs.
-{Ghost.command_prefix}hentai Â» Pictures or videos of hentai.
+{Ghost.command_prefix}boobs » Pictures or videos of boobs.
+{Ghost.command_prefix}ass » Pictures or videos of ass.
+{Ghost.command_prefix}pussy » Pictures or videos of pussy.
+{Ghost.command_prefix}porngif » Porn gifs.
+{Ghost.command_prefix}hentai » Pictures or videos of hentai.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2492,20 +2474,20 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**ban [@user]** Â» Ban the mentioned user.
-`{Ghost.command_prefix}`**unban [id]** Â» Unban the mentioned id.
-`{Ghost.command_prefix}`**banlist** Â» See the server's ban list.
-`{Ghost.command_prefix}`**kick [@user]** Â» Kick the mentioned user.
-`{Ghost.command_prefix}`**mute [@user]** Â» Mute the menitioned user.
-`{Ghost.command_prefix}`**unmute [@user]** Â» Unmute the mentioned user.
-`{Ghost.command_prefix}`**newrole [name]** Â» Create a new role.
-`{Ghost.command_prefix}`**delrole [@role]** Â» Delete the mentioned role.
-`{Ghost.command_prefix}`**purge [amount]** Â» Purge X amount of messages.
-`{Ghost.command_prefix}`**lock** Â» Lock the command channel.
-`{Ghost.command_prefix}`**unlock** Â» Unlock the command channel.
-`{Ghost.command_prefix}`**lockdown** Â» Lock the entire server.
-`{Ghost.command_prefix}`**unlockdown** Â» Unlock the entire server.
-`{Ghost.command_prefix}`**spacechannel [channel name]** Â» Create a channel with spaces.
+`{Ghost.command_prefix}`**ban [@user]** » Ban the mentioned user.
+`{Ghost.command_prefix}`**unban [id]** » Unban the mentioned id.
+`{Ghost.command_prefix}`**banlist** » See the server's ban list.
+`{Ghost.command_prefix}`**kick [@user]** » Kick the mentioned user.
+`{Ghost.command_prefix}`**mute [@user]** » Mute the menitioned user.
+`{Ghost.command_prefix}`**unmute [@user]** » Unmute the mentioned user.
+`{Ghost.command_prefix}`**newrole [name]** » Create a new role.
+`{Ghost.command_prefix}`**delrole [@role]** » Delete the mentioned role.
+`{Ghost.command_prefix}`**purge [amount]** » Purge X amount of messages.
+`{Ghost.command_prefix}`**lock** » Lock the command channel.
+`{Ghost.command_prefix}`**unlock** » Unlock the command channel.
+`{Ghost.command_prefix}`**lockdown** » Lock the entire server.
+`{Ghost.command_prefix}`**unlockdown** » Unlock the entire server.
+`{Ghost.command_prefix}`**spacechannel [channel name]** » Create a channel with spaces.
             """)
                 embed.set_author(name="Moderation Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2519,20 +2501,20 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ Moderation Commands ]
 
-{Ghost.command_prefix}ban [@user] Â» Ban the mentioned user.
-{Ghost.command_prefix}unban [id] Â» Unban the mentioned id.
-{Ghost.command_prefix}banlist Â» See the server's ban list.
-{Ghost.command_prefix}kick [@user] Â» Kick the mentioned user.
-{Ghost.command_prefix}mute [@user] Â» Mute the menitioned user.
-{Ghost.command_prefix}unmute [@user] Â» Unmute the mentioned user.
-{Ghost.command_prefix}newrole [name] Â» Create a new role.
-{Ghost.command_prefix}delrole [@role] Â» Delete the mentioned role.
-{Ghost.command_prefix}purge [amount] Â» Purge X amount of messages.
-{Ghost.command_prefix}lock Â» Lock the command channel.
-{Ghost.command_prefix}unlock Â» Unlock the command channel.
-{Ghost.command_prefix}lockdown Â» Lock the entire server.
-{Ghost.command_prefix}unlockdown Â» Unlock the entire server.
-{Ghost.command_prefix}spacechannel [channel name] Â» Create a channel with spaces.
+{Ghost.command_prefix}ban [@user] » Ban the mentioned user.
+{Ghost.command_prefix}unban [id] » Unban the mentioned id.
+{Ghost.command_prefix}banlist » See the server's ban list.
+{Ghost.command_prefix}kick [@user] » Kick the mentioned user.
+{Ghost.command_prefix}mute [@user] » Mute the menitioned user.
+{Ghost.command_prefix}unmute [@user] » Unmute the mentioned user.
+{Ghost.command_prefix}newrole [name] » Create a new role.
+{Ghost.command_prefix}delrole [@role] » Delete the mentioned role.
+{Ghost.command_prefix}purge [amount] » Purge X amount of messages.
+{Ghost.command_prefix}lock » Lock the command channel.
+{Ghost.command_prefix}unlock » Unlock the command channel.
+{Ghost.command_prefix}lockdown » Lock the entire server.
+{Ghost.command_prefix}unlockdown » Unlock the entire server.
+{Ghost.command_prefix}spacechannel [channel name] » Create a channel with spaces.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2542,13 +2524,13 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**userinfo [@user]** Â» Information about the mentioned user.
-`{Ghost.command_prefix}`**serverinfo** Â» Information about the command server.
-`{Ghost.command_prefix}`**watchdogstats** Â» Get stats about Hypixel's Anticheat, Watchdog.
-`{Ghost.command_prefix}`**getmessage [message id]** Â» Get a message by ID.
-`{Ghost.command_prefix}`**geoip [ip]** Â» Get information from an IP address.
-`{Ghost.command_prefix}`**ping [ip/domain]** Â» Ping a domain or ip address. 
-`{Ghost.command_prefix}`**crypto [currency]** Â» Get the current data on a cryptocurrency.
+`{Ghost.command_prefix}`**userinfo [@user]** » Information about the mentioned user.
+`{Ghost.command_prefix}`**serverinfo** » Information about the command server.
+`{Ghost.command_prefix}`**watchdogstats** » Get stats about Hypixel's Anticheat, Watchdog.
+`{Ghost.command_prefix}`**getmessage [message id]** » Get a message by ID.
+`{Ghost.command_prefix}`**geoip [ip]** » Get information from an IP address.
+`{Ghost.command_prefix}`**ping [ip/domain]** » Ping a domain or ip address. 
+`{Ghost.command_prefix}`**crypto [currency]** » Get the current data on a cryptocurrency.
             """)
                 embed.set_author(name="Info Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2562,13 +2544,13 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ Info Commands ]
 
-{Ghost.command_prefix}userinfo [@user] Â» Information about the mentioned user.
-{Ghost.command_prefix}serverinfo Â» Information about the command server.
-{Ghost.command_prefix}watchdogstats Â» Get stats about Hypixel's Anticheat, Watchdog.
-{Ghost.command_prefix}getmessage [message id] Â» Get a message by ID.
-{Ghost.command_prefix}geoip [ip] Â» Get information from an IP address.
-{Ghost.command_prefix}ping [ip/domain] Â» Ping a domain or ip address.
-{Ghost.command_prefix}crypto [currency] Â» Get the current data on a cryptocurrency.
+{Ghost.command_prefix}userinfo [@user] » Information about the mentioned user.
+{Ghost.command_prefix}serverinfo » Information about the command server.
+{Ghost.command_prefix}watchdogstats » Get stats about Hypixel's Anticheat, Watchdog.
+{Ghost.command_prefix}getmessage [message id] » Get a message by ID.
+{Ghost.command_prefix}geoip [ip] » Get information from an IP address.
+{Ghost.command_prefix}ping [ip/domain] » Ping a domain or ip address.
+{Ghost.command_prefix}crypto [currency] » Get the current data on a cryptocurrency.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2578,19 +2560,19 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**purgeself [amount]** Â» Purge your messages.
-`{Ghost.command_prefix}`**statuscycle** Â» Start a custom status cycle.
-`{Ghost.command_prefix}`**statuscycletext [text]** Â» Set the text used in status cycle.
-`{Ghost.command_prefix}`**clearstatus** Â» Clear your status.
-`{Ghost.command_prefix}`**nickname [text]** Â» Set your nickname to anything.
-`{Ghost.command_prefix}`**clearnickname** Â» Clear your nickname.
-`{Ghost.command_prefix}`**ppin [message id]** Â» Add a message to your personal pins.
-`{Ghost.command_prefix}`**ppins** Â» List all your pinned messages.
-`{Ghost.command_prefix}`**ppindel [pin id]** Â» Delete a pin from your personal pins.
-`{Ghost.command_prefix}`**backupfriends** Â» Backup all your friend's user IDs to a file.
-`{Ghost.command_prefix}`**backupservers** Â» Backup all your servers and try to create invites for each one.
-`{Ghost.command_prefix}`**changehypesquad [bravery/brilliance/balance]** Â» Change your hypesquad house.
-`{Ghost.command_prefix}`**stealpfp [@user]** Â» Set someones avatar as your avatar.
+`{Ghost.command_prefix}`**purgeself [amount]** » Purge your messages.
+`{Ghost.command_prefix}`**statuscycle** » Start a custom status cycle.
+`{Ghost.command_prefix}`**statuscycletext [text]** » Set the text used in status cycle.
+`{Ghost.command_prefix}`**clearstatus** » Clear your status.
+`{Ghost.command_prefix}`**nickname [text]** » Set your nickname to anything.
+`{Ghost.command_prefix}`**clearnickname** » Clear your nickname.
+`{Ghost.command_prefix}`**ppin [message id]** » Add a message to your personal pins.
+`{Ghost.command_prefix}`**ppins** » List all your pinned messages.
+`{Ghost.command_prefix}`**ppindel [pin id]** » Delete a pin from your personal pins.
+`{Ghost.command_prefix}`**backupfriends** » Backup all your friend's user IDs to a file.
+`{Ghost.command_prefix}`**backupservers** » Backup all your servers and try to create invites for each one.
+`{Ghost.command_prefix}`**changehypesquad [bravery/brilliance/balance]** » Change your hypesquad house.
+`{Ghost.command_prefix}`**stealpfp [@user]** » Set someones avatar as your avatar.
             """)
                 embed.set_author(name="User Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2604,19 +2586,19 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ User Commands ]
 
-{Ghost.command_prefix}purgeself [amount] Â» Purge your messages.
-{Ghost.command_prefix}statuscycle Â» Start a custom status cycle.
-{Ghost.command_prefix}statuscycletext [text] Â» Set the text used in status cycle.
-{Ghost.command_prefix}clearstatus Â» Clear your status.
-{Ghost.command_prefix}nickname [text] Â» Set your nickname to anything.
-{Ghost.command_prefix}clearnickname Â» Clear your nickname.
-{Ghost.command_prefix}ppin [message id] Â» Add a message to your personal pins.
-{Ghost.command_prefix}ppins Â» List all your pinned messages.
-{Ghost.command_prefix}ppindel [pin id] Â» Delete a pin from your personal pins. 
-{Ghost.command_prefix}backupfriends Â» Backup all your friend's user IDs to a file.
-{Ghost.command_prefix}backupservers Â» Backup all your servers and try to create invites for each one.
-{Ghost.command_prefix}changehypesquad [bravery/brilliance/balance] Â» Change your hypesquad house.
-{Ghost.command_prefix}stealpfp [@user] Â» Set someones avatar as your avatar.
+{Ghost.command_prefix}purgeself [amount] » Purge your messages.
+{Ghost.command_prefix}statuscycle » Start a custom status cycle.
+{Ghost.command_prefix}statuscycletext [text] » Set the text used in status cycle.
+{Ghost.command_prefix}clearstatus » Clear your status.
+{Ghost.command_prefix}nickname [text] » Set your nickname to anything.
+{Ghost.command_prefix}clearnickname » Clear your nickname.
+{Ghost.command_prefix}ppin [message id] » Add a message to your personal pins.
+{Ghost.command_prefix}ppins » List all your pinned messages.
+{Ghost.command_prefix}ppindel [pin id] » Delete a pin from your personal pins. 
+{Ghost.command_prefix}backupfriends » Backup all your friend's user IDs to a file.
+{Ghost.command_prefix}backupservers » Backup all your servers and try to create invites for each one.
+{Ghost.command_prefix}changehypesquad [bravery/brilliance/balance] » Change your hypesquad house.
+{Ghost.command_prefix}stealpfp [@user] » Set someones avatar as your avatar.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2626,18 +2608,18 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**afkmode** Â» Toggle afk mode.
-`{Ghost.command_prefix}`**settings** Â» The bot's settings.
-`{Ghost.command_prefix}`**restart** Â» Restart Ghost selfbot.
-`{Ghost.command_prefix}`**prefix [prefix]** Â» Set the command prefix.
-`{Ghost.command_prefix}`**dumpchat [amount] (channel id) (oldest first, true/false)** Â» Get the chat's history.
-`{Ghost.command_prefix}`**invite** Â» Get Ghost's Discord server invite link.
-`{Ghost.command_prefix}`**addccmd [name] [response]** Â» Add a custom command.
-`{Ghost.command_prefix}`**enablesniper [type, nitro/privnote/giveaway]** Â» Enable a sniper.
-`{Ghost.command_prefix}`**disablesniper [type, nitro/privnote/giveaway]** Â» Disable a sniper.
-`{Ghost.command_prefix}`**enabledetect [type, selfbot/..]** Â» Enable a detection.
-`{Ghost.command_prefix}`**disabledetect [type, selfbot/..]** Â» Disable a detection.
-`{Ghost.command_prefix}`**riskmode** Â» Disable and enable risk mode
+`{Ghost.command_prefix}`**afkmode** » Toggle afk mode.
+`{Ghost.command_prefix}`**settings** » The bot's settings.
+`{Ghost.command_prefix}`**restart** » Restart Ghost selfbot.
+`{Ghost.command_prefix}`**prefix [prefix]** » Set the command prefix.
+`{Ghost.command_prefix}`**dumpchat [amount] (channel id) (oldest first, true/false)** » Get the chat's history.
+`{Ghost.command_prefix}`**invite** » Get Ghost's Discord server invite link.
+`{Ghost.command_prefix}`**addccmd [name] [response]** » Add a custom command.
+`{Ghost.command_prefix}`**enablesniper [type, nitro/privnote/giveaway]** » Enable a sniper.
+`{Ghost.command_prefix}`**disablesniper [type, nitro/privnote/giveaway]** » Disable a sniper.
+`{Ghost.command_prefix}`**enabledetect [type, selfbot/..]** » Enable a detection.
+`{Ghost.command_prefix}`**disabledetect [type, selfbot/..]** » Disable a detection.
+`{Ghost.command_prefix}`**riskmode** » Disable and enable risk mode
             """)
                 embed.set_author(name="Selfbot Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2651,17 +2633,17 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ Selfbot Commands ]
 
-{Ghost.command_prefix}settings Â» The bot's settings.
-{Ghost.command_prefix}restart Â» Restart Ghost selfbot.
-{Ghost.command_prefix}prefix [prefix] Â» Set the command prefix.
-{Ghost.command_prefix}dumpchat [amount] (channel id) (oldest first, true/false) Â» Get the chat's history.
-{Ghost.command_prefix}invite Â» Get Ghost's Discord server invite link.
-{Ghost.command_prefix}addccmd [name] [response] Â» Add a custom command.
-{Ghost.command_prefix}enablesniper [type, nitro/privnote/giveaway] Â» Enable a sniper.
-{Ghost.command_prefix}disablesniper [type, nitro/privnote/giveaway] Â» Disable a sniper.
-{Ghost.command_prefix}enabledetect [type, selfbot/..] Â» Enable a detection.
-{Ghost.command_prefix}disabledetect [type, selfbot/..] Â» Disable a detection.    
-{Ghost.command_prefix}riskmode Â» Disable and enable risk mode
+{Ghost.command_prefix}settings » The bot's settings.
+{Ghost.command_prefix}restart » Restart Ghost selfbot.
+{Ghost.command_prefix}prefix [prefix] » Set the command prefix.
+{Ghost.command_prefix}dumpchat [amount] (channel id) (oldest first, true/false) » Get the chat's history.
+{Ghost.command_prefix}invite » Get Ghost's Discord server invite link.
+{Ghost.command_prefix}addccmd [name] [response] » Add a custom command.
+{Ghost.command_prefix}enablesniper [type, nitro/privnote/giveaway] » Enable a sniper.
+{Ghost.command_prefix}disablesniper [type, nitro/privnote/giveaway] » Disable a sniper.
+{Ghost.command_prefix}enabledetect [type, selfbot/..] » Enable a detection.
+{Ghost.command_prefix}disabledetect [type, selfbot/..] » Disable a detection.    
+{Ghost.command_prefix}riskmode » Disable and enable risk mode
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2671,11 +2653,11 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**delwebhook [id]** Â» Delete a webhook from the ID.
-`{Ghost.command_prefix}`**newwebhook [name]** Â» Create a webhook in the command channel.
-`{Ghost.command_prefix}`**spamwebhook [amount] [url] (message)** Â» Spam the shit out of a webhook.
-`{Ghost.command_prefix}`**webhooksetup** Â» Creates a new server with webhooks.
-`{Ghost.command_prefix}`**webhookinfo [id]** Â» Information about the webhook.
+`{Ghost.command_prefix}`**delwebhook [id]** » Delete a webhook from the ID.
+`{Ghost.command_prefix}`**newwebhook [name]** » Create a webhook in the command channel.
+`{Ghost.command_prefix}`**spamwebhook [amount] [url] (message)** » Spam the shit out of a webhook.
+`{Ghost.command_prefix}`**webhooksetup** » Creates a new server with webhooks.
+`{Ghost.command_prefix}`**webhookinfo [id]** » Information about the webhook.
             """)
                 embed.set_author(name="Webhook Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2689,11 +2671,11 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             await ctx.send(f"""```ini
 [ Webhook Commands ]
 
-{Ghost.command_prefix}delwebhook [id] Â» Delete a webhook from the ID.
-{Ghost.command_prefix}newwebhook [name] Â» Create a webhook in the command channel.
-{Ghost.command_prefix}spamwebhook [amount] [url] (message) Â» Spam the shit out of a webhook.
-{Ghost.command_prefix}webhooksetup Â» Creates a new server with webhooks.
-{Ghost.command_prefix}webhookinfo [id] Â» Information about the webhook.
+{Ghost.command_prefix}delwebhook [id] » Delete a webhook from the ID.
+{Ghost.command_prefix}newwebhook [name] » Create a webhook in the command channel.
+{Ghost.command_prefix}spamwebhook [amount] [url] (message) » Spam the shit out of a webhook.
+{Ghost.command_prefix}webhooksetup » Creates a new server with webhooks.
+{Ghost.command_prefix}webhookinfo [id] » Information about the webhook.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2704,28 +2686,28 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
             if __embedmode__:
                 if page == 1:
                     embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**spam [amount] [delay] [message]** Â» Spam X amount of times.
-`{Ghost.command_prefix}`**stopspam** Â» Stop spamming messages.
-`{Ghost.command_prefix}`**dmspam [amount] [delay] [@user] [message]** Â» Spam DM messages X amount of times.
-`{Ghost.command_prefix}`**channelspam [amount] [delay] [message]** Â» Spam a message X amount of times in every channel.
-`{Ghost.command_prefix}`**threadspam [delay] [amount] [addusers | true/false] [name] [startmessage]** Â» Spam create threads with a starting message.
-`{Ghost.command_prefix}`**ttsspam [amount] [delay] [message]** Â» Spam TTS messages X amount of times.
-`{Ghost.command_prefix}`**reactspam [emoji] [messages]** Â» Spam reactions on X amount of messages.
-`{Ghost.command_prefix}`**massghostping [delay] [@user]** Â» Ghost Ping the user in every channel.
-`{Ghost.command_prefix}`**ghostping [@user]** Â» Ping a user then delete the message.
-`{Ghost.command_prefix}`**massping (amount of messages) (send delay)** Â» Ping a mass amount of people in the command server.
-`{Ghost.command_prefix}`**massnick [nickname]** Â» Change the nickname of all members in the command server.
-`{Ghost.command_prefix}`**massdm [delay] [amount] [message]** Â» Send a DM message to everyone in the server.
-`{Ghost.command_prefix}`**nukeserver** Â» Delete all roles and channels in the command server.
-`{Ghost.command_prefix}`**destroyserver** Â» Completely destroy the command server.
-`{Ghost.command_prefix}`**deletechannels** Â» Delete all of the command server's channels.
-`{Ghost.command_prefix}`**deleteroles** Â» Delete all of the command server's roles.
-`{Ghost.command_prefix}`**spamchannels [amount] (name)** Â» Spam create channels with a desired name. (Thanks Port <3)
-`{Ghost.command_prefix}`**spamroles [amount] (name)** Â» Spam create roles with a desired name.
-`{Ghost.command_prefix}`**raidjoin [delay] [invite]** Â» Make all your account tokens join a server.
-`{Ghost.command_prefix}`**tokenraid [amount] [channel id] (message)** Â» Raid a server with all your account tokens.
-`{Ghost.command_prefix}`**massban** Â» Ban all the members in the command server.
-`{Ghost.command_prefix}`**masskick** Â» Kick all the members in the command server.
+`{Ghost.command_prefix}`**spam [amount] [delay] [message]** » Spam X amount of times.
+`{Ghost.command_prefix}`**stopspam** » Stop spamming messages.
+`{Ghost.command_prefix}`**dmspam [amount] [delay] [@user] [message]** » Spam DM messages X amount of times.
+`{Ghost.command_prefix}`**channelspam [amount] [delay] [message]** » Spam a message X amount of times in every channel.
+`{Ghost.command_prefix}`**threadspam [delay] [amount] [addusers | true/false] [name] [startmessage]** » Spam create threads with a starting message.
+`{Ghost.command_prefix}`**ttsspam [amount] [delay] [message]** » Spam TTS messages X amount of times.
+`{Ghost.command_prefix}`**reactspam [emoji] [messages]** » Spam reactions on X amount of messages.
+`{Ghost.command_prefix}`**massghostping [delay] [@user]** » Ghost Ping the user in every channel.
+`{Ghost.command_prefix}`**ghostping [@user]** » Ping a user then delete the message.
+`{Ghost.command_prefix}`**massping (amount of messages) (send delay)** » Ping a mass amount of people in the command server.
+`{Ghost.command_prefix}`**massnick [nickname]** » Change the nickname of all members in the command server.
+`{Ghost.command_prefix}`**massdm [delay] [amount] [message]** » Send a DM message to everyone in the server.
+`{Ghost.command_prefix}`**nukeserver** » Delete all roles and channels in the command server.
+`{Ghost.command_prefix}`**destroyserver** » Completely destroy the command server.
+`{Ghost.command_prefix}`**deletechannels** » Delete all of the command server's channels.
+`{Ghost.command_prefix}`**deleteroles** » Delete all of the command server's roles.
+`{Ghost.command_prefix}`**spamchannels [amount] (name)** » Spam create channels with a desired name. (Thanks Port <3)
+`{Ghost.command_prefix}`**spamroles [amount] (name)** » Spam create roles with a desired name.
+`{Ghost.command_prefix}`**raidjoin [delay] [invite]** » Make all your account tokens join a server.
+`{Ghost.command_prefix}`**tokenraid [amount] [channel id] (message)** » Raid a server with all your account tokens.
+`{Ghost.command_prefix}`**massban** » Ban all the members in the command server.
+`{Ghost.command_prefix}`**masskick** » Kick all the members in the command server.
                 """)
                     embed.set_author(name="Abuse Commands (1/1)")
                     embed.set_thumbnail(url=__embedimage__)
@@ -2739,28 +2721,28 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
                 await ctx.send(f"""```ini
 [ Abuse Commands ]
 
-{Ghost.command_prefix}spam [amount] [delay] [message] Â» Spam X amount of times.
-{Ghost.command_prefix}stopspam Â» Stop spamming messages.
-{Ghost.command_prefix}dmspam [amount] [delay] [@user] [message] Â» Spam DM messages X amount of times.
-{Ghost.command_prefix}channelspam [amount] [delay] [message] Â» Spam X amount of times in all channels.
-{Ghost.command_prefix}threadspam [delay] [amount] [name] [startmessage] Â» Spam create threads with a starting message.
-{Ghost.command_prefix}ttsspam [amount] [delay] [message] Â» Spam TTS messages X amount of times.
-{Ghost.command_prefix}reactspam [emoji] [messages] Â» Spam reactions on X amount of messages.
-{Ghost.command_prefix}massghostping [delay] [@user] Â» Ghost Ping the user in every channel.
-{Ghost.command_prefix}ghostping [@user] Â» Ping a user then delete the message.
-{Ghost.command_prefix}massping Â» Ping a mass amount of people in the command server.
-{Ghost.command_prefix}massnick [nickname] Â» Change the nickname of all members in the command server.
-{Ghost.command_prefix}massdm [delay] [amount] [message] Â» Send a DM message to everyone in the server.
-{Ghost.command_prefix}nukeserver Â» Delete all roles and channels in the command server.
-{Ghost.command_prefix}destroyserver Â» Completely destroy the command server.
-{Ghost.command_prefix}deletechannels Â» Delete all of the command server's channels.
-{Ghost.command_prefix}deleteroles Â» Delete all of the command server's roles.
-{Ghost.command_prefix}spamchannels [amount] (name) Â» Spam create channels with a desired name. (Thanks Port <3)
-{Ghost.command_prefix}spamroles [amount] (name) Â» Spam create roles with a desired name.
-{Ghost.command_prefix}raidjoin [delay] [invite] Â» Make all your account tokens join a server.
-{Ghost.command_prefix}tokenraid [amount] [channel id] (message) Â» Raid a server with all your account tokens.
-{Ghost.command_prefix}massban Â» Ban all the members in the command server.
-{Ghost.command_prefix}masskick Â» Kick all the members in the command server.
+{Ghost.command_prefix}spam [amount] [delay] [message] » Spam X amount of times.
+{Ghost.command_prefix}stopspam » Stop spamming messages.
+{Ghost.command_prefix}dmspam [amount] [delay] [@user] [message] » Spam DM messages X amount of times.
+{Ghost.command_prefix}channelspam [amount] [delay] [message] » Spam X amount of times in all channels.
+{Ghost.command_prefix}threadspam [delay] [amount] [name] [startmessage] » Spam create threads with a starting message.
+{Ghost.command_prefix}ttsspam [amount] [delay] [message] » Spam TTS messages X amount of times.
+{Ghost.command_prefix}reactspam [emoji] [messages] » Spam reactions on X amount of messages.
+{Ghost.command_prefix}massghostping [delay] [@user] » Ghost Ping the user in every channel.
+{Ghost.command_prefix}ghostping [@user] » Ping a user then delete the message.
+{Ghost.command_prefix}massping » Ping a mass amount of people in the command server.
+{Ghost.command_prefix}massnick [nickname] » Change the nickname of all members in the command server.
+{Ghost.command_prefix}massdm [delay] [amount] [message] » Send a DM message to everyone in the server.
+{Ghost.command_prefix}nukeserver » Delete all roles and channels in the command server.
+{Ghost.command_prefix}destroyserver » Completely destroy the command server.
+{Ghost.command_prefix}deletechannels » Delete all of the command server's channels.
+{Ghost.command_prefix}deleteroles » Delete all of the command server's roles.
+{Ghost.command_prefix}spamchannels [amount] (name) » Spam create channels with a desired name. (Thanks Port <3)
+{Ghost.command_prefix}spamroles [amount] (name) » Spam create roles with a desired name.
+{Ghost.command_prefix}raidjoin [delay] [invite] » Make all your account tokens join a server.
+{Ghost.command_prefix}tokenraid [amount] [channel id] (message) » Raid a server with all your account tokens.
+{Ghost.command_prefix}massban » Ban all the members in the command server.
+{Ghost.command_prefix}masskick » Kick all the members in the command server.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2786,15 +2768,15 @@ You have risk mode disabled, you cant use this command.
         if __embedmode__:
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**tokeninfo [token]** Â» Information about a token. 
-`{Ghost.command_prefix}`**nuketoken [token]** Â» Nuke a token.
-`{Ghost.command_prefix}`**checktoken [token]** Â» Checks if a token is working.
-`{Ghost.command_prefix}`**checktokens** Â» Check your tokens. 
-`{Ghost.command_prefix}`**nitrogen** Â» Generate a nitro code.
-`{Ghost.command_prefix}`**tokengen** Â» Generate a discord user token.
-`{Ghost.command_prefix}`**identitygen** Â» Generate a fake identity.
-`{Ghost.command_prefix}`**passwordgen [length]** Â» Generate a secure password.
-`{Ghost.command_prefix}`**ccgen** Â» Generate a fake Credit card.
+`{Ghost.command_prefix}`**tokeninfo [token]** » Information about a token. 
+`{Ghost.command_prefix}`**nuketoken [token]** » Nuke a token.
+`{Ghost.command_prefix}`**checktoken [token]** » Checks if a token is working.
+`{Ghost.command_prefix}`**checktokens** » Check your tokens. 
+`{Ghost.command_prefix}`**nitrogen** » Generate a nitro code.
+`{Ghost.command_prefix}`**tokengen** » Generate a discord user token.
+`{Ghost.command_prefix}`**identitygen** » Generate a fake identity.
+`{Ghost.command_prefix}`**passwordgen [length]** » Generate a secure password.
+`{Ghost.command_prefix}`**ccgen** » Generate a fake Credit card.
             """)
                 embed.set_author(name="Tools (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2808,18 +2790,64 @@ You have risk mode disabled, you cant use this command.
             await ctx.send(f"""```ini
 [ Tools ]
 
-{Ghost.command_prefix}tokeninfo [token] Â» Information about a token.
-{Ghost.command_prefix}nuketoken [token] Â» Nuke a token.
-{Ghost.command_prefix}checktoken [token] Â» Checks if a token is working.
-{Ghost.command_prefix}checktokens Â» Check your tokens.
-{Ghost.command_prefix}nitrogen Â» Generate a nitro code.
-{Ghost.command_prefix}tokengen Â» Generate a discord user token.
-{Ghost.command_prefix}identitygen Â» Generate a fake identity.
-{Ghost.command_prefix}passwordgen [length] Â» Generate a secure password.
-{Ghost.command_prefix}ccgen Â» Generate a fake Credit card.
+{Ghost.command_prefix}tokeninfo [token] » Information about a token.
+{Ghost.command_prefix}nuketoken [token] » Nuke a token.
+{Ghost.command_prefix}checktoken [token] » Checks if a token is working.
+{Ghost.command_prefix}checktokens » Check your tokens.
+{Ghost.command_prefix}nitrogen » Generate a nitro code.
+{Ghost.command_prefix}tokengen » Generate a discord user token.
+{Ghost.command_prefix}identitygen » Generate a fake identity.
+{Ghost.command_prefix}passwordgen [length] » Generate a secure password.
+{Ghost.command_prefix}ccgen » Generate a fake Credit card.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
+
+
+    @Ghost.command(name="malicious", description="Malicious commands.", usage="malicious")
+    async def abuse(ctx, page:int = 1):
+        if __riskmode__:
+            if __embedmode__:
+                if page == 1:
+                    embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
+`{Ghost.command_prefix}`**tokengrabber [path]** Â» Build token grabber to supplied path.
+`{Ghost.command_prefix}`**stopspam** Â» Stop spamming messages.
+
+                """)
+                    embed.set_author(name="Malicious Commands (1/1)")
+                    embed.set_thumbnail(url=__embedimage__)
+                    embed.set_image(url=__embedlargeimage__)
+                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                    embed.timestamp = datetime.now()
+                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
+                else:
+                    pass         
+            else:
+                await ctx.send(f"""```ini
+[ Malicious Commands ]
+
+{Ghost.command_prefix}tokengrabber [path] Â» Build token grabber to supplied path.
+{Ghost.command_prefix}stopspam Â» Stop spamming messages.
+
+
+
+# {__embedfooter__}```""", delete_after=__deletetimeout__)
+
+        else:
+            if __embedmode__:
+                embed = discord.Embed(title=f"Malicious Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
+                embed.set_thumbnail(url=__embedimage__)
+                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                embed.timestamp = datetime.now()
+                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
+            else:
+                await ctx.send(f"""```ini
+[ Malicious Commands ]
+
+You have risk mode disabled, you cant use this command.
+
+
+# {__embedfooter__}```""", delete_after=__deletetimeout__)    
 
     @Ghost.command(name="giveaway", description="Giveaway related commands.", usage="giveaway")
     async def giveaway(ctx, page:int = 1):
@@ -2827,9 +2855,9 @@ You have risk mode disabled, you cant use this command.
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}",
                                     color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**gstart [duration] [winners] [prize]** Â» Start a giveaway in the same channel
-`{Ghost.command_prefix}`**gend [message id]** Â» End a giveaway
-`{Ghost.command_prefix}`**greroll [message id]** Â» Re-roll a giveaway
+`{Ghost.command_prefix}`**gstart [duration] [winners] [prize]** » Start a giveaway in the same channel
+`{Ghost.command_prefix}`**gend [message id]** » End a giveaway
+`{Ghost.command_prefix}`**greroll [message id]** » Re-roll a giveaway
             """)
                 embed.set_author(name="Giveaway Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2843,9 +2871,9 @@ You have risk mode disabled, you cant use this command.
             await ctx.send(f"""```ini
 [ Giveaway Commands ]
 
-{Ghost.command_prefix}gstart [duration] [winners] [prize] Â» Start a giveaway in the same channel
-{Ghost.command_prefix}gend [message id] Â» End a giveaway
-{Ghost.command_prefix}greroll [message id] Â» Re-roll a giveaway
+{Ghost.command_prefix}gstart [duration] [winners] [prize] » Start a giveaway in the same channel
+{Ghost.command_prefix}gend [message id] » End a giveaway
+{Ghost.command_prefix}greroll [message id] » Re-roll a giveaway
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2856,11 +2884,11 @@ You have risk mode disabled, you cant use this command.
             if page == 1:
                 embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}",
                                     color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**proxies http** Â» Scrape HTTP proxies.
-`{Ghost.command_prefix}`**proxies https** Â» Scrape HTTPS proxies.
-`{Ghost.command_prefix}`**proxies socks4** Â» Scrape SOCKS4 proxies.
-`{Ghost.command_prefix}`**proxies socks5** Â» Scrape SOCKS5 proxies.
-`{Ghost.command_prefix}`**proxies all** Â» Scrape HTTP, HTTPS, SOCKS4 AND SOCKS5 proxies.
+`{Ghost.command_prefix}`**proxies http** » Scrape HTTP proxies.
+`{Ghost.command_prefix}`**proxies https** » Scrape HTTPS proxies.
+`{Ghost.command_prefix}`**proxies socks4** » Scrape SOCKS4 proxies.
+`{Ghost.command_prefix}`**proxies socks5** » Scrape SOCKS5 proxies.
+`{Ghost.command_prefix}`**proxies all** » Scrape HTTP, HTTPS, SOCKS4 AND SOCKS5 proxies.
             """)
                 embed.set_author(name="Proxy Commands (1/1)")
                 embed.set_thumbnail(url=__embedimage__)
@@ -2874,11 +2902,11 @@ You have risk mode disabled, you cant use this command.
             await ctx.send(f"""```ini
 [ Giveaway Commands ]
 
-{Ghost.command_prefix}proxies http Â» Scrape HTTP proxies.
-{Ghost.command_prefix}proxies https Â» Scrape HTTPS proxies.
-{Ghost.command_prefix}proxies socks4 Â» Scrape SOCKS4 proxies.
-{Ghost.command_prefix}proxies socks5 Â» Scrape SOCKS5 proxies.
-{Ghost.command_prefix}proxies all Â» Scrape HTTP, HTTPS, SOCKS4 AND SOCKS5 proxies.
+{Ghost.command_prefix}proxies http » Scrape HTTP proxies.
+{Ghost.command_prefix}proxies https » Scrape HTTPS proxies.
+{Ghost.command_prefix}proxies socks4 » Scrape SOCKS4 proxies.
+{Ghost.command_prefix}proxies socks5 » Scrape SOCKS5 proxies.
+{Ghost.command_prefix}proxies all » Scrape HTTP, HTTPS, SOCKS4 AND SOCKS5 proxies.
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
@@ -2964,28 +2992,28 @@ There is a total of {len(hiddenChannels)} hidden channels.
         if consoleMode.lower() == "new":
             print("")
             print(fg.consoleColour + "")                    
-            print(" â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â•â•â• â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(" â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•â•â•â•â•â•   â•šâ•â•   ".center(width))
+            print(" ¦¦¦¦¦¦+ ¦¦+  ¦¦+ ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+----+ ¦¦¦  ¦¦¦¦¦+---¦¦+¦¦+----++--¦¦+--+".center(width))
+            print("¦¦¦  ¦¦¦+¦¦¦¦¦¦¦¦¦¦¦   ¦¦¦¦¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print("¦¦¦   ¦¦¦¦¦+--¦¦¦¦¦¦   ¦¦¦+----¦¦¦   ¦¦¦   ".center(width))
+            print("+¦¦¦¦¦¦++¦¦¦  ¦¦¦+¦¦¦¦¦¦++¦¦¦¦¦¦¦¦   ¦¦¦   ".center(width))
+            print(" +-----+ +-+  +-+ +-----+ +------+   +-+   ".center(width))
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")  
         if consoleMode.lower() == "rainbow":
             print("")
             print(fg.consoleColour + "")                    
-            print(fg.cRed + " â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print(fg.cOrange + "â–ˆâ–ˆâ•”â•â•â•â•â• â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print(fg.cYellow + "â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print(fg.cGreen + "â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(fg.cBlue + "â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(fg.cPurple + " â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•â•â•â•â•â•   â•šâ•â•   ".center(width))
+            print(fg.cRed + " ¦¦¦¦¦¦+ ¦¦+  ¦¦+ ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print(fg.cOrange + "¦¦+----+ ¦¦¦  ¦¦¦¦¦+---¦¦+¦¦+----++--¦¦+--+".center(width))
+            print(fg.cYellow + "¦¦¦  ¦¦¦+¦¦¦¦¦¦¦¦¦¦¦   ¦¦¦¦¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print(fg.cGreen + "¦¦¦   ¦¦¦¦¦+--¦¦¦¦¦¦   ¦¦¦+----¦¦¦   ¦¦¦   ".center(width))
+            print(fg.cBlue + "+¦¦¦¦¦¦++¦¦¦  ¦¦¦+¦¦¦¦¦¦++¦¦¦¦¦¦¦¦   ¦¦¦   ".center(width))
+            print(fg.cPurple + " +-----+ +-+  +-+ +-----+ +------+   +-+   ".center(width))
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                                       
         if consoleMode.lower() == "new2":
             print("")
@@ -2998,7 +3026,7 @@ There is a total of {len(hiddenChannels)} hidden channels.
             print("                                                     ".center(width)) 
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                      
         if consoleMode.lower() == "new3":
             print("")
@@ -3015,113 +3043,113 @@ There is a total of {len(hiddenChannels)} hidden channels.
             print('  "Y8bbdP"                                             '.center(width))  
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                    
         if consoleMode.lower() == "new4":
             print("")
             print(fg.consoleColour + "")                    
-            print("   â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–„     â–„â–ˆ    â–ˆâ–„     â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–„     â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     ".center(width))
-            print("  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–€â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–„ ".center(width))
-            print("  â–ˆâ–ˆâ–ˆ    â–ˆâ–€    â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–€     â–€â–ˆâ–ˆâ–ˆâ–€â–€â–ˆâ–ˆ ".center(width))
-            print(" â–„â–ˆâ–ˆâ–ˆ         â–„â–ˆâ–ˆâ–ˆâ–„â–„â–„â–„â–ˆâ–ˆâ–ˆâ–„â–„ â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ            â–ˆâ–ˆâ–ˆ   â–€ ".center(width))
-            print('â–€â–€â–ˆâ–ˆâ–ˆ â–ˆâ–ˆâ–ˆâ–ˆâ–„  â–€â–€â–ˆâ–ˆâ–ˆâ–€â–€â–€â–€â–ˆâ–ˆâ–ˆâ–€  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ â–€â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     '.center(width))
-            print('  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ          â–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     '.center(width))                       
-            print('  â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ   â–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆ    â–„â–ˆ    â–ˆâ–ˆâ–ˆ     â–ˆâ–ˆâ–ˆ     '.center(width))                       
-            print('  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–€    â–ˆâ–ˆâ–ˆ    â–ˆâ–€     â–€â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–€   â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–€     â–„â–ˆâ–ˆâ–ˆâ–ˆâ–€   '.center(width))         
+            print("   _¦¦¦¦¦¦_     _¦    ¦_     _¦¦¦¦¦¦_     _¦¦¦¦¦¦¦¦     ¦¦¦     ".center(width))
+            print("  ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦ ¯¦¦¦¦¦¦¦¦¦_ ".center(width))
+            print("  ¦¦¦    ¦¯    ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¯     ¯¦¦¦¯¯¦¦ ".center(width))
+            print(" _¦¦¦         _¦¦¦____¦¦¦__ ¦¦¦    ¦¦¦   ¦¦¦            ¦¦¦   ¯ ".center(width))
+            print('¯¯¦¦¦ ¦¦¦¦_  ¯¯¦¦¦¯¯¯¯¦¦¦¯  ¦¦¦    ¦¦¦ ¯¦¦¦¦¦¦¦¦¦¦¦     ¦¦¦     '.center(width))
+            print('  ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦          ¦¦¦     ¦¦¦     '.center(width))                       
+            print('  ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦   ¦¦¦    ¦¦¦    _¦    ¦¦¦     ¦¦¦     '.center(width))                       
+            print('  ¦¦¦¦¦¦¦¦¯    ¦¦¦    ¦¯     ¯¦¦¦¦¦¦¯   _¦¦¦¦¦¦¦¦¯     _¦¦¦¦¯   '.center(width))         
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                                                                              
         if consoleMode.lower() == "bear":
             if is_windows():
                 os.system("mode con: cols=90 lines=24")                    
             print("")
             print(fg.consoleColour + "")                    
-            print("     â–„â–€â–€â–€â–„â–„â–„â–„â–„â–„â–„â–€â–€â–€â–„      ".center(os.get_terminal_size().columns))
-            print("     â–ˆâ–’â–’â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–’â–’â–ˆ      ".center(os.get_terminal_size().columns))
-            print("      â–ˆâ–‘â–‘â–ˆâ–‘â–‘â–‘â–‘â–‘â–ˆâ–‘â–‘â–ˆ       ".center(os.get_terminal_size().columns))
-            print("   â–„â–„  â–ˆâ–‘â–‘â–‘â–€â–ˆâ–€â–‘â–‘â–‘â–ˆ   â–„â–„   ".center(os.get_terminal_size().columns))
-            print("  â–ˆâ–‘â–‘â–ˆ â–€â–„â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–„â–€  â–ˆâ–‘â–‘â–ˆ  ".center(os.get_terminal_size().columns))
-            print("â–ˆâ–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–€â–ˆ".center(os.get_terminal_size().columns))                                      
-            print("â–ˆâ–‘â–ˆâ–€â–€â–‘â–‘â–ˆ â–ˆâ–‘â–‘â–ˆâ–€â–ˆâ–‘â–‘â–ˆâ–€â–‘â–‘â–€â–ˆâ–€â–‘â–ˆ".center(os.get_terminal_size().columns))                                      
-            print("â–ˆâ–‘â–ˆâ–„â–ˆâ–‘â–‘â–ˆâ–€â–ˆâ–‘â–‘â–ˆâ–„â–ˆâ–‘â–‘â–„â–ˆâ–‘â–‘ â–ˆ â–‘â–ˆ".center(os.get_terminal_size().columns))                                      
-            print("â–ˆâ–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–„â–ˆ".center(os.get_terminal_size().columns))    
+            print("     _¯¯¯_______¯¯¯_      ".center(os.get_terminal_size().columns))
+            print("     ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦      ".center(os.get_terminal_size().columns))
+            print("      ¦¦¦¦¦¦¦¦¦¦¦¦¦       ".center(os.get_terminal_size().columns))
+            print("   __  ¦¦¦¦¯¦¯¦¦¦¦   __   ".center(os.get_terminal_size().columns))
+            print("  ¦¦¦¦ ¯_¦¦¦¦¦¦¦_¯  ¦¦¦¦  ".center(os.get_terminal_size().columns))
+            print("¦¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¦".center(os.get_terminal_size().columns))                                      
+            print("¦¦¦¯¯¦¦¦ ¦¦¦¦¯¦¦¦¦¯¦¦¯¦¯¦¦".center(os.get_terminal_size().columns))                                      
+            print("¦¦¦_¦¦¦¦¯¦¦¦¦_¦¦¦_¦¦¦ ¦ ¦¦".center(os.get_terminal_size().columns))                                      
+            print("¦________________________¦".center(os.get_terminal_size().columns))    
             print("")
             print(fg.cWhite + f"{motd}".center(os.get_terminal_size().columns))
-            print(fg.consoleColour + 'â”€'*os.get_terminal_size().columns)
+            print(fg.consoleColour + '-'*os.get_terminal_size().columns)
             print("")                                                      
         elif consoleMode.lower() == "old":
             print("")
             print(fg.consoleColour + "")                    
-            print("  â–„â–ˆâ–ˆâ–ˆâ–ˆ  â–ˆâ–ˆâ–‘ â–ˆâ–ˆ  â–’â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–„â–„â–„â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–“".center(width))
-            print(" â–ˆâ–ˆâ–’ â–€â–ˆâ–’â–“â–ˆâ–ˆâ–‘ â–ˆâ–ˆâ–’â–’â–ˆâ–ˆâ–’  â–ˆâ–ˆâ–’â–’â–ˆâ–ˆ    â–’ â–“  â–ˆâ–ˆâ–’ â–“â–’".center(width))
-            print("â–’â–ˆâ–ˆâ–‘â–„â–„â–„â–‘â–’â–ˆâ–ˆâ–€â–€â–ˆâ–ˆâ–‘â–’â–ˆâ–ˆâ–‘  â–ˆâ–ˆâ–’â–‘ â–“â–ˆâ–ˆâ–„   â–’ â–“â–ˆâ–ˆâ–‘ â–’â–‘".center(width))
-            print("â–‘â–“â–ˆ  â–ˆâ–ˆâ–“â–‘â–“â–ˆ â–‘â–ˆâ–ˆ â–’â–ˆâ–ˆ   â–ˆâ–ˆâ–‘  â–’   â–ˆâ–ˆâ–’â–‘ â–“â–ˆâ–ˆâ–“ â–‘ ".center(width))
-            print("â–‘â–’â–“â–ˆâ–ˆâ–ˆâ–€â–’â–‘â–“â–ˆâ–’â–‘â–ˆâ–ˆâ–“â–‘ â–ˆâ–ˆâ–ˆâ–ˆâ–“â–’â–‘â–’â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–’â–’  â–’â–ˆâ–ˆâ–’ â–‘ ".center(width))
-            print(" â–‘â–’   â–’  â–’ â–‘â–‘â–’â–‘â–’â–‘ â–’â–‘â–’â–‘â–’â–‘ â–’ â–’â–“â–’ â–’ â–‘  â–’ â–‘â–‘   ".center(width))                    
-            print("  â–‘   â–‘  â–’ â–‘â–’â–‘ â–‘  â–‘ â–’ â–’â–‘ â–‘ â–‘â–’  â–‘ â–‘    â–‘    ".center(width))                    
-            print("â–‘ â–‘   â–‘  â–‘  â–‘â–‘ â–‘â–‘ â–‘ â–‘ â–’  â–‘  â–‘  â–‘    â–‘      ".center(width))                    
-            print("      â–‘  â–‘  â–‘  â–‘    â–‘ â–‘        â–‘           ".center(width))  
+            print("  _¦¦¦¦  ¦¦¦ ¦¦  ¦¦¦¦¦¦    ¦¦¦¦¦¦ ___¦¦¦¦¦¦".center(width))
+            print(" ¦¦¦ ¯¦¦¦¦¦¦ ¦¦¦¦¦¦¦  ¦¦¦¦¦¦    ¦ ¦  ¦¦¦ ¦¦".center(width))
+            print("¦¦¦¦___¦¦¦¦¯¯¦¦¦¦¦¦¦  ¦¦¦¦ ¦¦¦_   ¦ ¦¦¦¦ ¦¦".center(width))
+            print("¦¦¦  ¦¦¦¦¦¦ ¦¦¦ ¦¦¦   ¦¦¦  ¦   ¦¦¦¦ ¦¦¦¦ ¦ ".center(width))
+            print("¦¦¦¦¦¦¯¦¦¦¦¦¦¦¦¦¦ ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦  ¦¦¦¦ ¦ ".center(width))
+            print(" ¦¦   ¦  ¦ ¦¦¦¦¦¦ ¦¦¦¦¦¦ ¦ ¦¦¦ ¦ ¦  ¦ ¦¦   ".center(width))                    
+            print("  ¦   ¦  ¦ ¦¦¦ ¦  ¦ ¦ ¦¦ ¦ ¦¦  ¦ ¦    ¦    ".center(width))                    
+            print("¦ ¦   ¦  ¦  ¦¦ ¦¦ ¦ ¦ ¦  ¦  ¦  ¦    ¦      ".center(width))                    
+            print("      ¦  ¦  ¦  ¦    ¦ ¦        ¦           ".center(width))  
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")                    
         elif consoleMode not in consoleModes:
             print("")
             print(fg.consoleColour + "")                    
-            print(" â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â•â•â• â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print(" â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•â•â•â•â•â•   â•šâ•â•   ".center(width))                                      
+            print(" ¦¦¦¦¦¦+ ¦¦+  ¦¦+ ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+----+ ¦¦¦  ¦¦¦¦¦+---¦¦+¦¦+----++--¦¦+--+".center(width))
+            print("¦¦¦  ¦¦¦+¦¦¦¦¦¦¦¦¦¦¦   ¦¦¦¦¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print("¦¦¦   ¦¦¦¦¦+--¦¦¦¦¦¦   ¦¦¦+----¦¦¦   ¦¦¦   ".center(width))
+            print("+¦¦¦¦¦¦++¦¦¦  ¦¦¦+¦¦¦¦¦¦++¦¦¦¦¦¦¦¦   ¦¦¦   ".center(width))
+            print(" +-----+ +-+  +-+ +-----+ +------+   +-+   ".center(width))                                      
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")
         if consoleMode.lower() == "react":
             print("")
             print(fg.consoleColour + "")                    
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘        â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•  â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘        â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ•â•  â•šâ•â•â•šâ•â•â•â•â•â•â•â•šâ•â•  â•šâ•â• â•šâ•â•â•â•â•â•   â•šâ•â•   ".center(width))
+            print("¦¦¦¦¦¦+ ¦¦¦¦¦¦¦+ ¦¦¦¦¦+  ¦¦¦¦¦¦+¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+--¦¦+¦¦+----+¦¦+--¦¦+¦¦+----++--¦¦+--+".center(width))
+            print("¦¦¦¦¦¦++¦¦¦¦¦+  ¦¦¦¦¦¦¦¦¦¦¦        ¦¦¦   ".center(width))
+            print("¦¦+--¦¦+¦¦+--+  ¦¦+--¦¦¦¦¦¦        ¦¦¦   ".center(width))
+            print("¦¦¦  ¦¦¦¦¦¦¦¦¦¦+¦¦¦  ¦¦¦+¦¦¦¦¦¦+   ¦¦¦   ".center(width))
+            print("+-+  +-++------++-+  +-+ +-----+   +-+   ".center(width))
             print("")
             print(fg.cWhite + f"{motd}".center(width))
-            print(fg.consoleColour + 'â”€'*width)
+            print(fg.consoleColour + '-'*width)
             print("")  
         if consoleMode.lower() == "rise":
             print(fg.cBlue + "")                    
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•—     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â•â•â•    â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ•”â•â•â•â•â•â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â•šâ•â•â–ˆâ–ˆâ•”â•â•â•".center(width))
-            print("â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—      â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘â•šâ•â•â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•      â•šâ•â•â•â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â•  â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ•”â•â•â•  â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•   â–ˆâ–ˆâ•‘   ".center(width))
-            print("â•šâ•â•  â•šâ•â•â•šâ•â•â•šâ•â•â•â•â•â•â•â•šâ•â•â•â•â•â•â•    â•šâ•â•â•â•â•â•â•â•šâ•â•â•â•â•â•â•â•šâ•â•â•â•â•â•â•â•šâ•â•     â•šâ•â•â•â•â•â•  â•šâ•â•â•â•â•â•    â•šâ•â•   ".center(width))
-            print("â•­â”€â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”€â•®")
+            print("¦¦¦¦¦¦+ ¦¦+¦¦¦¦¦¦¦+¦¦¦¦¦¦¦+    ¦¦¦¦¦¦¦+¦¦¦¦¦¦¦+¦¦+     ¦¦¦¦¦¦¦+¦¦¦¦¦¦+  ¦¦¦¦¦¦+ ¦¦¦¦¦¦¦¦+".center(width))
+            print("¦¦+--¦¦+¦¦¦¦¦+----+¦¦+----+    ¦¦+----+¦¦+----+¦¦¦     ¦¦+----+¦¦+--¦¦+¦¦+---¦¦++--¦¦+--+".center(width))
+            print("¦¦¦¦¦¦++¦¦¦¦¦¦¦¦¦¦+¦¦¦¦¦+      ¦¦¦¦¦¦¦+¦¦¦¦¦+  ¦¦¦     ¦¦¦¦¦+  ¦¦¦¦¦¦++¦¦¦   ¦¦¦   ¦¦¦   ".center(width))
+            print("¦¦+--¦¦+¦¦¦+----¦¦¦¦¦+--+      +----¦¦¦¦¦+--+  ¦¦¦     ¦¦+--+  ¦¦+--¦¦+¦¦¦   ¦¦¦   ¦¦¦   ".center(width))
+            print("¦¦¦  ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦+    ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦+¦¦¦¦¦¦¦+¦¦¦     ¦¦¦¦¦¦+++¦¦¦¦¦¦++   ¦¦¦   ".center(width))
+            print("+-+  +-++-++------++------+    +------++------++------++-+     +-----+  +-----+    +-+   ".center(width))
+            print("?-????????????????????????????????????????????????????????????????????????????????????????????????????????????????????-?")
             print(fg.cGrey + f"Connected: {Ghost.user} | Prefix: {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}".center(width))
-            print(fg.cBlue + "â•°â”€â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”€â•¯")
+            print(fg.cBlue + "?-????????????????????????????????????????????????????????????????????????????????????????????????????????????????????-?")
             print("")
-            print(fg.cBlue + 'â”'*width)
+            print(fg.cBlue + '?'*width)
             print("")         
 
         if consoleMode.lower() == "nighty":
             if is_windows():
                 os.system("mode con: cols=90 lines=24")
             print("")                    
-            print(f"                     {fg.cWhite}â–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•â•â•â•â• {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘â•šâ•â•{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•â•â•â•š{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•— {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘  {fg.cWhite}â–ˆâ–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘    â•š{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•”â• ")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘â•š{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•—{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•â•{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘     â•š{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•”â•  ")
-            print(f"                     {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘ â•š{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•‘{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘â•š{fg.cWhite}â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ{fg.consoleColour}â•”â•{fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘  {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘      {fg.cWhite}â–ˆâ–ˆ{fg.consoleColour}â•‘   ")
-            print(fg.consoleColour + f"                     â•šâ•â•  â•šâ•â•â•â•â•šâ•â• â•šâ•â•â•â•â•â• â•šâ•â•  â•šâ•â•   â•šâ•â•      â•šâ•â•   ")
+            print(f"                     {fg.cWhite}¦¦¦{fg.consoleColour}+   {fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}+ {fg.cWhite}¦¦¦¦¦¦{fg.consoleColour}+ {fg.cWhite}¦¦{fg.consoleColour}+  {fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦¦¦¦¦¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}+   {fg.cWhite}¦¦{fg.consoleColour}+")
+            print(f"                     {fg.cWhite}¦¦¦¦{fg.consoleColour}+  {fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}+----+ {fg.cWhite}¦¦{fg.consoleColour}¦  {fg.cWhite}¦¦{fg.consoleColour}¦+--{fg.cWhite}¦¦{fg.consoleColour}+--++{fg.cWhite}¦¦{fg.consoleColour}+ {fg.cWhite}¦¦{fg.consoleColour}++")
+            print(f"                     {fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}+ {fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦  {fg.cWhite}¦¦¦{fg.consoleColour}+{fg.cWhite}¦¦¦¦¦¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦    +{fg.cWhite}¦¦¦¦{fg.consoleColour}++ ")
+            print(f"                     {fg.cWhite}¦¦{fg.consoleColour}¦+{fg.cWhite}¦¦{fg.consoleColour}+{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}+--{fg.cWhite}¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦     +{fg.cWhite}¦¦{fg.consoleColour}++  ")
+            print(f"                     {fg.cWhite}¦¦{fg.consoleColour}¦ +{fg.cWhite}¦¦¦¦{fg.consoleColour}¦{fg.cWhite}¦¦{fg.consoleColour}¦+{fg.cWhite}¦¦¦¦¦¦{fg.consoleColour}++{fg.cWhite}¦¦{fg.consoleColour}¦  {fg.cWhite}¦¦{fg.consoleColour}¦   {fg.cWhite}¦¦{fg.consoleColour}¦      {fg.cWhite}¦¦{fg.consoleColour}¦   ")
+            print(fg.consoleColour + f"                     +-+  +---++-+ +-----+ +-+  +-+   +-+      +-+   ")
             print("")
             print(f"{fg.cWhite}Status:    {fg.cGreen}Connected")
             print(f"{fg.cWhite}Account:   {Ghost.user} [{len(Ghost.guilds)} servers] [{len(get_friends(__token__))} friends]")
             print(f"{fg.cWhite}Prefix:    {Ghost.command_prefix}")
-            print(fg.cWhite + 'â”€'*os.get_terminal_size().columns)                                                          
+            print(fg.cWhite + '-'*os.get_terminal_size().columns)                                                          
 
             # def getCurrentTime():
             #     return datetime.now().strftime("%H:%M")
@@ -4202,7 +4230,7 @@ Daily Bans: {data['watchdog_rollingDaily']}
             embed.timestamp = datetime.now()
             await ctx.send(embed=embed, delete_after=__deletetimeout__)
         else:
-            await ctx.send(f"**ğŸ“Œ Personal Pin**\nPinned message `{message.content}` by `{message.author.name}#{message.author.discriminator}`.")
+            await ctx.send(f"**?? Personal Pin**\nPinned message `{message.content}` by `{message.author.name}#{message.author.discriminator}`.")
 
     @Ghost.command(name="ppins", description="List all your pinned messages.", usage="ppins", aliases=["personalpins"])
     async def ppins(ctx):
@@ -4250,6 +4278,76 @@ Daily Bans: {data['watchdog_rollingDaily']}
     async def countup(ctx, number: int):
         for count in range(number):
             await ctx.send(count)
+
+#[Malicious Commands]
+
+    @Ghost.command(name="tokengrabber", description="Builds a Token grabber with the specified name.", usage="tokengrabber [name]", aliases=["tg"])
+    async def pytoexe(ctx, *, name):
+        pyFile = False
+        #file = name.split("/")[-1]
+
+        if (name.endswith(".exe")):
+            pyFile = True
+        
+        if (pyFile):
+            #file = file[:-3]
+
+            if __embedmode__:
+                embed = discord.Embed(title=f"Token Grabber Build", description="Building of your file has started, check the console for more information.", color=__embedcolour__)
+                embed.set_thumbnail(url=__embedimage__)
+                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                embed.timestamp = datetime.now()
+
+                message = await ctx.send(embed=embed, delete_after=__deletetimeout__)
+            else:
+                message = await ctx.send(f"""```ini
+[ Token Grabber Build ]
+
+Building of your file has started, check the console for more information.
+
+
+# {__embedfooter__}
+```""", delete_after=__deletetimeout__)
+
+            print_info("Converting your file to an exe using pyinstaller...\nThis will fill your console and possibly take a while.")
+            os.system(f'pyinstaller -n "{name}" -i "icon.ico" --onefile --distpath "pytoexe/" scripts/yoinker.py')
+            print_info("Conversion complete!")
+            print(f"{fg.cYellow}Path: {fg.cGrey}pytoexe/{name}")
+
+            if __embedmode__:
+                embed = discord.Embed(title=f"Token Grabber Build", description="Building of your file has completed! Check the console for more information.", color=__embedcolour__)
+                embed.set_thumbnail(url=__embedimage__)
+                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                embed.timestamp = datetime.now()     
+
+                await message.edit(content="", embed=embed, delete_after=__deletetimeout__)  
+            else:
+                await message.edit(content=f"""```ini
+[ Token Grabber Build ]
+
+Building of your file has completed! Check the console for more information.
+
+
+# {__embedfooter__}
+```""", delete_after=__deletetimeout__)
+
+        else:
+            if __embedmode__:
+                embed = discord.Embed(title=f"Token Grabber Build", description="The path you submitted does not link to a EXE file.", color=__embedcolour__)
+                embed.set_thumbnail(url=__embedimage__)
+                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                embed.timestamp = datetime.now()
+
+                await ctx.send(embed=embed, delete_after=__deletetimeout__)   
+            else:
+                await ctx.send(f"""```ini
+[ Token Grabber Build ]
+
+The path you submitted does not link to a EXE file.
+
+
+# {__embedfooter__}
+```""", delete_after=__deletetimeout__)
 
     @Ghost.command(name="massban", description="Ban all the members in the command server.", usage="massban")
     async def massban(ctx):
@@ -4626,7 +4724,7 @@ You have risk mode disabled, you cant use this command.
                             timepretty = f"{time} second(s)"
 
                     e = discord.Embed(
-                        description=f"React with ğŸ‰ to enter!\nEnds in {timepretty}\nHosted by {ctx.author.mention}",
+                        description=f"React with ?? to enter!\nEnds in {timepretty}\nHosted by {ctx.author.mention}",
                         color=__embedcolour__)
                     if winners >= 2:
                         e.set_footer(text=f"{winners} winners | Ends at")
@@ -4635,7 +4733,7 @@ You have risk mode disabled, you cant use this command.
                     e.set_author(name=prize)
                     future = datetime.now() + timedelta(seconds=time)
                     e.timestamp = future
-                    msg = await ctx.send("ğŸ‰ **GIVEAWAY** ğŸ‰", embed=e)
+                    msg = await ctx.send("?? **GIVEAWAY** ??", embed=e)
                     await msg.add_reaction('\U0001F389')
 
                     await asyncio.sleep(time)
@@ -4646,7 +4744,7 @@ You have risk mode disabled, you cant use this command.
                             msg = message
 
                     #running = False
-                    if "ğŸ‰ **GIVEAWAY** ğŸ‰" in msg.content:
+                    if "?? **GIVEAWAY** ??" in msg.content:
                         entries = []
                         reactions = msg.reactions
                         for reaction in reactions:
@@ -4678,7 +4776,7 @@ You have risk mode disabled, you cant use this command.
                                 color=0x36393F)
 
                         else:
-                            await ctx.send("ğŸ‰ " + ', '.join(winnerslist) + f" you won **{prize}**\n{msg.jump_url}")
+                            await ctx.send("?? " + ', '.join(winnerslist) + f" you won **{prize}**\n{msg.jump_url}")
                             newe = discord.Embed(
                                 description=', '.join(winnerslist) + f" won!\nHosted by {ctx.author.mention}",
                                 color=0x36393F)
@@ -4691,18 +4789,18 @@ You have risk mode disabled, you cant use this command.
                         future = datetime.now() + timedelta(seconds=time)
                         newe.timestamp = future
 
-                        await msg.edit(content="ğŸ‰ **GIVEAWAY ENDED** ğŸ‰", embed=newe)
+                        await msg.edit(content="?? **GIVEAWAY ENDED** ??", embed=newe)
 
-                    #elif "ğŸ‰ **GIVEAWAY ENDED** ğŸ‰" in msg.content:
+                    #elif "?? **GIVEAWAY ENDED** ??" in msg.content:
                         #running = False
 
                 else:
                     await ctx.send(
-                        f"âŒ **Incorrect Syntax**\nTry: `{Ghost.command_prefix}gstart 30m 1 Awesome T-Shirt`")
+                        f"? **Incorrect Syntax**\nTry: `{Ghost.command_prefix}gstart 30m 1 Awesome T-Shirt`")
             else:
-                await ctx.send(f"âŒ **Incorrect Syntax**\nTry: `{Ghost.command_prefix}gstart 30m 1 Awesome T-Shirt`")
+                await ctx.send(f"? **Incorrect Syntax**\nTry: `{Ghost.command_prefix}gstart 30m 1 Awesome T-Shirt`")
         else:
-            await ctx.send(f"âŒ **Incorrect Syntax**\nTry: `{Ghost.command_prefix}gstart 30m 1 Awesome T-Shirt`")
+            await ctx.send(f"? **Incorrect Syntax**\nTry: `{Ghost.command_prefix}gstart 30m 1 Awesome T-Shirt`")
 
 
     @Ghost.command(name="gend", description="End a giveaway", usage="gend [message id]", aliases=["giveawayend", "endgiveaway"])
@@ -4728,7 +4826,7 @@ You have risk mode disabled, you cant use this command.
         #print("Bot user ID: " + str(Ghost.user.id))
 
         if msgId == id and msgAuthorId == Ghost.user.id:
-            if "ğŸ‰ **GIVEAWAY** ğŸ‰" in msgContent:
+            if "?? **GIVEAWAY** ??" in msgContent:
                 #running = True
                 embeds = msg.embeds
                 for embed in embeds:
@@ -4769,7 +4867,7 @@ You have risk mode disabled, you cant use this command.
                         description=f"A winner was not determined.\nHosted by {ctx.author.mention}", color=0x36393F)
 
                 else:
-                    await ctx.send("ğŸ‰ " + ', '.join(winnerslist) + f" you won **{prize}**\n{msg.jump_url}")
+                    await ctx.send("?? " + ', '.join(winnerslist) + f" you won **{prize}**\n{msg.jump_url}")
                     newe = discord.Embed(
                         description=', '.join(winnerslist) + f" won!\nHosted by {ctx.author.mention}",
                         color=0x36393F)
@@ -4781,11 +4879,11 @@ You have risk mode disabled, you cant use this command.
                     newe.set_footer(text=f"{winners} winner | Ended at")
                 newe.timestamp = datetime.now()
 
-                await msg.edit(content="ğŸ‰ **GIVEAWAY ENDED** ğŸ‰", embed=newe)
+                await msg.edit(content="?? **GIVEAWAY ENDED** ??", embed=newe)
 
-            elif "ğŸ‰ **GIVEAWAY ENDED** ğŸ‰" in msgContent:
+            elif "?? **GIVEAWAY ENDED** ??" in msgContent:
                 #running = False
-                await ctx.send("ğŸ˜” That giveaway has already ended.")
+                await ctx.send("?? That giveaway has already ended.")
 
             else:
                 await ctx.send("That is not a giveaway.")
@@ -4803,11 +4901,11 @@ You have risk mode disabled, you cant use this command.
                 msg = message
 
         if msg.author.id == Ghost.user.id:
-            if "ğŸ‰ **GIVEAWAY** ğŸ‰" in msg.content:
+            if "?? **GIVEAWAY** ??" in msg.content:
                 #running = True
                 await ctx.send("You can't re-roll a running giveaway.")
 
-            elif "ğŸ‰ **GIVEAWAY ENDED** ğŸ‰" in msg.content:
+            elif "?? **GIVEAWAY ENDED** ??" in msg.content:
                 #running = False
                 embeds = msg.embeds
                 for embed in embeds:
@@ -4846,7 +4944,7 @@ You have risk mode disabled, you cant use this command.
                     await ctx.send(f"A winner was not determined.\n{msg.jump_url}")
 
                 else:
-                    await ctx.send("ğŸ‰ " + ', '.join(winnerslist) + f" you won **{prize}**\n{msg.jump_url}")
+                    await ctx.send("?? " + ', '.join(winnerslist) + f" you won **{prize}**\n{msg.jump_url}")
             else:
                 await ctx.send("That is not a giveaway.")
         else:
@@ -5341,15 +5439,15 @@ Webhook Token: {webhook.token}
 
     @Ghost.command(name="shrug", description="Shrug your arms.", usage="shrug")
     async def shrug(ctx):
-        await ctx.send(f"Â¯\_(ãƒ„)_/Â¯")
+        await ctx.send(f"¯\_(?)_/¯")
 
     @Ghost.command(name="tableflip", description="Flip the table.", usage="tableflip")
     async def tableflip(ctx):
-        await ctx.send("(â•¯Â°â–¡Â°ï¼‰â•¯ï¸µ â”»â”â”»")
+        await ctx.send("(?°?°)?? ???")
 
     @Ghost.command(name="unflip", description="Put the table back.", usage="unflip")
     async def unflip(ctx):
-        await ctx.send("â”¬â”€â”¬ ãƒ( ã‚œ-ã‚œãƒ)")
+        await ctx.send("--- ?( ?-??)")
 
     # @Ghost.command(name="hide", description="Hide a message behind another message.", usage="hide [msg1] [msg2]")
     # async def hide(ctx, msg1, msg2):
@@ -5371,7 +5469,7 @@ Webhook Token: {webhook.token}
     async def selfbotcheck(ctx):
         await ctx.send("Checking for users with a trash selfbot...\nPeople who react below are using a selfbot.")
         await ctx.send("GIVEAWAY")
-        await ctx.send("ğŸ‰ **GIVEAWAY** ğŸ‰")
+        await ctx.send("?? **GIVEAWAY** ??")
 
     @Ghost.command(name="nukeserver", description="Delete all roles and channels in the command server.", usage="nukeserver", aliases=["nukeguild"])
     async def nukeserver(ctx):
@@ -6620,13 +6718,13 @@ You have risk mode disabled, you cant use this command.
     async def howgay(ctx, user: discord.User):
         percentage = str(random.randint(15, 100)) + "%"
         if __embedmode__:
-            embed = discord.Embed(title=f"ğŸ³ï¸â€ğŸŒˆ {user.name} is {percentage} gay", color=__embedcolour__)
+            embed = discord.Embed(title=f"?????? {user.name} is {percentage} gay", color=__embedcolour__)
             embed.set_thumbnail(url=__embedimage__)
             embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
             embed.timestamp = datetime.now()
             await ctx.send(embed=embed)
         else:
-            await ctx.send(f"ğŸ³ï¸â€ğŸŒˆ {user} is {percentage} gay")        
+            await ctx.send(f"?????? {user} is {percentage} gay")        
 
     @Ghost.command(name="slots", description="Play the slot machine.", usage="slots")
     async def slots(ctx):
@@ -6644,7 +6742,7 @@ You have risk mode disabled, you cant use this command.
 # {__embedfooter__}
 ```""")
 
-        emojis = [("ğŸ’", 0.01), ("ğŸŠ", 0.02), ("ğŸ", 0.06), ("ğŸ’", 0.08), ("ğŸ†", 0.14), ("ğŸ‰", 0.24), ("ğŸ°", 0.36)]
+        emojis = [("??", 0.01), ("??", 0.02), ("??", 0.06), ("??", 0.08), ("??", 0.14), ("??", 0.24), ("??", 0.36)]
         emojis2 = []
 
         for emoji, probability in emojis:
@@ -6928,7 +7026,7 @@ You have risk mode disabled, you cant use this command.
 
     @Ghost.command(name="8ball", description="Ask the magic eight ball a question.", usage="8ball [question]", aliases=["eightball", "magic8ball"])
     async def eightball(ctx, *, question):
-        choices = ["As I see it, yes.", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Concentrate and ask again.", "Donâ€™t count on it.", "It is certain.", "It is decidedly so.", "Most likely.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Outlook good.", "Reply hazy, try again.", "Signs point to yes.", "Very doubtful.", "Without a doubt.", "Yes.", "Yes â€“ definitely.", "You may rely on it."]
+        choices = ["As I see it, yes.", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Concentrate and ask again.", "Don’t count on it.", "It is certain.", "It is decidedly so.", "Most likely.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Outlook good.", "Reply hazy, try again.", "Signs point to yes.", "Very doubtful.", "Without a doubt.", "Yes.", "Yes – definitely.", "You may rely on it."]
         choice = random.choice(choices)
         choice = "8ball says, " + choice
         if __embedmode__:
@@ -7308,32 +7406,32 @@ Address: {address}
         text = text.lower()
 
         regional_indicators = {
-        'a': 'ğšŠ',
-        'b': 'ğš‹',
-        'c': 'ğšŒ',
-        'd': 'ğš',
-        'e': 'ğš',
-        'f': 'ğš',
-        'g': 'ğš',
-        'h': 'ğš‘',
-        'i': 'ğš’',
-        'j': 'ğš“',
-        'k': 'ğš”',
-        'l': 'ğš•',
-        'm': 'ğš–',
-        'n': 'ğš—',
-        'o': 'ğš˜',
-        'p': 'ğš™',
-        'q': 'ğšš',
-        'r': 'ğš›',
-        's': 'ğšœ',
-        't': 'ğš',
-        'u': 'ğš',
-        'v': 'ğšŸ',
-        'w': 'ğš ',
-        'x': 'ğš¡',
-        'y': 'ğš¢',
-        'z': 'ğš£'
+        'a': '??',
+        'b': '??',
+        'c': '??',
+        'd': '??',
+        'e': '??',
+        'f': '??',
+        'g': '??',
+        'h': '??',
+        'i': '??',
+        'j': '??',
+        'k': '??',
+        'l': '??',
+        'm': '??',
+        'n': '??',
+        'o': '??',
+        'p': '??',
+        'q': '??',
+        'r': '??',
+        's': '??',
+        't': '??',
+        'u': '??',
+        'v': '??',
+        'w': '??',
+        'x': '??',
+        'y': '??',
+        'z': '??'
         }
 
         output = ""
@@ -7851,7 +7949,7 @@ Nitro: {nitro}
         else:
             await ctx.send("Failed to get information about this token. Probably invalid or from a delete user.")                  
 
-    @Ghost.command(name="userinfo", description="Information about the mentioned user.", usage="userinfo [@user]", aliases=["userlookup", "lookupuser"])
+    @Ghost.command(name="userinfo", description="Information about the mentioned user.", usage="userinfo [@user]", aliases=["userlookup", "lookupuser", "whois"])
     async def userinfo(ctx, *, user: discord.User):
         if __embedmode__:
             embed = discord.Embed(title=user.name + " Information", color=__embedcolour__)
@@ -7874,7 +7972,7 @@ User ID: {user.id}
 Created At: {createdAt}
 
 
-# {__embedfooter__}```{avatarUrl(user.id, user.avatar)}""")
+# {__embedfooter__}```{avatarUrl(user.id, user.avatar)}""", delete_after=__deletetimeout__)
 
     @Ghost.command(name="serverinfo", description="Information about the command server.", usage="serverinfo (guild id)", aliases=["lookupserver", "guildinfo", "lookupguild", "serverlookup", "guildlookup"])
     async def serverinfo(ctx, guild:int=None):
@@ -7909,7 +8007,7 @@ Server ID: {server.id}
 Created At: {createdAt}
 
 
-# {__embedfooter__}```{str(server.icon)}""")
+# {__embedfooter__}```{str(server.icon)}""", delete_after=__deletetimeout__)
             except:
                 await ctx.send(f"""```ini
 [ {server.name} Information ]
@@ -7920,7 +8018,7 @@ Server ID: {server.id}
 Created At: {createdAt}
 
 
-# {__embedfooter__}```{str(server.icon)}""")                        
+# {__embedfooter__}```{str(server.icon)}""" )                        
 
     @Ghost.command(name="avatar", description="Get the mentioned user's avatar.", usage="avatar [@user]", aliases=["pfp", "profilepicture"])
     async def avatar(ctx, *, user: discord.User):
@@ -7982,7 +8080,7 @@ Created At: {createdAt}
             embed.add_field(name="Logins", value=f"```{logindata_decoded}```")
             embed.add_field(name="Version", value=f"```{version}```")
             embed.add_field(name="Prefix", value=f"```{Ghost.command_prefix}```")
-            embed.add_field(name="UID", value=f"```{__uid__}```")
+            #embed.add_field(name="UID", value=f"```{__uid__}```")
             embed.add_field(name="Servers", value=f"```{totalguilds}```")
             #embed.add_field(name="Uptime", value=f"```{days}d, {hours}h, {minutes}m, {seconds}s```")
             embed.add_field(name="Uptime", value=f"```{uptimeText}```")
@@ -8182,6 +8280,8 @@ Status changed to: Watching {text}
     #         print(rawevent)
 
     # GhostDiscum.gateway.run()
+                                       
+          
 
 except Exception as e:
     if "improper token" in str(e).lower():
