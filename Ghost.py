@@ -3517,25 +3517,25 @@ That crypto currency doesnt exist or there was an error.
             CONFIG["detections"]["selfbot"] = True
             json.dump(CONFIG, open("config.json", "w"), indent=4, sort_keys=False)
             await ctx.send("Selfbot detection has been enabled.", delete_after=__deletetimeout__)
-        if type.lower() == "ghostping":
+        elif type.lower() == "ghostping":
             global __ghostpingdetect__
             __ghostpingdetect__ = True
             CONFIG["detections"]["ghostping"] = True
             json.dump(CONFIG, open("config.json", "w"), indent=4, sort_keys=False)
             await ctx.send("Ghostping detection has been enabled.", delete_after=__deletetimeout__)    
-        if type.lower() == "bans":
+        elif type.lower() == "bans":
             global __bandetect__
             __bandetect__ = True
             CONFIG["detections"]["bans"] = True
             json.dump(CONFIG, open("config.json", "w"), indent=4, sort_keys=False)
             await ctx.send("Ban detection has been enabled.", delete_after=__deletetimeout__)    
-        if type.lower() == "deletedmessages":
+        elif type.lower() == "deletedmessages":
             global __deletedmessagesdetect__
             __deletedmessagesdetect__ = True
             CONFIG["detections"]["deletedmessages"] = True
             json.dump(CONFIG, open("config.json", "w"), indent=4, sort_keys=False)
             await ctx.send("Deleted messages detection has been enabled.", delete_after=__deletetimeout__)    
-        if type.lower() == "webhookmodification":
+        elif type.lower() == "webhookmodification":
             global __webhookmodificationdetect__
             __webhookmodificationdetect__ = True
             CONFIG["detections"]["webhookmodification"] = True
