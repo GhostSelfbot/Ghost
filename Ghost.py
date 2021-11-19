@@ -750,6 +750,8 @@ async def example(Ghost):
         print(f"{printSpaces}{fg.cGrey}[{getCurrentTime()}] {fg.cRed}[ERROR] {fg.cWhite}{error}")
     def print_detect(message):
         print(f"{printSpaces}{fg.cGrey}[{getCurrentTime()}] {fg.cPink}[DETECT] {fg.cWhite}{message}")
+    def print_debug(message):
+        print(f"{printSpaces}{fg.cGrey}[{getCurrentTime()}] {fg.cOrange}[Debug] {fg.cWhite}{message}")
     def print_sniper(message):
         print(f"{printSpaces}{fg.cGrey}[{getCurrentTime()}] {fg.cOrange}[SNIPER] {fg.cWhite}{message}")
     def print_sniper_info(firstmessage, secondmessage):
@@ -3469,8 +3471,11 @@ That crypto currency doesnt exist or there was an error.
     async def stealpfp(ctx, user:discord.User):
         DiscumClient = discum.Client(token=__token__, log=False, user_agent=get_random_user_agent())
         avatar1 = user.avatar
+        userid = user.id
         extension = str(avatar1)[:-10][-3:]
-        open(f"data/pfpstealavatar.{extension}", "wb").write(requests.get(str(avatar1), allow_redirects=True).content)
+        cdnlink = "https://cdn.discordapp.com/avatars/" + str(userid) + "/" + avatar1+ ".webp?=2048"
+        print_debug(cdnlink)
+        open(f"data/pfpstealavatar.{extension}", "wb").write(requests.get(str(cdnlink), allow_redirects=True).content)
         DiscumClient.setAvatar(f"data/pfpstealavatar.{extension}")
         await ctx.send(f"Stolen `{user}`'s avatar.", delete_after=__deletetimeout__)
 
@@ -3649,7 +3654,7 @@ That crypto currency doesnt exist or there was an error.
 #                 message = await ctx.send("Looking for people that have Ghost, this may take a while...")
 
 #                 ghostUsers = []
-#                 userAgent = get_random_user_agent()
+#                 userAgent git config --global user.email= get_random_user_agent()
 #                 try:
 #                     await ctx.message.delete()
 #                 except:
