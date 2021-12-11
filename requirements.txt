@@ -24,3 +24,6 @@ sounddevice
 discord-emoji
 pync
 WMI
+bs4
+python-risize-image
+Wand
