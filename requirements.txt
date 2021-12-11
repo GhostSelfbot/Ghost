@@ -25,5 +25,5 @@ discord-emoji
 pync
 WMI
 bs4
-python-risize-image
+python-resize-image
 Wand
