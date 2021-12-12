@@ -2474,8 +2474,6 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 `{Ghost.command_prefix}`**pornhub ["text 1"] ["text 2"]** » Create a pornhub logo image.
 `{Ghost.command_prefix}`**salty [@user]** » Make someone salty.
 `{Ghost.command_prefix}`**ship [@user 1] [@user 2]** » Ship two people.
-`{Ghost.command_prefix}`**supreme [text]** » Create a supreme logo image.
-`{Ghost.command_prefix}`**trash [@user]** » Put someone in the trash.
 `{Ghost.command_prefix}`**what [image url]** » Make a what meme.
 
             """)
@@ -2509,8 +2507,6 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 {Ghost.command_prefix}pornhub ["text 1"] ["text 2"] » Create a pornhub logo image.
 {Ghost.command_prefix}salty [@user] » Make someone salty.
 {Ghost.command_prefix}ship [@user 1] [@user 2] » Ship two people.
-{Ghost.command_prefix}supreme [text] » Create a supreme logo image.
-{Ghost.command_prefix}trash [@user] » Put someone in the trash.
 {Ghost.command_prefix}what [image url] » Make a what meme.
 
 
