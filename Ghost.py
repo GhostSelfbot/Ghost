@@ -24,6 +24,9 @@
 # THE SOFTWARE IS ALSO NOT PROVIDED WITH SUPPORT AND IF YOU REQUIRE SUPPORT 
 # THEN PLEASE EITHER USE A DIFFERENT PEICE OF SOFTWARE OR PAY THE DEVELOPER
 
+# Some functions are from the AlexFlipnote Image API which is removed and open-sourced now at : https://github.com/AlexFlipnote/alex_api_archive
+# couldn't import supreme and trash function since they are not in the github (yet ?)
+
 import os
 from re import T
 
@@ -283,6 +286,7 @@ try:
     from datetime import datetime, timedelta
     import numpy as np
     from faker import Faker 
+    from io import BytesIO
 
     def update_config():
         configJson = json.load(open("config.json"))
@@ -6334,359 +6338,664 @@ You have risk mode disabled, you cant use this command.
         else:
             await ctx.send(data['message'])
 
+    def create_achievement(title: str, ach: str, colour=(255, 255, 0, 255), icon: int = None):
+        from PIL import Image, ImageFont, ImageDraw
+
+        randomimage = icon if icon else random.randint(1, 45)
+        front = Image.open(f"assets/achievement/{randomimage}.png")
+
+        txt = Image.new("RGBA", (len(ach) * 15, 64))
+
+        fnt = ImageFont.truetype('assets/_fonts/Minecraft.ttf', 16)
+        d = ImageDraw.Draw(txt)
+
+        w, h = d.textsize(ach, font=fnt)
+        w = max(320, w)
+
+        mid = Image.new("RGBA", (w + 20, 64), (255, 255, 255, 0))
+
+        midd = Image.open("assets/achievement/achmid.png")
+        end = Image.open("assets/achievement/achend.png")
+
+        for i in range(0, w):
+            mid.paste(midd, (i, 0))
+        mid.paste(end, (w, 0))
+
+        txt = Image.new("RGBA", (w + 20, 64), (255, 255, 255, 0))
+
+        d = ImageDraw.Draw(txt)
+        d.text((0, 9), title, font=fnt, fill=colour)
+        d.text((0, 29), ach, font=fnt, fill=(255, 255, 255, 255))
+
+        mid = Image.alpha_composite(mid, txt)
+
+        im = Image.new("RGBA", (w + 80, 64))
+
+        im.paste(front, (0, 0))
+        im.paste(mid, (60, 0))
+
+        bio = BytesIO()
+        im.save(bio, "PNG")
+        bio.seek(0)
+        return bio
+
     @Ghost.command(name="achievement", description="Create a fake minecraft achievement image.", usage='achievement ["text"] (icon)', aliases=["minecraftachievement"])
     async def achievement(ctx, text, icon=10):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if not icon in range(1, 46):
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="Icon must be between 1 and 46.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:
-            icon = str(icon)
-            text = text.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/achievement?text={text}&icon={icon}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
+                await ctx.send("Icon must be between 1 and 46.")
+                return
+        
+        if len(text) > 500:
             if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
+                embed = discord.Embed(description="Text must be under 500 characters.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
+                await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send(file=file)  
-            os.remove("image.png")     
+                await ctx.send("Text must be under 500 characters.")
+                return
+
+        icon = str(icon)
+        """
+        helper_icons = {
+            "1": "Grass block", "2": "Diamond", "3": "Diamond sword",
+            "4": "Creeper", "5": "Pig", "6": "TNT",
+            "7": "Cookie", "8": "Heart", "9": "Bed",
+            "10": "Cake", "11": "Sign", "12": "Rail",
+            "13": "Crafting bench", "14": "Redstone", "15": "Fire",
+            "16": "Cobweb", "17": "Chest", "18": "Furnace",
+            "19": "Book", "20": "Stone block", "21": "Wooden plank block",
+            "22": "Iron ingot", "23": "Gold ingot", "24": "Wooden door",
+            "25": "Iron Door", "26": "Diamond chestplate", "27": "Flint and steel",
+            "28": "Glass bottle", "29": "Splash potion", "30": "Creeper spawnegg",
+            "31": "Coal", "32": "Iron sword", "33": "Bow",
+            "34": "Arrow", "35": "Iron chestplate", "36": "Bucket",
+            "37": "Bucket with water", "38": "Bucket with lava", "39": "Bucket with milk",
+            "40": "Diamond boots", "41": "Wooden hoe", "42": "Bread", "43": "Wooden sword",
+            "44": "Bone", "45": "Oak log"
+        }
+        """
+
+        imageFile = open("image.png", "wb").write(create_achievement(title="Achievement Get!", ach=text, icon=icon).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png") 
 
     @Ghost.command(name="challenge", description="Create a fake minecraft challenge image.", usage='challenge ["text"] (icon)', aliases=["minecraftchallenge"])
     async def challenge(ctx, text, icon=33):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if not icon in range(1, 46):
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="Icon must be between 1 and 46.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text = text.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/challenge?text={text}&icon={icon}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
+                await ctx.send("Icon must be between 1 and 46.")
+                return
+        
+        if len(text) > 500:
             if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
+                embed = discord.Embed(description="Text must be under 500 characters.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
+                await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send(file=file)  
-            os.remove("image.png")        
+                await ctx.send("Text must be under 500 characters.")
+                return
+
+        icon = str(icon)
+
+        imageFile = open("image.png", "wb").write(create_achievement(title="Challenge Complete!", ach=text, icon=icon, colour=(255,128,250)).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")        
+
+    def create_captcha(text):
+        from PIL import Image, ImageFont, ImageDraw
+        front = Image.open("assets/captcha/start.png")
+
+        txt = Image.new("RGBA", (len(text) * 15, 189))
+
+        fnt = ImageFont.truetype('assets/_fonts/Roboto.ttf', 30)
+        d = ImageDraw.Draw(txt)
+
+        w, h = d.textsize(text, font=fnt)
+        w = max(450, w)
+
+        mid = Image.new("RGBA", (w + 201, 189), (255, 255, 255, 0))
+
+        midd = Image.open("assets/captcha/mid.png")
+        end = Image.open("assets/captcha/end.png")
+
+        for i in range(0, w):
+            mid.paste(midd, (i, 0))
+        mid.paste(end, (w, 0))
+
+        txt = Image.new("RGBA", (w + 201, 189), (255, 255, 255, 0))
+
+        d = ImageDraw.Draw(txt)
+        d.text((10, 73), text, font=fnt, fill=(0, 0, 0, 255))
+
+        mid = Image.alpha_composite(mid, txt)
+
+        im = Image.new("RGBA", (w + 323, 189))
+
+        im.paste(front, (0, 0))
+        im.paste(mid, (122, 0))
+
+        bio = BytesIO()
+        im.save(bio, "PNG")
+        bio.seek(0)
+        return bio
 
     @Ghost.command(name="captcha", description="Create a fake reCaptcha.", usage="captcha [text]", aliases=["fakecaptcha"])
     async def captcha(ctx, *, text):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if len(text) > 500:
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="Text must be under 500 characters.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text = text.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/captcha?text={text}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")                                                         
+                await ctx.send("Text must be under 500 characters.")
+                return
+
+        imageFile = open("image.png", "wb").write(create_captcha(text=text).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")                                                         
+
+    def create_bad(url):
+        from PIL import Image
+        base = Image.open('assets/amiajoke/joke.jpg')
+        bg = Image.new("RGBA", (276, 276), (0, 0, 0))
+
+        face_req = requests.get(url).content
+        image = Image.open(BytesIO(face_req)).convert("RGBA")
+        face = image.resize((276, 276))
+        
+
+        base.paste(bg, (335, 35), bg)
+        base.paste(face, (335, 35), face)
+
+        bio = BytesIO()
+        base.save(bio, "PNG")
+        bio.seek(0)
+        return bio
+
+
 
     @Ghost.command(name="amiajoke", description="Make a user a joke.", usage="amiajoke [@user]", aliases=["amiajoketoyou"])
     async def amiajoke(ctx, user:discord.User):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            imageurl = avatarUrl(user.id, user.avatar)
-            image = requests.get(f"https://api.alexflipnote.dev/amiajoke?image={imageurl}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")   
+        imageurl = avatarUrl(user.id, user.avatar)
+        imageFile = open("image.png", "wb").write(create_bad(url=imageurl).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")   
+
+    def create_didyoumean(top: str, bottom: str):
+        from PIL import Image, ImageFont, ImageDraw
+
+        template = Image.open('assets/didyoumean/bg.png')
+        imsize = (1302, 316)
+
+        # == Text ==
+        txt = Image.new("RGBA", imsize)
+
+        fnt = ImageFont.truetype('assets/_fonts/Arial.ttf', 35)
+        fntBI = ImageFont.truetype('assets/_fonts/ArialBI.ttf', 35)
+        d = ImageDraw.Draw(txt)
+        d.text((45, 41), top, font=fnt, fill=(0, 0, 0, 255))
+        d.text((295, 250), bottom, font=fntBI, fill=(26, 13, 171, 255))
+        d = ImageDraw.Draw(txt)
+
+        im = Image.new("RGBA", imsize)
+
+        im.paste(template, (0, 0))
+        im.paste(txt, (0, 0), txt)
+
+        bio = BytesIO()
+        im.save(bio, "PNG")
+        bio.seek(0)
+        return bio
 
     @Ghost.command(name="didyoumean", description="Create a google did you mean image.", usage='didyoumean ["text 1"] ["text 2"]', aliases=["googledidyoumean"])
     async def didyoumean(ctx, text1="Nighty", text2="Ghost"):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if len(text1) > 45:
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="text1 must be under 45 characters.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text1 = text1.replace(" ", "+")
-            text2 = text2.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/didyoumean?top={text1}&bottom={text2}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
+                await ctx.send("text1 must be under 45 characters.")
+                return
+        if len(text2) > 40:
             if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
+                embed = discord.Embed(description="text2 must be under 40 characters.", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
+                await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send(file=file)  
-            os.remove("image.png") 
+                await ctx.send("text2 must be under 40 characters.")
+                return
+
+        imageFile = open("image.png", "wb").write(create_didyoumean(top=text1, bottom=text2).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png") 
+
+    def create_drake(top, bottom, image_template: str = None):
+        from PIL import Image, ImageFont, ImageDraw
+        import textwrap
+
+        top_text = textwrap.fill(top, 13)
+        bottom_text = textwrap.fill(bottom, 13)
+
+        b = BytesIO()
+        template_use = image_template if image_template else 'template.jpg'
+        base = Image.open(f"assets/drake/{template_use}").convert("RGBA")
+        txtO = Image.new("RGBA", base.size, (255, 255, 255, 0))
+        font = ImageFont.truetype("assets/_fonts/verdana_edited.ttf", 35)
+
+        top_pos = 85 + (-12 * len(top_text.split("\n")) + 10)
+        bottom_pos = 335 + (-12 * len(bottom_text.split("\n")) + 10)
+
+        canv = ImageDraw.Draw(txtO)
+        canv.text((250, top_pos), top_text, font=font, fill="Black")
+        canv.text((250, bottom_pos), bottom_text, font=font, fill="Black")
+
+        out = Image.alpha_composite(base, txtO)
+
+        out.save(b, "PNG")
+        b.seek(0)
+        return b
+
 
     @Ghost.command(name="drake", description="Create a drake meme image.", usage='drake ["text 1"] ["text 2"]', aliases=["drakememe"])
     async def drake(ctx, text1="Nighty Selfbot", text2="Ghost Selfbot"):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if len(text1) + len(text2) > 500:
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="Sorry you are limited to 500 characters", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text1 = text1.replace(" ", "+")
-            text2 = text2.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/drake?top={text1}&bottom={text2}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")                     
+                await ctx.send("Sorry you are limited to 500 characters")
+                return
+
+        imageFile = open("image.png", "wb").write(create_drake(top=text1, bottom=text2).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")                     
+
+    def create_facts(input):
+        from PIL import Image, ImageFont, ImageDraw
+        import textwrap
+
+        final_text = textwrap.fill(input, 22)
+        b = BytesIO()
+
+        base = Image.open("assets/facts/template.jpg").convert("RGBA")
+        txtO = Image.new("RGBA", base.size, (255, 255, 255, 0))
+        font = ImageFont.truetype("assets/_fonts/verdana_edited.ttf", 20)
+
+        canv = ImageDraw.Draw(txtO)
+        canv.text((65, 400), final_text, font=font, fill="Black")
+
+        txtO = txtO.rotate(-15, resample=Image.BICUBIC)
+
+        out = Image.alpha_composite(base, txtO)
+
+        out.save(b, "PNG")
+        b.seek(0)
+        return b
 
     @Ghost.command(name="facts", description="Create a facts meme image.", usage='facts [text]', aliases=["factsmeme"])
     async def facts(ctx, *, text):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if len(text)> 500:
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="Sorry you are limited to 500 characters", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text = text.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/drake?text={text}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+                await ctx.send("Sorry you are limited to 500 characters")
+                return
+
+        imageFile = open("image.png", "wb").write(create_facts(input=text).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")
+
+    def create_jokeoverhead(url):
+        from PIL import Image, ImageFont, ImageDraw
+        base = Image.open('assets/joke/thejoke.png')
+        back = Image.new("RGBA", base.size, (0, 0, 0, 0))
+        try:
+            face_req = requests.get(url).content
+        except:
+            print_error("Couldn't get image from URL")
+            return
+        image = Image.open(BytesIO(face_req)).convert("RGBA")
+        face = image.resize((276, 276))
+
+        bg = Image.new("RGBA", face.size, (0, 0, 0))
+
+        facepos = (127, 125)
+        back.paste(bg, facepos, bg)
+        back.paste(face, facepos, face)
+        back.paste(base, (0, 0), base)
+
+        bio = BytesIO()
+        back.save(bio, "PNG")
+        bio.seek(0)
+        return bio
 
     @Ghost.command(name="jokeoverhead", description="Create a joke over head image.", usage="jokeoverhead [image url]")
     async def jokeoverhead(ctx, *, imageurl):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            image = requests.get(f"https://api.alexflipnote.dev/jokeoverhead?image={imageurl}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")               
+        imageFile = open("image.png", "wb").write(create_jokeoverhead(url=imageurl).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")               
+
+    def create_pornhub(text: str, text2: str, iwidth: int = 16, height: int = 161, padding: int = 10, fontsize: int = 164):
+        from PIL import Image, ImageFont, ImageDraw
+        txt = Image.new("RGBA", (len(text) * 15, height))
+        txt2 = Image.new("RGBA", (len(text2) * 15, height))
+
+        fnt = ImageFont.truetype("assets/_fonts/ArialB.ttf", fontsize)
+        d = ImageDraw.Draw(txt)
+        w, h = d.textsize(text, font=fnt)
+        w2, h2 = d.textsize(text2, font=fnt)
+
+        textwindow_size = w + w2 + padding + (iwidth * 2)
+
+        mid = Image.new("RGBA", (w, height), (255, 255, 255, 0))
+        mid2 = Image.new("RGBA", (w2 + iwidth, height), (255, 255, 255, 0))
+
+        midd_t = Image.new("RGBA", (1, height), (255, 255, 255, 0))
+        start = Image.open("assets/pornhub/pornstart.png")
+        midd = Image.open("assets/pornhub/pornmid.png")
+        end = Image.open("assets/pornhub/pornend.png")
+
+        for i in range(0, w):
+            mid.paste(midd_t, (i, 0))
+
+        for i in range(0, w2):
+            mid2.paste(midd, (i, 0))
+        mid2.paste(end, (w2, 0))
+
+        txt = Image.new("RGBA", (textwindow_size, height), (255, 255, 255, 0))
+        d = ImageDraw.Draw(txt)
+
+        middle_align = -10
+        d.text((0, middle_align), text, font=fnt, fill=(255, 255, 255, 255))
+        d.text((w + iwidth + padding, middle_align), text2, font=fnt, fill=(0, 0, 0, 255))
+
+        im = Image.new("RGBA", (textwindow_size, height), (255, 255, 255, 0))
+
+        im.paste(mid, (0, 0))
+        im.paste(start, (w + padding, 0))
+        im.paste(mid2, (w + iwidth + padding, 0))
+        im.paste(txt, (0, 0), txt)
+        im.paste(txt2, (w + iwidth + padding, 0), txt2)
+
+        bio = BytesIO()
+        im.save(bio, "PNG")
+        bio.seek(0)
+        return bio
 
     @Ghost.command(name="pornhub", description="Create a pornhub logo image.", usage='pornhub ["text 1"] ["text 2"]')
     async def pornhub(ctx, text1="Ghost", text2="Selfbot"):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
+        if len(text1) + len(text2) > 500:
             if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+                embed = discord.Embed(description="Sorry you are limited to 500 characters", color=__embedcolour__)
                 embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
                 embed.timestamp = datetime.now()
                 await ctx.send(embed=embed)
+                return
             else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text1 = text1.replace(" ", "+")
-            text2 = text2.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/pornhub?text={text1}&text2={text2}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+                await ctx.send("Sorry you are limited to 500 characters")
+                return
+
+        imageFile = open("image.png", "wb").write(create_pornhub(text=text1, text2=text2).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")
+
+    def create_salty(url):
+        from PIL import Image
+        salt_size = 100
+
+        base = Image.new("RGBA", (128, 128 + salt_size))
+
+        face_req = requests.get(url).content
+        image = Image.open(BytesIO(face_req)).convert("RGBA")
+        face = image.resize((128, 128))
+
+        salt = Image.open('assets/salty/salt.png')
+        salt_re = salt.resize((salt_size, salt_size))
+
+        base.paste(face, (0, salt_size), face)
+        base.paste(salt_re, (128 - salt_size, 2), salt_re)
+
+        bio = BytesIO()
+        base.save(bio, "PNG")
+        bio.seek(0)
+        return bio
 
     @Ghost.command(name="salty", description="Make someone salty.", usage="salty [@user]")
     async def jokeoverhead(ctx, user:discord.User):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            imageurl = avatarUrl(user.id, user.avatar)
-            image = requests.get(f"https://api.alexflipnote.dev/salty?image={imageurl}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+        imageurl = avatarUrl(user.id, user.avatar)
+        imageFile = open("image.png", "wb").write(create_salty(url=imageurl).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")
+
+    def gen_ship(user, user2):
+        from PIL import Image
+
+        base = Image.new("RGBA", (3 * 128, 128))
+        av = Image.open(BytesIO(requests.get(user).content)).convert("RGBA")
+        av2 = Image.open(BytesIO(requests.get(user2).content)).convert("RGBA")
+
+        av = av.resize((128, 128))
+        av2 = av2.resize((128, 128))
+        mid = Image.open("assets/images/heart.png")
+
+        base.paste(av, (0, 0))
+        base.paste(mid, (128, 0))
+        base.paste(av2, (256, 0))
+
+        b = BytesIO()
+        base.save(b, 'PNG')
+        b.seek(0)
+        return b
 
     @Ghost.command(name="ship", description="Ship two people.", usage="ship [@user 1] [@user 2]")
-    async def ship(ctx, user1:discord.User, user2:discord.User):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            user1 = avatarUrl(user1.id, user1.avatar)
-            user2 = avatarUrl(user2.id, user2.avatar)
-            image = requests.get(f"https://api.alexflipnote.dev/ship?user={user1}&user2={user2}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+    async def ship(ctx, user1:discord.User, user2:discord.User):              
+        user1 = avatarUrl(user1.id, user1.avatar)
+        user2 = avatarUrl(user2.id, user2.avatar)
+        imageFile = open("image.png", "wb").write(gen_ship(user1, user2).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")
 
-    @Ghost.command(name="supreme", description="Create a supreme logo image.", usage='supreme [text]')
-    async def supreme(ctx, *, text):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            text = text.replace(" ", "+")
-            image = requests.get(f"https://api.alexflipnote.dev/supreme?text={text}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+#    @Ghost.command(name="supreme", description="Create a supreme logo image.", usage='supreme [text]')
+#    async def supreme(ctx, *, text):
+#        if CONFIG["api_keys"]["alexflipnote"] == "":
+#            if __embedmode__:
+#                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+#                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+#                embed.timestamp = datetime.now()
+#                await ctx.send(embed=embed)
+#            else:
+#                await ctx.send("This command requires an alexflipnote API key.")                     
+#        else:                
+#            text = text.replace(" ", "+")
+#            image = requests.get(f"https://api.alexflipnote.dev/supreme?text={text}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
+#            imageFile = open("image.png", "wb").write(image.content)
+#            file = discord.File("image.png", filename="image.png")
+#            if __embedmode__:
+#                embed = discord.Embed(color=__embedcolour__)
+#                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+#                embed.timestamp = datetime.now()
+#                embed.set_image(url="attachment://image.png")
+#                await ctx.send(file=file, embed=embed)
+#            else:
+#                await ctx.send(file=file)  
+#            os.remove("image.png")
 
-    @Ghost.command(name="trash", description="Put someone in the trash.", usage='trash [@user]')
-    async def trash(ctx, user: discord.User):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            trash = avatarUrl(user.id, user.avatar)
-            face = avatarUrl(Ghost.user.id, Ghost.user.avatar)
-            image = requests.get(f"https://api.alexflipnote.dev/trash?trash={trash}&face={face}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+#    @Ghost.command(name="trash", description="Put someone in the trash.", usage='trash [@user]')
+#    async def trash(ctx, user: discord.User):
+#        if CONFIG["api_keys"]["alexflipnote"] == "":
+#            if __embedmode__:
+#                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
+#                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+#                embed.timestamp = datetime.now()
+#                await ctx.send(embed=embed)
+#            else:
+#                await ctx.send("This command requires an alexflipnote API key.")                     
+#        else:                
+#            trash = avatarUrl(user.id, user.avatar)
+#            face = avatarUrl(Ghost.user.id, Ghost.user.avatar)
+#            image = requests.get(f"https://api.alexflipnote.dev/trash?trash={trash}&face={face}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
+#            imageFile = open("image.png", "wb").write(image.content)
+#            file = discord.File("image.png", filename="image.png")
+#            if __embedmode__:
+#                embed = discord.Embed(color=__embedcolour__)
+#                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+#                embed.timestamp = datetime.now()
+#                embed.set_image(url="attachment://image.png")
+#                await ctx.send(file=file, embed=embed)
+#            else:
+#                await ctx.send(file=file)  
+#            os.remove("image.png")
+
+    def create_what(url):
+        from PIL import Image
+        base = Image.open('assets/what/what.png')
+        background = Image.new("RGBA", base.size, (0, 0, 0, 255))
+
+        face_req = requests.get(url).content
+        image = Image.open(BytesIO(face_req)).convert("RGBA")
+        face = image.resize((890, 710))
+
+
+        background.paste(face, (40, 40), face)
+        background.paste(base, (0, 0), base)
+
+        bio = BytesIO()
+        background.save(bio, "PNG")
+        bio.seek(0)
+        return bio
 
     @Ghost.command(name="what", description="Make a what meme.", usage='what [image url]')
     async def what(ctx, *, imageurl):
-        if CONFIG["api_keys"]["alexflipnote"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires an alexflipnote API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires an alexflipnote API key.")                     
-        else:                
-            image = requests.get(f"https://api.alexflipnote.dev/what?image={imageurl}", headers={"Authorization": CONFIG["api_keys"]["alexflipnote"]})
-            imageFile = open("image.png", "wb").write(image.content)
-            file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
-            os.remove("image.png")
+        imageFile = open("image.png", "wb").write(create_what(url=imageurl).getbuffer())
+        file = discord.File("image.png", filename="image.png")
+        if __embedmode__:
+            embed = discord.Embed(color=__embedcolour__)
+            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+            embed.timestamp = datetime.now()
+            embed.set_image(url="attachment://image.png")
+            await ctx.send(file=file, embed=embed)
+        else:
+            await ctx.send(file=file)  
+        os.remove("image.png")
 
     @Ghost.command(name="purgehack", description="Purge without permissions.", usage="purgehack")
     async def purgehack(ctx):
