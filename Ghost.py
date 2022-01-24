@@ -402,10 +402,6 @@ try:
             configJson["detections"]["guildleave"] = bool(True)
             print(printSpaces+"Adding guild leave detection to config.")     
 
-        if ("embed_mode" not in configFile):
-            configJson["embed_mode"] = bool(False)
-            print(printSpaces+"Adding embed mode to config.")
-
         if ("ignored_servers" not in configFile):
             configJson["ignored_servers"] = {}
             configJson["ignored_servers"]["nitro"] = []
@@ -753,7 +749,6 @@ async def example(Ghost):
     __embedimage__ = THEME["embedimage"]
     __embedlargeimage__ = THEME["embedlargeimage"]
     __embedfooterimage__ = THEME["embedfooterimage"]
-    __embedmode__ = CONFIG["embed_mode"]
     __consolemode__ = THEME["consolemode"]
 
     __ignoredservers__ = CONFIG["ignored_servers"]
@@ -1966,16 +1961,7 @@ async def example(Ghost):
                 script = script.replace(".py", "")
                 text += f"{script}\n"
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", description=f"Found {totalscripts} custom scripts", color=__embedcolour__)
-            embed.add_field(name="Scripts", value=text)
-            embed.set_author(name="Custom Scripts")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_image(url=__embedlargeimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Custom Scripts ]
 
 Found {totalscripts} custom scripts
@@ -1992,16 +1978,7 @@ Found {totalscripts} custom scripts
             cmd = key
             ccmd2 = ccmd2 + f"{__prefix__}{cmd}\n"
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"Found {totalcmds} custom commands.")
-            embed.add_field(name="Commands", value=ccmd2)
-            embed.set_author(name="Custom Commands")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_image(url=__embedlargeimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Custom Commands ]
 
 Found {totalcmds} custom commands.
@@ -2027,16 +2004,7 @@ Found {totalcmds} custom commands.
     @Ghost.command(name="search", description="Search for commands.", usage="search [term]")
     async def search(ctx, *, command = None):
         if command is None:
-            if __embedmode__:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description="Please enter a command to search for.")
-                embed.set_author(name="Search")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Search ]
 
 Please enter a command to search for.
@@ -2055,15 +2023,7 @@ Please enter a command to search for.
                     text2 += f"{Ghost.command_prefix}{cmd.usage} » {cmd.description}\n"
 
             try:
-                if __embedmode__:
-                    embed = discord.Embed(title=f"Search results...", description=f"Found `{searchedItems}` items for `{command}`.\n\n{text}", color=__embedcolour__)
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.set_image(url=__embedlargeimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    await ctx.send(f"""```ini
+                await ctx.send(f"""```ini
 [ Searched for {command} ]
 
 {text2}
@@ -2071,15 +2031,7 @@ Please enter a command to search for.
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
             except:
-                if __embedmode__:
-                    embed = discord.Embed(title=f"Check console for search results", color=__embedcolour__)
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.set_image(url=__embedlargeimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    await ctx.send(f"""```ini
+                await ctx.send(f"""```ini
 [ Check console for search results ]
 
 
@@ -2090,40 +2042,7 @@ Please enter a command to search for.
     async def help(ctx, *, command = None):
         totalcmds = len(Ghost.commands)-len(scriptsList)
         if command is None:
-            if __embedmode__:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-Arguments in `[]` are required, arguments in `()` are optional.
-
-`{Ghost.command_prefix}`**text (page 1/2)** » Text commands.
-`{Ghost.command_prefix}`**fun (page 1)** » Fun commands.
-`{Ghost.command_prefix}`**image (page 1)** » Image commands.
-`{Ghost.command_prefix}`**moderation (page 1)** » Moderation commands.
-`{Ghost.command_prefix}`**info (page 1)** » Info commands.
-`{Ghost.command_prefix}`**user (page 1)** » User commands.
-`{Ghost.command_prefix}`**selfbot (page 1)** » Selfbot commands.
-`{Ghost.command_prefix}`**webhook (page 1)** » Webhook commands.
-`{Ghost.command_prefix}`**abuse (page 1)** » Abuse commands.
-`{Ghost.command_prefix}`**themes (page 1)** » Theme commands.
-`{Ghost.command_prefix}`**giveaway (page 1)** » Giveaway commands.
-`{Ghost.command_prefix}`**nsfw (page 1)** » NSFW commands.
-`{Ghost.command_prefix}`**proxy (page 1)** » Proxy commands.
-`{Ghost.command_prefix}`**tools (page 1)** » Discord and other tools.
-`{Ghost.command_prefix}`**customcommands** » Your custom commands.
-`{Ghost.command_prefix}`**customscripts** » Your scripts.
-
-`{Ghost.command_prefix}`**search [term]** » Search for a command.
-`{Ghost.command_prefix}`**help (command)** » Help for a specific command.
-
-There is a total of `{totalcmds}` commands.
-            """)
-                embed.set_author(name="All Commands")
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ {__embedtitle__} ]
 
 Arguments in [] are required, arguments in () are optional.
@@ -2157,18 +2076,7 @@ There is a total of {totalcmds} commands.
                 if command == cmd.name or command in cmd.aliases:
                     if not cmd.aliases:
                         cmd.aliases.append("No aliases")
-                    if __embedmode__:
-                        embed = discord.Embed(title=f"{cmd.name}", color=__embedcolour__)
-                        embed.add_field(name="Usage", value=f"{cmd.usage}", inline=False)
-                        embed.add_field(name="Description", value=f"{cmd.description}", inline=False)
-                        embed.add_field(name="Aliases", value=', '.join(cmd.aliases))
-                        embed.set_thumbnail(url=__embedimage__)
-                        embed.set_image(url=__embedlargeimage__)
-                        embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                        embed.timestamp = datetime.now()
-                        await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                    else:
-                        await ctx.send(f"""```ini
+                    await ctx.send(f"""```ini
 [ {cmd.name} ]
 
 Usage: {cmd.usage}
@@ -2185,19 +2093,7 @@ Description: {cmd.description}
                 theme = theme.replace(".json", "")
                 themes += f"{theme}\n"
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__)
-            embed.add_field(name="Current Theme", value=f"{__theme__}", inline=False)
-            embed.add_field(name="Other Themes", value=f"{themes}", inline=False)
-            embed.add_field(name="Commands", value=f"`{Ghost.command_prefix}`**newtheme [name]** » Create a new theme with the given name.\n`{Ghost.command_prefix}`**deltheme [name]** » Delete the named theme.\n`{Ghost.command_prefix}`**theme [theme]** » Change your current theme.\n`{Ghost.command_prefix}`**ctheme** » Community themes.", inline=False)
-            embed.set_author(name="Theme Commands")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_image(url=__embedlargeimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Theme Commands ]
 
 Current Theme: {__theme__}
@@ -2220,17 +2116,7 @@ Current Theme: {__theme__}
             url = "https://raw.githubusercontent.com/GhostSelfbot/Community-Themes/main/themes.txt"
             themes = requests.get(url).text.split("\n")
 
-            if __embedmode__:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", description=f"Community Themes, run `{Ghost.command_prefix}ctheme (theme name)` to download the theme.\n ", color=__embedcolour__)
-                embed.add_field(name="Theme List", value='\n'.join(themes))
-                embed.set_author(name="Community Themes")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Community Themes ]
 
 Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the theme.
@@ -2253,15 +2139,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
                 data = requests.get(url, allow_redirects=True)
                 open(f'themes/{dl}.json', 'wb').write(data.content)
 
-                if __embedmode__:
-                    embed = discord.Embed(title="Theme downloaded successfully", color=__embedcolour__)
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_image(url=__embedlargeimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    await ctx.send(f"""```ini
+                await ctx.send(f"""```ini
 [ Theme downloaded successfully ]
 
 
@@ -2269,70 +2147,8 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="text", description="Text related commands.", usage="text (page)")
     async def text(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**js [message]** » Send all your messages in a JavaScript code block.
-`{Ghost.command_prefix}`**lua [message]** » Send all your messages in a Lua code block.
-`{Ghost.command_prefix}`**php [message]** » Send all your messages in a PHP code block.
-`{Ghost.command_prefix}`**html [message]** » Send all your messages in a HTML code block.
-`{Ghost.command_prefix}`**css [message]** » Send all your messages in a CSS code block.
-`{Ghost.command_prefix}`**yaml [message]** » Send all your messages in a YAML code block.
-`{Ghost.command_prefix}`**json [message]** » Send all your messages in a JSON code block.
-`{Ghost.command_prefix}`**cpp [message]** » Send all your messages in a C++ code block.
-`{Ghost.command_prefix}`**cs [message]** » Send all your messages in a C# code block.
-`{Ghost.command_prefix}`**java [message]** » Send all your messages in a Java code block.
-`{Ghost.command_prefix}`**python [message]** » Send all your messages in a Python code block.
-`{Ghost.command_prefix}`**secret [message]** » Send all your messages in a secret block.
-`{Ghost.command_prefix}`**secretletters [message]** » Put all lettes from your message into separate secret blocks
-`{Ghost.command_prefix}`**regional [message]** » Replace all letters with emoji.
-`{Ghost.command_prefix}`**bold [message]** » Send all your messages in bold.
-`{Ghost.command_prefix}`**italic [message]** » Send all your messages in italics.
-            """)
-                embed.set_author(name="Text Commands (1/2)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            elif page == 2:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**rembed (delay) [title]** » Kill Discord's API with a sexy rainbow embedded message.
-`{Ghost.command_prefix}`**cembed [title] [description] [colour]** » Create a custom embedded message.
-`{Ghost.command_prefix}`**embed [title]** » Create an embedded message.
-`{Ghost.command_prefix}`**suggest [suggestion]** » Suggest something.
-`{Ghost.command_prefix}`**privatemsg [message]** » Send an encrypted message.
-`{Ghost.command_prefix}`**privatemsgdecode [message]** » Decode an encrypted message.
-`{Ghost.command_prefix}`**blank** » Send a blank message
-`{Ghost.command_prefix}`**length [string]** » Get the length of a string.
-`{Ghost.command_prefix}`**chatbypass [text]** » Bypass chat language restrictions.
-`{Ghost.command_prefix}`**shrug** » Shrug your arms.
-`{Ghost.command_prefix}`**tableflip** » Flip the table.
-`{Ghost.command_prefix}`**unflip** » Put the table back.
-`{Ghost.command_prefix}`**lmgtfy [search]** » Let me Google that for you.
-`{Ghost.command_prefix}`**typing [start/stop]** » Start or stop typing.
-`{Ghost.command_prefix}`**aesthetic [text]** » Send your text s p a c e d out.
-`{Ghost.command_prefix}`**lowercase [msg]** » Send your message in lowercase.
-`{Ghost.command_prefix}`**uppercase [msg]** » Send your message in uppercase.
-`{Ghost.command_prefix}`**sentencecase [msg]** » Send your messages in sentence case.
-`{Ghost.command_prefix}`**ascii [text]** » Send your message in ascii.
-`{Ghost.command_prefix}`**zalgo [text]** » Unleash the zalgo into your message.  
-`{Ghost.command_prefix}`**leet [text]** » Turn your text into 1337 text.
-`{Ghost.command_prefix}`**fakeedited [message]** » "Edit" a message.
-`{Ghost.command_prefix}`**brainfuck [text]** » Generate brainfuck code from text.
-`{Ghost.command_prefix}`**executebrainfuck [code]** » Execute brainfuck code.
-            """)
-                embed.set_author(name="Text Commands (2/2)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass
-        else:
-            if page == 1:
-                await ctx.send(f"""```ini
+        if page == 1:
+            await ctx.send(f"""```ini
 [ Text Commands (1/2) ]
 
 {Ghost.command_prefix}js [message] » Send all your messages in a JavaScript code block.
@@ -2355,8 +2171,8 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
 
-            elif page == 2:
-                await ctx.send(f"""```ini
+        elif page == 2:
+            await ctx.send(f"""```ini
 [ Text Commands (2/2) ]
 
 {Ghost.command_prefix}rembed (delay) [title] » Kill Discord's API with a sexy rainbow embedded message.
@@ -2387,46 +2203,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="fun", description="Fun related commands.", usage="fun")
     async def fun(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**slots** » Play the slot machine.
-`{Ghost.command_prefix}`**yomomma** » Random yo momma joke.
-`{Ghost.command_prefix}`**socialcredit [@user]** » A users social credit score. 
-`{Ghost.command_prefix}`**roast [@user]** » Roast a user.
-`{Ghost.command_prefix}`**howgay [@user]** » How gay a user is.
-`{Ghost.command_prefix}`**howskid [@user]** » Check the percentage of a skid.
-`{Ghost.command_prefix}`**halal [@user]** » Checks if a user is halal or haram.
-`{Ghost.command_prefix}`**iq [@user]** » Check how smart a user is.
-`{Ghost.command_prefix}`**pp [@user]** » The length of a user's penis.
-`{Ghost.command_prefix}`**rainbowrole [@role]** » Kill Discord's API with a sexy rainbow role.
-`{Ghost.command_prefix}`**coinflip** » Flip a coin.
-`{Ghost.command_prefix}`**dice** » Roll a dice.
-`{Ghost.command_prefix}`**8ball [question]** » Ask the magic eight ball a question.
-`{Ghost.command_prefix}`**choice [choice1] [choice2]** » Pick a random choice.
-`{Ghost.command_prefix}`**range [number1] [number2]** » Choose a random number between two.
-`{Ghost.command_prefix}`**dox [@user]** » Dox the mentioned user.
-`{Ghost.command_prefix}`**fakenitro [url]** » Hide a link in a nitro URL.
-`{Ghost.command_prefix}`**purgehack** » Purge without permissions.
-`{Ghost.command_prefix}`**dadjoke** » A random dad joke.
-`{Ghost.command_prefix}`**randommessage** » A random message.
-`{Ghost.command_prefix}`**randomquestion** » A random question.
-`{Ghost.command_prefix}`**rickroll** » Send never gonna give you up lyrics one by one.
-`{Ghost.command_prefix}`**stoprickroll** » Stop sending rick astley lyrics.
-`{Ghost.command_prefix}`**countdown [number]** » Count down from a number.
-`{Ghost.command_prefix}`**countup [number]** » Count up from a number.
-`{Ghost.command_prefix}`**pytoexe [path]** » Convert a PY file to an executable.
-            """)
-                embed.set_author(name="Fun Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Fun Commands ]
 
 {Ghost.command_prefix}slots » Play the slot machine.
@@ -2461,41 +2238,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="image", description="Image related commands.", usage="image")
     async def image(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**meme** » A random meme.
-`{Ghost.command_prefix}`**cat** » A random cat image.
-`{Ghost.command_prefix}`**dog** » A random dog image.
-`{Ghost.command_prefix}`**shiba** » A random shiba image.
-`{Ghost.command_prefix}`**fox** » A random fox image. (Thanks Imf44 <3)
-`{Ghost.command_prefix}`**avatar [@user]** » Get the mentioned user's avatar.
-`{Ghost.command_prefix}`**servericon** » Get the server's icon. 
-`{Ghost.command_prefix}`**achievement ["text"] (icon)** » Create a fake minecraft achievement image.
-`{Ghost.command_prefix}`**challenge ["text"] (icon)** » Create a fake minecraft challenge image.
-`{Ghost.command_prefix}`**captcha [text]** » Create a fake reCaptcha.
-`{Ghost.command_prefix}`**amiajoke [@user]** » Make a user a joke.
-`{Ghost.command_prefix}`**didyoumean ["text 1"] ["text 2"]** » Create a google did you mean image.
-`{Ghost.command_prefix}`**drake ["text 1"] ["text 2"]** » Create a drake meme image.
-`{Ghost.command_prefix}`**facts [text]** » Create a facts meme image.
-`{Ghost.command_prefix}`**jokeoverhead [image url]** » Create a joke over head image.
-`{Ghost.command_prefix}`**pornhub ["text 1"] ["text 2"]** » Create a pornhub logo image.
-`{Ghost.command_prefix}`**salty [@user]** » Make someone salty.
-`{Ghost.command_prefix}`**ship [@user 1] [@user 2]** » Ship two people.
-`{Ghost.command_prefix}`**trash [@user]** » Put someone in the trash.
-`{Ghost.command_prefix}`**what [image url]** » Make a what meme.
-
-            """)
-                embed.set_author(name="Image Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass         
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Image Commands ]
 
 {Ghost.command_prefix}meme » A random meme.
@@ -2524,25 +2267,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="nsfw", description="NSFW related commands.", usage="nsfw")
     async def nsfw(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**boobs** » Pictures or videos of boobs.
-`{Ghost.command_prefix}`**ass** » Pictures or videos of ass.
-`{Ghost.command_prefix}`**pussy** » Pictures or videos of pussy.
-`{Ghost.command_prefix}`**porngif** » Porn gifs.
-`{Ghost.command_prefix}`**hentai** » Pictures or videos of hentai.
-            """)
-                embed.set_author(name="NSFW Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass         
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ NSFW Commands ]
 
 {Ghost.command_prefix}boobs » Pictures or videos of boobs.
@@ -2556,34 +2281,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="moderation", description="Moderation related commands.", usage="moderation")
     async def moderation(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**ban [@user]** » Ban the mentioned user.
-`{Ghost.command_prefix}`**unban [id]** » Unban the mentioned id.
-`{Ghost.command_prefix}`**banlist** » See the server's ban list.
-`{Ghost.command_prefix}`**kick [@user]** » Kick the mentioned user.
-`{Ghost.command_prefix}`**mute [@user]** » Mute the menitioned user.
-`{Ghost.command_prefix}`**unmute [@user]** » Unmute the mentioned user.
-`{Ghost.command_prefix}`**newrole [name]** » Create a new role.
-`{Ghost.command_prefix}`**delrole [@role]** » Delete the mentioned role.
-`{Ghost.command_prefix}`**purge [amount]** » Purge X amount of messages.
-`{Ghost.command_prefix}`**lock** » Lock the command channel.
-`{Ghost.command_prefix}`**unlock** » Unlock the command channel.
-`{Ghost.command_prefix}`**lockdown** » Lock the entire server.
-`{Ghost.command_prefix}`**unlockdown** » Unlock the entire server.
-`{Ghost.command_prefix}`**spacechannel [channel name]** » Create a channel with spaces.
-            """)
-                embed.set_author(name="Moderation Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Moderation Commands ]
 
 {Ghost.command_prefix}ban [@user] » Ban the mentioned user.
@@ -2606,27 +2304,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="info", description="Info related commands.", usage="info")
     async def info(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**userinfo [@user]** » Information about the mentioned user.
-`{Ghost.command_prefix}`**serverinfo** » Information about the command server.
-`{Ghost.command_prefix}`**watchdogstats** » Get stats about Hypixel's Anticheat, Watchdog.
-`{Ghost.command_prefix}`**getmessage [message id]** » Get a message by ID.
-`{Ghost.command_prefix}`**geoip [ip]** » Get information from an IP address.
-`{Ghost.command_prefix}`**ping [ip/domain]** » Ping a domain or ip address. 
-`{Ghost.command_prefix}`**crypto [currency]** » Get the current data on a cryptocurrency.
-            """)
-                embed.set_author(name="Info Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)     
-            else:
-                pass           
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Info Commands ]
 
 {Ghost.command_prefix}userinfo [@user] » Information about the mentioned user.
@@ -2642,33 +2320,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="user", description="User related commands.", usage="user")
     async def user(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**purgeself [amount]** » Purge your messages.
-`{Ghost.command_prefix}`**statuscycle** » Start a custom status cycle.
-`{Ghost.command_prefix}`**statuscycletext [text]** » Set the text used in status cycle.
-`{Ghost.command_prefix}`**clearstatus** » Clear your status.
-`{Ghost.command_prefix}`**nickname [text]** » Set your nickname to anything.
-`{Ghost.command_prefix}`**clearnickname** » Clear your nickname.
-`{Ghost.command_prefix}`**ppin [message id]** » Add a message to your personal pins.
-`{Ghost.command_prefix}`**ppins** » List all your pinned messages.
-`{Ghost.command_prefix}`**ppindel [pin id]** » Delete a pin from your personal pins.
-`{Ghost.command_prefix}`**backupfriends** » Backup all your friend's user IDs to a file.
-`{Ghost.command_prefix}`**backupservers** » Backup all your servers and try to create invites for each one.
-`{Ghost.command_prefix}`**changehypesquad [bravery/brilliance/balance]** » Change your hypesquad house.
-`{Ghost.command_prefix}`**stealpfp [@user]** » Set someones avatar as your avatar.
-            """)
-                embed.set_author(name="User Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)       
-            else:
-                pass         
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ User Commands ]
 
 {Ghost.command_prefix}purgeself [amount] » Purge your messages.
@@ -2690,37 +2342,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="selfbot", description="Selfbot related commands.", usage="selfbot")
     async def selfbot(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**afkmode** » Toggle afk mode.
-`{Ghost.command_prefix}`**settings** » The bot's settings.
-`{Ghost.command_prefix}`**restart** » Restart Ghost selfbot.
-`{Ghost.command_prefix}`**prefix [prefix]** » Set the command prefix.
-`{Ghost.command_prefix}`**dumpchat [amount] (channel id) (oldest first, true/false)** » Get the chat's history.
-`{Ghost.command_prefix}`**invite** » Get Ghost's Discord server invite link.
-`{Ghost.command_prefix}`**addccmd [name] [response]** » Add a custom command.
-`{Ghost.command_prefix}`**delccmd [name]** » Delete a custom command.
-`{Ghost.command_prefix}`**detections** » A list of all detections.
-`{Ghost.command_prefix}`**snipers** » A list of all snipers.
-`{Ghost.command_prefix}`**enablesniper [type]** » Enable a sniper.
-`{Ghost.command_prefix}`**disablesniper [type]** » Disable a sniper.
-`{Ghost.command_prefix}`**enabledetect [type]** » Enable a detection.
-`{Ghost.command_prefix}`**disabledetect [type]** » Disable a detection.
-`{Ghost.command_prefix}`**riskmode** » Disable and enable risk mode.
-`{Ghost.command_prefix}`**sounds** » Toggle Ghost notification sounds.
-`{Ghost.command_prefix}`**notifications** » Toggle Ghost notification.
-            """)
-                embed.set_author(name="Selfbot Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)     
-            else:
-                pass           
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Selfbot Commands ]
 
 {Ghost.command_prefix}settings » The bot's settings.
@@ -2745,25 +2367,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 
     @Ghost.command(name="webhook", description="Webhook related commands.", usage="webhook")
     async def webhook(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**delwebhook [id]** » Delete a webhook from the ID.
-`{Ghost.command_prefix}`**newwebhook [name]** » Create a webhook in the command channel.
-`{Ghost.command_prefix}`**spamwebhook [amount] [url] (message)** » Spam the shit out of a webhook.
-`{Ghost.command_prefix}`**webhooksetup** » Creates a new server with webhooks.
-`{Ghost.command_prefix}`**webhookinfo [id]** » Information about the webhook.
-            """)
-                embed.set_author(name="Webhook Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Webhook Commands ]
 
 {Ghost.command_prefix}delwebhook [id] » Delete a webhook from the ID.
@@ -2778,42 +2382,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
     @Ghost.command(name="abuse", description="Abuse related commands.", usage="abuse")
     async def abuse(ctx, page:int = 1):
         if __riskmode__:
-            if __embedmode__:
-                if page == 1:
-                    embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**spam [amount] [delay] [message]** » Spam X amount of times.
-`{Ghost.command_prefix}`**stopspam** » Stop spamming messages.
-`{Ghost.command_prefix}`**dmspam [amount] [delay] [@user] [message]** » Spam DM messages X amount of times.
-`{Ghost.command_prefix}`**channelspam [amount] [delay] [message]** » Spam a message X amount of times in every channel.
-`{Ghost.command_prefix}`**threadspam [delay] [amount] [addusers | true/false] [name] [startmessage]** » Spam create threads with a starting message.
-`{Ghost.command_prefix}`**ttsspam [amount] [delay] [message]** » Spam TTS messages X amount of times.
-`{Ghost.command_prefix}`**reactspam [emoji] [messages]** » Spam reactions on X amount of messages.
-`{Ghost.command_prefix}`**massghostping [delay] [@user]** » Ghost Ping the user in every channel.
-`{Ghost.command_prefix}`**ghostping [@user]** » Ping a user then delete the message.
-`{Ghost.command_prefix}`**massping (amount of messages) (send delay)** » Ping a mass amount of people in the command server.
-`{Ghost.command_prefix}`**massnick [nickname]** » Change the nickname of all members in the command server.
-`{Ghost.command_prefix}`**massdm [delay] [amount] [message]** » Send a DM message to everyone in the server.
-`{Ghost.command_prefix}`**nukeserver** » Delete all roles and channels in the command server.
-`{Ghost.command_prefix}`**destroyserver** » Completely destroy the command server.
-`{Ghost.command_prefix}`**deletechannels** » Delete all of the command server's channels.
-`{Ghost.command_prefix}`**deleteroles** » Delete all of the command server's roles.
-`{Ghost.command_prefix}`**spamchannels [amount] (name)** » Spam create channels with a desired name. (Thanks Port <3)
-`{Ghost.command_prefix}`**spamroles [amount] (name)** » Spam create roles with a desired name.
-`{Ghost.command_prefix}`**raidjoin [delay] [invite]** » Make all your account tokens join a server.
-`{Ghost.command_prefix}`**tokenraid [amount] [channel id] (message)** » Raid a server with all your account tokens.
-`{Ghost.command_prefix}`**massban** » Ban all the members in the command server.
-`{Ghost.command_prefix}`**masskick** » Kick all the members in the command server.
-                """)
-                    embed.set_author(name="Abuse Commands (1/1)")
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_image(url=__embedlargeimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    pass         
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 {Ghost.command_prefix}spam [amount] [delay] [message] » Spam X amount of times.
@@ -2843,14 +2412,7 @@ Community Themes, run {Ghost.command_prefix}ctheme (theme name) to download the 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
 
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -2860,30 +2422,7 @@ You have risk mode disabled, you cant use this command.
 
     @Ghost.command(name="tools", description="Discord and other tools.", usage="tools")
     async def tools(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}", color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**tokeninfo [token]** » Information about a token. 
-`{Ghost.command_prefix}`**nuketoken [token]** » Nuke a token.
-`{Ghost.command_prefix}`**checktoken [token]** » Checks if a token is working.
-`{Ghost.command_prefix}`**checktokens** » Check your tokens. 
-`{Ghost.command_prefix}`**nitrogen** » Generate a nitro code.
-`{Ghost.command_prefix}`**tokengen** » Generate a discord user token.
-`{Ghost.command_prefix}`**identitygen** » Generate a fake identity.
-`{Ghost.command_prefix}`**passwordgen [length]** » Generate a secure password.
-`{Ghost.command_prefix}`**ccgen** » Generate a fake Credit card.
-`{Ghost.command_prefix}`**eval** » very scary and haram.
-            """)
-                embed.set_author(name="Tools (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                pass         
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Tools ]
 
 {Ghost.command_prefix}tokeninfo [token] » Information about a token.
@@ -2902,24 +2441,7 @@ You have risk mode disabled, you cant use this command.
 
     @Ghost.command(name="giveaway", description="Giveaway related commands.", usage="giveaway")
     async def giveaway(ctx, page:int = 1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}",
-                                    color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**gstart [duration] [winners] [prize]** » Start a giveaway in the same channel
-`{Ghost.command_prefix}`**gend [message id]** » End a giveaway
-`{Ghost.command_prefix}`**greroll [message id]** » Re-roll a giveaway
-            """)
-                embed.set_author(name="Giveaway Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)  
-            else:
-                pass              
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Giveaway Commands ]
 
 {Ghost.command_prefix}gstart [duration] [winners] [prize] » Start a giveaway in the same channel
@@ -2931,26 +2453,7 @@ You have risk mode disabled, you cant use this command.
 
     @Ghost.command(name="proxy", description="Proxy related commands.", usage="proxy")
     async def proxy(ctx, page:int=1):
-        if __embedmode__:
-            if page == 1:
-                embed = discord.Embed(title=f"{__embedemoji__} **{__embedtitle__}** {__embedemoji__}",
-                                    color=__embedcolour__, description=f"""
-`{Ghost.command_prefix}`**proxies http** » Scrape HTTP proxies.
-`{Ghost.command_prefix}`**proxies https** » Scrape HTTPS proxies.
-`{Ghost.command_prefix}`**proxies socks4** » Scrape SOCKS4 proxies.
-`{Ghost.command_prefix}`**proxies socks5** » Scrape SOCKS5 proxies.
-`{Ghost.command_prefix}`**proxies all** » Scrape HTTP, HTTPS, SOCKS4 AND SOCKS5 proxies.
-            """)
-                embed.set_author(name="Proxy Commands (1/1)")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_image(url=__embedlargeimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)  
-            else:
-                pass              
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Proxy Commands ]
 
 {Ghost.command_prefix}proxies http » Scrape HTTP proxies.
@@ -2977,23 +2480,13 @@ You have risk mode disabled, you cant use this command.
             if str(channel.type).lower() != "category":
                 request = requests.get(f"https://discord.com/api/channels/{channel.id}", headers={"Authorization": __token__, "User-Agent": get_random_user_agent()})
                 if request.status_code != 200:
-                    if __embedmode__:
-                        hiddenChannels.append("#"+channel.name)
-                    else:
-                        hiddenChannels.append(channel.name)
+                    hiddenChannels.append(channel.name)
                     print_info(f"{channel.name} is hidden.")
                 else:
                     print_info(f"{channel.name} is not hidden.")
                 # await asyncio.sleep(1)
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Hidden Channels", description=f"There is a total of `{len(hiddenChannels)}` hidden channels.\n \n```{', '.join(hiddenChannels)}```", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await message.edit(content="", embed=embed, delete_after=__deletetimeout__) 
-        else:
-            await message.edit(content=f"""```ini
+        await message.edit(content=f"""```ini
 [ Hidden Channels ]
 
 There is a total of {len(hiddenChannels)} hidden channels.
@@ -3243,14 +2736,7 @@ There is a total of {len(hiddenChannels)} hidden channels.
         await user.send(message)
         await user.block()
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Block Send", description=f"Sent `{message}` to {user}.", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__) 
-        else:
-            await ctx.send(f"Sent `{message}` to {user}.", delete_after=__deletetimeout__) 
+        await ctx.send(f"Sent `{message}` to {user}.", delete_after=__deletetimeout__) 
 
     @Ghost.command(name="riskmode", description="Disable and enable risk mode", usage="riskmode")
     async def riskmode(ctx):
@@ -3270,65 +2756,7 @@ There is a total of {len(hiddenChannels)} hidden channels.
             Config.saveConfig(cfg)
             riskModeText = "enabled"         
 
-        if __embedmode__:
-            embed = discord.Embed(description=f"Risk mode has been {riskModeText}.", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__) 
-        else:
-            await ctx.send(f"Risk mode has been {riskModeText}.", delete_after=__deletetimeout__)  
-
-    @Ghost.command(name="embedmode", description="Toggle embed mode.", usage="embedmode")
-    async def embedmode(ctx):
-        global __embedmode__
-        if not __embedmode__:
-            __embedmode__ = True
-            cfg = Config.getConfig()
-            cfg["embed_mode"] = True
-            Config.saveConfig(cfg)
-            if __embedmode__:
-                embed = discord.Embed(title=f"Embed mode has been enabled.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__) 
-            else:
-                await ctx.send("Embed mode has been enabled.", delete_after=__deletetimeout__) 
-        else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Embed mode is already enabled.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)    
-            else:
-                await ctx.send("Embed mode is already enabled.", delete_after=__deletetimeout__)
-
-    @Ghost.command(name="textmode", description="Toggle text mode.", usage="textmode")
-    async def textmode(ctx):
-        global __embedmode__
-        if __embedmode__:
-            __embedmode__ = False
-            cfg = Config.getConfig()
-            cfg["embed_mode"] = False
-            Config.saveConfig(cfg)
-            if __embedmode__:
-                embed = discord.Embed(title=f"Text mode has been enabled.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)    
-            else:
-                await ctx.send("Text mode has been enabled.", delete_after=__deletetimeout__)
-        else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Text mode is already enabled.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)    
-            else:
-                await ctx.send("Text mode is already enabled.", delete_after=__deletetimeout__)                    
+        await ctx.send(f"Risk mode has been {riskModeText}.", delete_after=__deletetimeout__)  
 
     @Ghost.command(name="readall", description="Mark every message as read.", usage="readall")
     async def readall(ctx):
@@ -3372,19 +2800,7 @@ There is a total of {len(hiddenChannels)} hidden channels.
         for gpu in GPUtil.getGPUs():
             gpus.append(gpu.name)
 
-        if __embedmode__:
-            embed = discord.Embed(title="Specifications", color=__embedcolour__)
-            embed.add_field(name="System", value=f"```{system}```")
-            embed.add_field(name="Machine", value=f"```{machine}```")
-            embed.add_field(name="RAM", value=f"```{ram}```")
-            embed.add_field(name="CPU", value=f"```{cpu}```")
-            embed.add_field(name="GPUs", value=f"```{', '.join(gpus)}```")
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Specifications ]
 
 System: {system}
@@ -3402,34 +2818,7 @@ RAM: {ram}
         request = requests.get(f"https://api.coingecko.com/api/v3/coins/{currency}")
         if request.status_code == 200:
             request = request.json()
-            if __embedmode__:
-                embed = discord.Embed(title=f"{request['name']} Data", color=__embedcolour__)
-                embed.add_field(name="Scores", value=f"""```
-Coingecko score: {request['coingecko_score']}
-Liquidity score: {request['liquidity_score']}
-Developer score: {request['developer_score']}
-Commuinity score: {request['community_score']}
-```""", inline=False)
-                embed.add_field(name="Current Prices", value=f"""```
-USD: {'{:,}'.format(request['market_data']['current_price']['usd'])}
-CAD: {'{:,}'.format(request['market_data']['current_price']['cad'])}
-AUD: {'{:,}'.format(request['market_data']['current_price']['aud'])}
-GBP: {'{:,}'.format(request['market_data']['current_price']['gbp'])}
-EUR: {'{:,}'.format(request['market_data']['current_price']['eur'])}
-```""", inline=False)
-                embed.add_field(name="Last 24h Price Change", value=f"""```
-USD: {'{:,}'.format(request['market_data']['price_change_24h_in_currency']['usd'])}
-CAD: {'{:,}'.format(request['market_data']['price_change_24h_in_currency']['cad'])}
-AUD: {'{:,}'.format(request['market_data']['price_change_24h_in_currency']['aud'])}
-GBP: {'{:,}'.format(request['market_data']['price_change_24h_in_currency']['gbp'])}
-EUR: {'{:,}'.format(request['market_data']['price_change_24h_in_currency']['eur'])}
-```""", inline=False)
-                embed.set_thumbnail(url=request["image"]["large"])
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()    
-                await ctx.send(embed=embed)  
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ {request['name']} Data ]
 
 [Scores]
@@ -3456,14 +2845,7 @@ EUR: {'{:,}'.format(request['market_data']['price_change_24h_in_currency']['eur'
 # {__embedfooter__}
 ```""")              
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="Invalid Crypto", description="That crypto currency doesnt exist or there was an error.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()    
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Invalid Crypto ]
 
 That crypto currency doesnt exist or there was an error.
@@ -3595,18 +2977,7 @@ That crypto currency doesnt exist or there was an error.
         _list = []
 
         for key, value in cfg["detections"].items():
-            if __embedmode__:
-                _list.append(f"**{key}** : {value}")
-            else:
-                _list.append(f"{key} : {value}")
-
-        if __embedmode__:
-            embed = discord.Embed(title="Detections", description='\n'.join(_list), color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()    
-            await ctx.send(embed=embed)
-        else:
+            _list.append(f"{key} : {value}")
             await ctx.send("```ini\n[ Detections ]\n " + "\n".join(_list) + "\n\n# " + __embedfooter__ + "```")
 
     @Ghost.command(name="snipers", description="A list of all snipers.", usage="snipers")
@@ -3615,18 +2986,7 @@ That crypto currency doesnt exist or there was an error.
         _list = []
 
         for key, value in cfg["snipers"].items():
-            if __embedmode__:
-                _list.append(f"**{key}** : {value}")
-            else:
-                _list.append(f"{key} : {value}")
-
-        if __embedmode__:
-            embed = discord.Embed(title="Snipers", description='\n'.join(_list), color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
+            _list.append(f"{key} : {value}")
             await ctx.send("```ini\n[ Snipers ]\n " + "\n".join(_list) + "\n\n# " + __embedfooter__ + "```")
 
     @Ghost.command(name="enabledetect", description="Enable a detection.", usage="enabledetect [type]", aliases=["enabledetection", "enabledetections"])
@@ -3785,14 +3145,7 @@ That crypto currency doesnt exist or there was an error.
         type = "ass"
         image = get_nsfw(type)
         if image.endswith("png") or image.endswith("jpeg") or image.endswith("jpg") or image.endswith("gif"):
-            if __embedmode__:
-                embed = discord.Embed(title=f"{type}", color=__embedcolour__)
-                embed.set_image(url=image)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()    
-                await ctx.send(embed=embed)          
-            else:
-                await ctx.send(image)       
+            await ctx.send(image)       
         else:  
             await ctx.send(image)                
 
@@ -3802,14 +3155,7 @@ That crypto currency doesnt exist or there was an error.
         type = "pussy"
         image = get_nsfw(type)
         if image.endswith("png") or image.endswith("jpeg") or image.endswith("jpg") or image.endswith("gif"):
-            if __embedmode__:
-                embed = discord.Embed(title=f"{type}", color=__embedcolour__)
-                embed.set_image(url=image)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()    
-                await ctx.send(embed=embed)              
-            else:
-                await ctx.send(image)    
+            await ctx.send(image)    
         else:  
             await ctx.send(image)  
 
@@ -3818,15 +3164,6 @@ That crypto currency doesnt exist or there was an error.
         type = "porngif"
         image = get_nsfw(type)
         if image.endswith("png") or image.endswith("jpeg") or image.endswith("jpg") or image.endswith("gif"):
-            if __embedmode__:
-                embed = discord.Embed(title=f"{type}", color=__embedcolour__)
-                embed.set_image(url=image)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()    
-                await ctx.send(embed=embed)   
-            else:
-                await ctx.send(image)               
-        else:  
             await ctx.send(image)  
 
     @Ghost.command(name="hentai", description="Pictures or videos of hentai.", usage=f"hentai")
@@ -3836,13 +3173,6 @@ That crypto currency doesnt exist or there was an error.
             image = requests.get("https://nekos.life/api/lewd/neko").json()["neko"]
         elif type == 2:
             image = requests.get("https://nekos.life/api/v2/img/nsfw_neko_gif").json()["url"]
-        if __embedmode__:
-            embed = discord.Embed(title=f"hentai", color=__embedcolour__)
-            embed.set_image(url=image)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()    
-            await ctx.send(embed=embed)      
-        else:
             await ctx.send(image)                     
 
     @Ghost.command(name="discordtheme", description="Change default Discord theme.", usage="discordtheme [light/dark]")
@@ -3991,16 +3321,7 @@ That crypto currency doesnt exist or there was an error.
     async def spacechannel(ctx, *, channelName = "example channel name"):
         channelName = channelName.replace(" ", channelBlankChar)
         await ctx.guild.create_text_channel(name=channelName)
-        
-        if __embedmode__:
-            embed = discord.Embed(title=f"Space Channel", description=f"Created a channel with the name `{channelName}`.", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)  
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Space Channel ]
 
 Created a channel with the name {channelName}.
@@ -4040,26 +3361,7 @@ Created a channel with the name {channelName}.
         region = data["regionName"]
         vpn = data2["vpn"]
         hostname = data2["host"]
-
-        if __embedmode__:
-            embed = discord.Embed(title=f"{ip} information...", color=__embedcolour__)
-            embed.add_field(name="Country", value=f"```{country}```", inline=False)
-            embed.add_field(name="City", value=f"```{city}```", inline=True)
-            embed.add_field(name="Region", value=f"```{region}```", inline=True)
-            embed.add_field(name="ZIP", value=f"```{zipCode}```", inline=True)
-            embed.add_field(name="LAT", value=f"```{lat}```", inline=True)
-            embed.add_field(name="LON", value=f"```{lon}```", inline=True)
-            embed.add_field(name="VPN", value=f"```{vpn}```", inline=True)
-            embed.add_field(name="AS", value=f"```{as1}```", inline=False)
-            embed.add_field(name="ISP", value=f"```{isp}```", inline=False)
-            embed.add_field(name="Hostname", value=f"```{hostname}```", inline=False)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)  
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ {ip} information.. ]
 
 Country: {country}
@@ -4091,16 +3393,7 @@ Hostname: {hostname}
         
         if (pyFile):
             file = file[:-3]
-
-            if __embedmode__:
-                embed = discord.Embed(title=f"PY To Executable", description="Conversion for your file has started, check the console for more information.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-
-                message = await ctx.send(embed=embed)
-            else:
-                message = await ctx.send(f"""```ini
+            message = await ctx.send(f"""```ini
 [ PY To Executable ]
 
 Conversion for your file has started, check the console for more information.
@@ -4113,16 +3406,7 @@ Conversion for your file has started, check the console for more information.
             os.system(f'pyinstaller -n "{file}" -i "icon.ico" --onefile --distpath "pytoexe/" {path}')
             print_info("Conversion complete!")
             print(f"{fg.cYellow}Path: {fg.cGrey}pytoexe/{file}.exe")
-
-            if __embedmode__:
-                embed = discord.Embed(title=f"PY To Executable", description="Conversion for your file has completed! Check the console for more information.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()     
-
-                await message.edit(content="", embed=embed)  
-            else:
-                await message.edit(content=f"""```ini
+            await message.edit(content=f"""```ini
 [ PY To Executable ]
 
 Converstion for your file has completed! Check the console for more information.
@@ -4132,15 +3416,7 @@ Converstion for your file has completed! Check the console for more information.
 ```""")
 
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"PY To Executable", description="The path you submitted does not link to a PY file.", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-
-                await ctx.send(embed=embed)   
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ PY To Executable ]
 
 The path you submitted does not link to a PY file.
@@ -4198,18 +3474,7 @@ The path you submitted does not link to a PY file.
     async def getmessage(ctx, messageid: int):
         msg = await ctx.send("Getting the message . . .")
         message = await get_message(ctx, messageid)
-
-        if __embedmode__:
-            embed = discord.Embed(title=f"Get Message", color=__embedcolour__)
-            embed.add_field(name="Content", value=f"```{message.content}```", inline=True)
-            embed.add_field(name="Author", value=f"```{message.author}```", inline=True)
-            embed.add_field(name="Message Link", value=message.jump_url, inline=False)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await msg.edit(content="", embed=embed, delete_after=__deletetimeout__)  
-        else:
-            await msg.edit(content=f"""```ini
+        await msg.edit(content=f"""```ini
 [ Get Message ]
 
 Content: {message.content}
@@ -4223,17 +3488,7 @@ Message Link: {message.jump_url}
     @Ghost.command(name="watchdogstats", description="Get stats about Hypixel's Anticheat, Watchdog", usage="watchdogstats")
     async def watchdogstats(ctx):
         data = requests.get("https://api.hypixel.net/punishmentstats?key=591c390d-6e97-4b39-abb3-ef3fb386aff0").json()
-        if __embedmode__:
-            embed = discord.Embed(title=f"Watchdog Stats", color=__embedcolour__)
-            embed.add_field(name="Total Bans", value="```" + str(data["watchdog_total"]) + "```", inline=True)
-            embed.add_field(name="Last Minute", value="```" + str(data["watchdog_lastMinute"]) + "```", inline=True)
-            embed.add_field(name="Daily Bans", value="```" + str(data["watchdog_rollingDaily"]) + "```", inline=True)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Watchdog Stats ]
 
 Total Bans: {data['watchdog_total']}
@@ -4255,14 +3510,7 @@ Daily Bans: {data['watchdog_rollingDaily']}
 
         json.dump(data, open("data/personal-pins.json", 'w'), sort_keys=False, indent=4)
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Personal Pin", color=__embedcolour__, description=f"Pinned message `{message.content}` by `{message.author.name}#{message.author.discriminator}`.")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"**📌 Personal Pin**\nPinned message `{message.content}` by `{message.author.name}#{message.author.discriminator}`.")
+        await ctx.send(f"**📌 Personal Pin**\nPinned message `{message.content}` by `{message.author.name}#{message.author.discriminator}`.")
 
     @Ghost.command(name="ppins", description="List all your pinned messages.", usage="ppins", aliases=["personalpins"])
     async def ppins(ctx):
@@ -4275,14 +3523,7 @@ Daily Bans: {data['watchdog_rollingDaily']}
 
             ppinsMsg += f"\n__{value}__ :\n**  **- Content : `{content}`\n**  **- Author : `{author}`"
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Personal Pin", color=__embedcolour__, description=ppinsMsg)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"**Personal Pins**\n{ppinsMsg}")
+        await ctx.send(f"**Personal Pins**\n{ppinsMsg}")
 
     @Ghost.command(name="ppindel", description="Delete a pin from your personal pins.", usage="ppindel [pin id]", aliases=["ppindelete", "removeppin", "deleteppin", "personalpindelete", "deletepersonalpin", "removepersonalpin"])
     async def ppindel(ctx, pinId: str):
@@ -4292,14 +3533,7 @@ Daily Bans: {data['watchdog_rollingDaily']}
 
         json.dump(data, open("data/personal-pins.json", 'w'), sort_keys=False, indent=4)
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Personal Pin", color=__embedcolour__, description=f"Delete pin `{pinId}`.")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"**Personal Pin**\nDelete pin `{pinId}`.")
+        await ctx.send(f"**Personal Pin**\nDelete pin `{pinId}`.")
 
     @Ghost.command(name="countdown", description="Count down from a number.", usage="countdown [number]")
     async def countdown(ctx, number: int):
@@ -4348,14 +3582,7 @@ Daily Bans: {data['watchdog_rollingDaily']}
                 except:
                     pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -4400,14 +3627,7 @@ You have risk mode disabled, you cant use this command.
                 except:
                     pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -4449,14 +3669,7 @@ You have risk mode disabled, you cant use this command.
                     print_info("Couldnt accept guild rules")
                 await asyncio.sleep(delay)
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -4494,14 +3707,7 @@ You have risk mode disabled, you cant use this command.
 
             Ghost.loop.create_task(raid())
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -4972,18 +4178,7 @@ You have risk mode disabled, you cant use this command.
         average = values[2][len("Average = "):]
         address = output[1].replace(f"Pinging {dns} [", "").replace("] with 32 bytes of data:", "")
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"{dns} ping..", color=__embedcolour__)
-            embed.add_field(name="IP Address", value=f"```{address}```", inline=False)
-            embed.add_field(name="Minimum", value=f"```{minimum}```", inline=False)
-            embed.add_field(name="Maximum", value=f"```{maximum}```", inline=False)
-            embed.add_field(name="Average", value=f"```{average}```", inline=False)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await message.edit(content="Pong!", embed=embed, delete_after=__deletetimeout__)
-        else:
-            await message.edit(content=f"""```ini
+        await message.edit(content=f"""```ini
 [ {dns} ping.. ]
 
 IP Address: {address}
@@ -5122,25 +4317,11 @@ Average: {average}
 
         json.dump(configFile, open("config.json", "w"), sort_keys=False, indent=4)  
         
-        if __embedmode__:
-            embed = discord.Embed(title="Webhook Setup", description=f"Created a new guild for your webhooks called `{guild.name}`.", colour=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"Created a new guild for your webhooks called `{guild.name}`.", delete_after=__deletetimeout__)
+        await ctx.send(f"Created a new guild for your webhooks called `{guild.name}`.", delete_after=__deletetimeout__)
 
     @Ghost.command(name="spamwebhook", description="Spam the shit out of a webhook.", usage="spamwebhook [amount] [url] (message)")
     async def spamwebhook(ctx, amount: int, url, *, message = None):
-        if __embedmode__:
-            embed = discord.Embed(title="Spamming webhook...", colour=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send("Spamming webhook...", delete_after=__deletetimeout__)
+        await ctx.send("Spamming webhook...", delete_after=__deletetimeout__)
 
         if message is None:
             for _ in range(amount):
@@ -5152,60 +4333,27 @@ Average: {average}
                 webhook = DiscordWebhook(url=url, content=message)
                 webhook.execute() 
 
-        if __embedmode__:
-            embed = discord.Embed(title="Finished spamming webhook", colour=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send("Finished spamming webhook!", delete_after=__deletetimeout__)
+        await ctx.send("Finished spamming webhook!", delete_after=__deletetimeout__)
 
     @Ghost.command(name="newwebhook", description="Create a webhook in the command channel.", usage="newwebhook [name]", aliases=["createwebhook"])
     async def newwebhook(ctx, *, name):
         webhook = await ctx.channel.create_webhook(name=name)
 
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Created a webhook called {name}", description=f"URL: {webhook.url}", colour=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"Created a webhook called {name}\nURL: {webhook.url}", delete_after=__deletetimeout__)
+        await ctx.send(f"Created a webhook called {name}\nURL: {webhook.url}", delete_after=__deletetimeout__)
 
     @Ghost.command(name="delwebhook", description="Delete a webhook from the ID.", usage="delwebhook [id]", aliases=["deletewebhook", "removewebhook"])
     async def delwebhook(ctx, id: int):
         webhook = await Ghost.fetch_webhook(id)
         await webhook.delete()
 
-        if __embedmode__:
-            embed = discord.Embed(title="Deleted the webhook", colour=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send("Deleted the webhook", delete_after=__deletetimeout__)
+        await ctx.send("Deleted the webhook", delete_after=__deletetimeout__)
 
     @Ghost.command(name="webhookinfo", description="Information about the webhook.", usage="webhookinfo [id]", aliases=["webhooklookup", "lookupwebhook"])
     async def webhookinfo(ctx, id: int):
         webhook = await Ghost.fetch_webhook(id)
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"{webhook.name} Information", colour=__embedcolour__)
-            embed.add_field(name="Webhook Name", value=f"```{webhook.name}```", inline=False)
-            embed.add_field(name="Webhook ID", value=f"```{webhook.id}```", inline=False)
-            embed.add_field(name="Webhook Guild", value=f"```{webhook.guild.name}```", inline=False)
-            embed.add_field(name="Webhook Channel", value=f"```{webhook.channel.name}```", inline=False)
-            embed.add_field(name="Webhook Token", value=f"```{webhook.token}```", inline=False)
-            embed.set_thumbnail(url=webhook.avatar_url)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ {webhook.name} Information ]
 
 Webhook Name: {webhook.name}
@@ -5273,27 +4421,13 @@ Webhook Token: {webhook.token}
 }
             """)
             f.close()
-            if __embedmode__:
-                embed = discord.Embed(title="Theme create with the name " + name, colour=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Theme create with the name {name} ]
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="A theme with that name already exists", colour=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ A theme with that name already exists ]
 
 
@@ -5302,28 +4436,14 @@ Webhook Token: {webhook.token}
     @Ghost.command(name="deltheme", description="Delete the named theme.", usage="deltheme [name]", aliases=["deletetheme", "removetheme"])
     async def deltheme(ctx, *, name):
         if not os.path.isfile(f'themes/{name}.json'):
-            if __embedmode__:
-                embed = discord.Embed(title="A theme with that name doesnt exist", colour=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ A theme with that name doesnt exist ]
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
         else:
             os.remove(f'themes/{name}.json')
-            if __embedmode__:
-                embed = discord.Embed(title="Theme with the name " + name + " was deleted", colour=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Theme with the name {name} was deleted ]
 
 
@@ -5335,27 +4455,13 @@ Webhook Token: {webhook.token}
             updateTheme(theme + ".json")
             Config.changeTheme(theme)
 
-            if __embedmode__:
-                embed = discord.Embed(title="That theme has been set", colour=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ That theme has been set ]
 
 
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="A theme with that name doesnt exist", colour=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ A theme with that name doesnt exist ]
 
 
@@ -5365,14 +4471,7 @@ Webhook Token: {webhook.token}
     async def prefix(ctx, *, prefix):
         Config.changePrefix(prefix)
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Prefix changed to `{prefix}`", colour=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Prefix changed to {prefix} ]
 
 
@@ -5393,14 +4492,7 @@ Webhook Token: {webhook.token}
         for message in messages:
             firstMessage = message
 
-        if __embedmode__:
-            embed = discord.Embed(title="First Message", description=f"{firstMessage.jump_url}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"First message: {firstMessage.jump_url}")
+        await ctx.send(f"First message: {firstMessage.jump_url}")
 
     @Ghost.command(name="haste", description="Upload text to Ghost's Haste site.", usage="haste [text]")
     async def haste(ctx, *, text):
@@ -5472,14 +4564,7 @@ Webhook Token: {webhook.token}
                     except:
                         pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5508,14 +4593,7 @@ You have risk mode disabled, you cant use this command.
                     await ctx.guild.create_text_channel(name=f'{name}')
                     await ctx.guild.create_role(name=f'{name}')
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5535,14 +4613,7 @@ You have risk mode disabled, you cant use this command.
                     for _ in range(amount):
                         await ctx.guild.create_text_channel(name=f'{name}')
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5562,14 +4633,7 @@ You have risk mode disabled, you cant use this command.
                     for _ in range(amount):
                         await ctx.guild.create_role(name=f'{name}')
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5587,14 +4651,7 @@ You have risk mode disabled, you cant use this command.
                     except:
                         pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5612,14 +4669,7 @@ You have risk mode disabled, you cant use this command.
                     except:
                         pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5637,14 +4687,7 @@ You have risk mode disabled, you cant use this command.
                 except:
                     pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5717,14 +4760,7 @@ You have risk mode disabled, you cant use this command.
                 except:
                     pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5743,14 +4779,7 @@ You have risk mode disabled, you cant use this command.
                     except:
                         pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5772,14 +4801,7 @@ You have risk mode disabled, you cant use this command.
                         return
             Ghost.loop.create_task(spamMessages())
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5793,14 +4815,7 @@ You have risk mode disabled, you cant use this command.
             global spammingMessages
             spammingMessages = False
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5815,14 +4830,7 @@ You have risk mode disabled, you cant use this command.
                 await ctx.send(message, tts=True)
                 await asyncio.sleep(delay)
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5864,14 +4872,7 @@ You have risk mode disabled, you cant use this command.
             print_info("Saved a list of member IDs to data/members.txt.")
 
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5936,14 +4937,7 @@ You have risk mode disabled, you cant use this command.
                     except:
                         pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -5999,14 +4993,7 @@ You have risk mode disabled, you cant use this command.
                     except:
                         pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -6053,14 +5040,7 @@ You have risk mode disabled, you cant use this command.
                         pass
                     await asyncio.sleep(delay)
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -6092,13 +5072,7 @@ You have risk mode disabled, you cant use this command.
 
     @Ghost.command(name="suggest", description="Suggest something.", usage="suggest [suggestion]")
     async def suggest(ctx, *, suggestion):
-        if __embedmode__:
-            embed = discord.Embed(title="Suggestion", description=suggestion, colour=__embedcolour__)
-            embed.set_footer(text=ctx.author.name + " suggested.", icon_url=ctx.author.avatar_url)
-            embed.timestamp = datetime.now()
-            msg = await ctx.send(embed=embed)
-        else:
-            msg = await ctx.send(f"""```ini
+        msg = await ctx.send(f"""```ini
 [ Suggestion ]
 
 {suggestion}
@@ -6145,14 +5119,7 @@ You have risk mode disabled, you cant use this command.
                 except:
                     pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -6208,25 +5175,13 @@ You have risk mode disabled, you cant use this command.
 
         response = requests.request("GET", url, headers=headers, data=payload)
 
-        if __embedmode__:
-            embed = discord.Embed(description=response.text, colour=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(response.text)
+        await ctx.send(response.text)
 
     @Ghost.command(name="randomquestion", description="A random question.", usage="randomquestion", aliases=["ranquestion"])
     async def randomquestion(ctx):
         question = requests.get("https://nekos.life/api/v2/why").json()["why"]
 
-        if __embedmode__:
-            embed = discord.Embed(description=question, colour=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(question)                
+        await ctx.send(question)                
 
     @Ghost.command(name="randommessage", description="A random message.", usage="randommessage", aliases=["ranmessage"])
     async def randommessage(ctx):
@@ -6240,116 +5195,54 @@ You have risk mode disabled, you cant use this command.
             }
         response = requests.request("GET", url, headers=headers, params=querystring)
         response_data = response.json()
-        if __embedmode__:
-            embed = discord.Embed(description=response_data["Message"], colour=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(response_data["Message"])
+        await ctx.send(response_data["Message"])
 
     @Ghost.command(name="meme", description="A random meme.", usage="meme", aliases=["randommeme"])
     async def meme(ctx):
         response = requests.get("https://meme-api.herokuapp.com/gimme")
         data = response.json()
-        if __embedmode__:
-            embed = discord.Embed(title=data["title"], url=data["postLink"], colour=__embedcolour__)
-            embed.set_image(url=data["url"])
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.set_author(name=f"u/{data['author']}", url=f"https://reddit.com/u/{data['author']}")
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(data["title"] + "\n" + data["url"])
+        await ctx.send(data["title"] + "\n" + data["url"])
 
     @Ghost.command(name="gif", description="Search for a gif.", usage="gif [search]", aliases=["searchgif"])
     async def gif(ctx, *, search):
         if CONFIG["api_keys"]["tenor"] == "":
-            if __embedmode__:
-                embed = discord.Embed(description="This command requires a tenor API key.", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send("This command requires a tenor API key.")                     
+            await ctx.send("This command requires a tenor API key.")                     
         else:                 
             search = search.replace(" ", "+")
             response = requests.get(f'https://g.tenor.com/v1/search?q={search}&key={CONFIG["api_keys"]["tenor"]}&limit=10000')
             data = response.json()
             #print(data['results'][0]["media"][0]["gif"]["url"])
-            if __embedmode__:
-                embed = discord.Embed(title=f"{search.replace('+', ' ')}", color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url=data['results'][random.randint(0, 49)]["media"][0]["gif"]["url"])
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(data['results'][random.randint(0, 49)]["media"][0]["gif"]["url"])     
+            await ctx.send(data['results'][random.randint(0, 49)]["media"][0]["gif"]["url"])     
 
     @Ghost.command(name="cat", description="A random cat image.", usage="cat", aliases=["randomcat"])
     async def cat(ctx):
         request = requests.get("https://cataas.com/cat?json=true").json()
         image = "https://cataas.com" + request["url"]
-        if __embedmode__:
-            embed = discord.Embed(title="meow", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            embed.set_image(url=image)
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(image)
+        await ctx.send(image)
 
     @Ghost.command(name="catgif", description="A random cat gif.", usage="catgif", aliases=["randomcatgif"])
     async def catgif(ctx):
         request = requests.get("https://cataas.com/cat/gif?json=true").json()
         image = "https://cataas.com" + request["url"]
-        if __embedmode__:
-            embed = discord.Embed(title="meow", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            embed.set_image(url=image)
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(image)
+        await ctx.send(image)
 
     @Ghost.command(name="dog", description="A random dog image.", usage="dog", aliases=["randomdog"])
     async def dog(ctx):
         response = requests.get('https://dog.ceo/api/breeds/image/random')
         data = response.json()
-        if __embedmode__:
-            embed = discord.Embed(title="woof", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            embed.set_image(url=data['message'])
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(data['message'])
+        await ctx.send(data['message'])
 
     @Ghost.command(name="shiba", description="A random shiba image.", usage="shiba", aliases=["randomshiba"])
     async def shiba(ctx):
         response = requests.get('https://shibe.online/api/shibes?count=1&httpsUrls=true')
         data = response.json()
-        if __embedmode__:
-            embed = discord.Embed(title="shiba", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            embed.set_image(url=data[0])
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(data[0])                    
+        await ctx.send(data[0])                    
 
     @Ghost.command(name="fox", description="A random fox image. (Thanks Imf44 <3)", usage="fox", aliases=["randomfox"])
     async def fox(ctx):
         response = requests.get('https://randomfox.ca/floof/')
         data = response.json()
-        if __embedmode__:
-            embed = discord.Embed(title="fox", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            embed.set_image(url=data['image'])
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(data['message'])
+        await ctx.send(data['message'])
 
     @Ghost.command(name="achievement", description="Create a fake minecraft achievement image.", usage='achievement ["text"] (icon)', aliases=["minecraftachievement"])
     async def achievement(ctx, text, icon=10):
@@ -6358,15 +5251,8 @@ You have risk mode disabled, you cant use this command.
         image = requests.get(f"http://timbw.ddns.net:5000/achievement?text={text}&icon={icon}")
         imageFile = open("image.png", "wb").write(image.content)
         file = discord.File("image.png", filename="image.png")
-        if __embedmode__:
-            embed = discord.Embed(color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            embed.set_image(url="attachment://image.png")
-            await ctx.send(file=file, embed=embed)
-        else:
-            await ctx.send(file=file)  
-            os.remove("image.png")     
+        await ctx.send(file=file)  
+        os.remove("image.png")     
 
     @Ghost.command(name="challenge", description="Create a fake minecraft challenge image.", usage='challenge ["text"] (icon)', aliases=["minecraftchallenge"])
     async def challenge(ctx, text, icon=33):  
@@ -6374,14 +5260,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/challenge?text={text}&icon={icon}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")        
 
     @Ghost.command(name="captcha", description="Create a fake reCaptcha.", usage="captcha [text]", aliases=["fakecaptcha"])
@@ -6391,14 +5270,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/captcha?text={text}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")                                                         
 
     @Ghost.command(name="amiajoke", description="Make a user a joke.", usage="amiajoke [@user]", aliases=["amiajoketoyou"])
@@ -6408,14 +5280,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/amiajoke?image={imageurl}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")   
 
     @Ghost.command(name="didyoumean", description="Create a google did you mean image.", usage='didyoumean ["text 1"] ["text 2"]', aliases=["googledidyoumean"])
@@ -6426,14 +5291,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/didyoumean?top={text1}&bottom={text2}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png") 
 
     @Ghost.command(name="drake", description="Create a drake meme image.", usage='drake ["text 1"] ["text 2"]', aliases=["drakememe"])
@@ -6444,14 +5302,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/drake?top={text1}&bottom={text2}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")                     
 
     @Ghost.command(name="facts", description="Create a facts meme image.", usage='facts [text]', aliases=["factsmeme"])
@@ -6461,14 +5312,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/facts?text={text}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")
 
     @Ghost.command(name="jokeoverhead", description="Create a joke over head image.", usage="jokeoverhead [image url]")
@@ -6477,14 +5321,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/jokeoverhead?image={imageurl}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")               
 
     @Ghost.command(name="pornhub", description="Create a pornhub logo image.", usage='pornhub ["text 1"] ["text 2"]')
@@ -6495,14 +5332,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/pornhub?text={text1}&text2={text2}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")
 
     @Ghost.command(name="salty", description="Make someone salty.", usage="salty [@user]")
@@ -6512,14 +5342,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/salty?image={imageurl}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")
 
     @Ghost.command(name="ship", description="Ship two people.", usage="ship [@user 1] [@user 2]")
@@ -6530,14 +5353,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/ship?user={user1}&user2={user2}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")
 
     @Ghost.command(name="trash", description="Put someone in the trash.", usage='trash [@user]')
@@ -6548,14 +5364,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/trash?trash={trash}&face={face}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")
 
     @Ghost.command(name="what", description="Make a what meme.", usage='what [image url]')
@@ -6564,14 +5373,7 @@ You have risk mode disabled, you cant use this command.
             image = requests.get(f"http://timbw.ddns.net:5000/what?image={imageurl}")
             imageFile = open("image.png", "wb").write(image.content)
             file = discord.File("image.png", filename="image.png")
-            if __embedmode__:
-                embed = discord.Embed(color=__embedcolour__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                embed.set_image(url="attachment://image.png")
-                await ctx.send(file=file, embed=embed)
-            else:
-                await ctx.send(file=file)  
+            await ctx.send(file=file)  
             os.remove("image.png")
 
     @Ghost.command(name="purgehack", description="Purge without permissions.", usage="purgehack")
@@ -6595,68 +5397,30 @@ You have risk mode disabled, you cant use this command.
         if iq > 40 and iq < 50:
             smart = "They're severely retarded."
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"{user.name}'s iq is `{iq}`.", description=f"{smart}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"{user}'s iq is `{iq}`. {smart}")                
+        await ctx.send(f"{user}'s iq is `{iq}`. {smart}")                
 
     @Ghost.command(name="howskid", description="Check the percentage of a skid.", usage="howskid [item]")
     async def howskidd(ctx, *, item):
         percentage = random.randint(0, 100)
 
-        if __embedmode__:
-            embed = discord.Embed(title="Skid Detection", description=f"{item} is {percentage}% skidded!", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"`{item}` is {percentage}% skidded!")
+        await ctx.send(f"`{item}` is {percentage}% skidded!")
 
     @Ghost.command(name="halal", description="Check if a user is halal or haram.", usage="halal [@user]", aliases=["haram"])
     async def halal(ctx, user: discord.User):
         halalius = random.choice("halal haram".split())
 
-        if __embedmode__:
-            embed = discord.Embed(title="Halal or Haram?", description=f"{user.mention} is {halalius}!", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-
-            await ctx.send(embed=embed)
-
-        else:
-            await ctx.send(f"{user.mention} is {halalius}!")
+        await ctx.send(f"{user.mention} is {halalius}!")
 
 
     @Ghost.command(name="howgay", description="How gay a user is.", usage="howgay [@user]")
     async def howgay(ctx, user: discord.User):
         percentage = str(random.randint(15, 100)) + "%"
-        if __embedmode__:
-            embed = discord.Embed(title=f"🏳️‍🌈 {user.name} is {percentage} gay", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"🏳️‍🌈 {user} is {percentage} gay")        
+        await ctx.send(f"🏳️‍🌈 {user} is {percentage} gay")        
 
     @Ghost.command(name="slots", description="Play the slot machine.", usage="slots")
     async def slots(ctx):
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Slots", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-
-            message = await ctx.send(embed=embed)
-        else:
-            message = await ctx.send(f"""```ini
+        message = await ctx.send(f"""```ini
 [ Slots ]
 
 # {__embedfooter__}
@@ -6689,12 +5453,7 @@ You have risk mode disabled, you cant use this command.
                 reel_3 = random.choice(emojis2)
 
                 final_reel = reel_1 + " | " + reel_2 + " | " + reel_3
-                if __embedmode__:
-                    embed = discord.Embed(title=f"Spinning{dots}", description=final_reel, color=__embedcolour__)
-                    embed.timestamp = datetime.now()                            
-                    await message.edit(content="", embed=embed)
-                else:
-                    await message.edit(content=f"""```ini
+                await message.edit(content=f"""```ini
 [ Spinning{dots} ]
 
 {final_reel}
@@ -6705,13 +5464,7 @@ You have risk mode disabled, you cant use this command.
                 await asyncio.sleep(delay)
 
             if reel_1 == reel_2 and reel_1 == reel_3 and reel_2 == reel_3:
-                if __embedmode__:
-                    embed = discord.Embed(title=f"You won!", description=final_reel, color=__embedcolour__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()                            
-                    await message.edit(content="", embed=embed)
-                else:
-                    await message.edit(content=f"""```ini
+                await message.edit(content=f"""```ini
 [ You won! ]
 
 {final_reel}
@@ -6720,13 +5473,7 @@ You have risk mode disabled, you cant use this command.
 # {__embedfooter__}
 ```""")                                   
             else:
-                if __embedmode__:
-                    embed = discord.Embed(title=f"You lost ;(", description=final_reel, color=__embedcolour__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()                            
-                    await message.edit(content="", embed=embed)
-                else:
-                    await message.edit(content=f"""```ini
+                await message.edit(content=f"""```ini
 [ You lost ;( ]
 
 {final_reel}
@@ -6741,35 +5488,17 @@ You have risk mode disabled, you cant use this command.
     @Ghost.command(name="socialcredit", description="A users social credit score.", usage="socialcredit [@user]")
     async def socialcredit(ctx, user: discord.User):
         credit = random.randint(-5000000, 10000000)
-        if __embedmode__:
-            embed = discord.Embed(description=f"{user.name}'s social credit score is {credit}", color=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"{user.name}'s social credit score is {credit}")                
+        await ctx.send(f"{user.name}'s social credit score is {credit}")                
 
     @Ghost.command(name="roast", description="Roast a user.", usage="roast [@user]", aliases=["insult"])
     async def roast(ctx, user: discord.User):
         insult = requests.get("https://evilinsult.com/generate_insult.php?lang=en&type=json").json()["insult"]
-        if __embedmode__:
-            embed = discord.Embed(description=insult, colour=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(user.mention, embed=embed)
-        else:
-            await ctx.send(f"Ayo {user.mention}, " + str(insult).lower())
+        await ctx.send(f"Ayo {user.mention}, " + str(insult).lower())
             
     @Ghost.command(name="yomomma", description="Random yo momma joke.", usage="yomomma", aliases=["mom", "mum"])
     async def yomomma(ctx):
         joke = requests.get("https://api.yomomma.info/").json()["joke"]
-        if __embedmode__:
-            embed = discord.Embed(description=joke, colour=__embedcolour__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(joke)
+        await ctx.send(joke)
 
     @Ghost.command(name="fakeedited", description='"Edit" a message.', usage="fakeedited [message]", aliases=["edited"])
     async def fakeedited(ctx, *, message):
@@ -6781,23 +5510,9 @@ You have risk mode disabled, you cant use this command.
     async def pp(ctx, user: discord.User = None):
         size = "8" + "="*random.randint(1, 12) + "D"
         if user is None:
-            if __embedmode__:
-                embed = discord.Embed(title=f"{Ghost.user.name}'s pp is {size}", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"{Ghost.user.name}'s pp size\n{size}")
+            await ctx.send(f"{Ghost.user.name}'s pp size\n{size}")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"{user.name}'s pp is {size}", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                await ctx.send(f"{user.name}'s pp size\n{size}")
+            await ctx.send(f"{user.name}'s pp size\n{size}")
 
     # @Ghost.command(name="trumptweet", description="Make Donald Trump tweet anything.", usage="trumptweet [tweet]")
     # async def trumptweet(ctx, *, tweet):
@@ -6825,14 +5540,7 @@ You have risk mode disabled, you cant use this command.
         red = Color("#ff3d3d")
         pink = Color("#f54287")
         rainbow = list(red.range_to(pink, 50))
-        if __embedmode__:
-            embed = discord.Embed(title=f"Rainbow Role", color=__embedcolour__, description=f"{role} now has a rainbow colour.")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Rainbow Role ]
 
 {role} now has a rainbow colour.
@@ -6848,47 +5556,18 @@ You have risk mode disabled, you cant use this command.
 
     @Ghost.command(name="rembed", description="Kill Discord's API with a sexy rainbow embedded message.", usage="rembed [text]", aliases=["rainbowembed"])
     async def rembed(ctx, *, text):
-        if __embedmode__:
-            red = Color("#ff3d3d")
-            pink = Color("#f54287")
-            rainbow = list(red.range_to(pink, 25))
-            embed = discord.Embed(color=int("#ff3d3d".replace('#', '0x'), 0))
-            embed.set_author(name=text)
-            msg = await ctx.send(embed=embed)
-            for _ in range(5):
-                for x in rainbow:
-                    colour = f'{x}'
-                    newembed = discord.Embed(color=int(colour.replace('#', '0x'), 0))
-                    newembed.set_author(name=text)
-                    await msg.edit(embed=newembed)
-            await msg.edit(embed=discord.Embed(color=int("#f54287".replace("#", "0x"), 0)).set_author(name=text))
-        else:
-            await ctx.send("This command can only be used in embed mode.")
+        await ctx.send("This command can only be used in embed mode.")
 
     @Ghost.command(name="coinflip", description="Flip a coin.", usage="coinflip", aliases=["flipacoin"])
     async def coinflip(ctx):
         choices = ["Heads", "Tails"]
         choice = random.choice(choices)
-        if __embedmode__:
-            embed = discord.Embed(title=f"{choice}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(choice)
+        await ctx.send(choice)
 
     @Ghost.command(name="dice", description="Roll a dice.", usage="dice", aliases=["rolladice"])
     async def dice(ctx):
         choice = random.randint(1,6)
-        if __embedmode__:
-            embed = discord.Embed(title=f"{choice}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(choice)
+        await ctx.send(choice)
 
     @Ghost.command(name="rps", description="Rock, paper, scissors.", usage="rps", aliases=["rockpaperscissors"])
     async def rps(ctx, move = None):
@@ -6949,39 +5628,18 @@ You have risk mode disabled, you cant use this command.
         choices = ["As I see it, yes.", "Ask again later.", "Better not tell you now.", "Cannot predict now.", "Concentrate and ask again.", "Don’t count on it.", "It is certain.", "It is decidedly so.", "Most likely.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Outlook good.", "Reply hazy, try again.", "Signs point to yes.", "Very doubtful.", "Without a doubt.", "Yes.", "Yes – definitely.", "You may rely on it."]
         choice = random.choice(choices)
         choice = "8ball says, " + choice
-        if __embedmode__:
-            embed = discord.Embed(title=f"{question}", description=choice, color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(question + "\n" + choice)
+        await ctx.send(question + "\n" + choice)
 
     @Ghost.command(name="choice", description="Pick a random choice.", usage="choice [choice1] [choice2]", aliases=["pick"])
     async def choice(ctx, choice1, choice2):
         choices = [choice1, choice2]
         choice = random.choice(choices)
-        if __embedmode__:
-            embed = discord.Embed(title=f"{choice}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(choice)
+        await ctx.send(choice)
 
     @Ghost.command(name="range", description="Pick a random number between two.", usage="random [number1] [number2]", aliases=["rangenumber"])
     async def choice(ctx, arg1, arg2):
         finalnumber = random.randint(int(arg1),int(arg2))
-        if __embedmode__:
-            embed = discord.Embed(title=f"{finalnumber}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(finalnumber)
+        await ctx.send(finalnumber)
 
     # @Ghost.command(name="wyr", description="Would you rather questions.", usage="wyr")
     # async def wyr_(ctx):
@@ -7004,43 +5662,19 @@ You have risk mode disabled, you cant use this command.
         randint4 = random.randint(100, 270)
         countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia","Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"]
         computer = ['Windows', 'Mac', 'Linux', 'IOS', 'Android', 'Unknown']
-        if __embedmode__:
-            embed = discord.Embed(title=f"Doxxed {user.name}", color=__embedcolour__)
-            embed.add_field(name="IP Address", value=f"```{randint1}.{randint2}.{randint3}.{randint4}```")
-            embed.add_field(name="Country", value="```" + random.choice(countries) + "```")
-            embed.add_field(name="Computer", value="```" + random.choice(computer) + "```")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"Doxxed {user.name}\nIP Address: {randint1}.{randint2}.{randint3}.{randint4}\nCountry: " + random.choice(countries) + "\nComputer: " + random.choice(computer))
+        await ctx.send(f"Doxxed {user.name}\nIP Address: {randint1}.{randint2}.{randint3}.{randint4}\nCountry: " + random.choice(countries) + "\nComputer: " + random.choice(computer))
 
     @Ghost.command(name="fakenitro", description="Hide a link in a nitro URL.", usage="fakenitro [url]")
     async def fakenitro(ctx, *, url):
         code = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(16))
         nitro = "https://discord.gift/" + code
-        if __embedmode__:
-            embed = discord.Embed(title=f"Nitro", color=__embedcolour__, description=f"[{nitro}]({url})")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send("This command can only be used in embed mode.")
+        await ctx.send("This command can only be used in embed mode.")
 
     @Ghost.command(name="nitrogen", description="Generate a nitro code.", usage="nitrogen", aliases=["nitrogenerate", "generatenitro", "gennitro"])
     async def nitrogen(ctx):
         code = ''.join(random.choice(string.ascii_letters + string.digits ) for i in range(19))
         nitro = "https://discord.gift/" + code
-        if __embedmode__:
-            embed = discord.Embed(title=f"Nitro", color=__embedcolour__, description=f"{nitro}")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(nitro)
+        await ctx.send(nitro)
 
     @Ghost.command(name="tokengen", description="Generate a discord user token.", usage="tokengen", aliases=["generatetoken", "tokengenerate", "gentoken"])
     async def tokengen(ctx):
@@ -7054,14 +5688,7 @@ You have risk mode disabled, you cant use this command.
         token3 = ''.join(random.choice(string.ascii_letters + string.digits ) for i in range(27))
 
         token = f"{token1}.{token2}.{token3}"
-        if __embedmode__:
-            embed = discord.Embed(title=f"Token Generator", color=__embedcolour__, description=f"{token}")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(token)
+        await ctx.send(token)
 
     @Ghost.command(name="eval", description="Very scary, summoned amogus in my house. Log4J in a nutshell :flushed:", usage="eval [scary code]", aliases=["evaluate"])
     async def eval(ctx, *, arg):
@@ -7082,20 +5709,7 @@ You have risk mode disabled, you cant use this command.
         genderchoices = ["Male", "Female"]
         gender = random.choice(genderchoices)
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Identity Generator", color=__embedcolour__)
-            embed.add_field(name="Full Name", value=f"{firstname} {lastname}", inline=True)
-            embed.add_field(name="Email", value=f"{email}", inline=True)
-            embed.add_field(name="Phone Number", value=f"{phone}", inline=True)
-            embed.add_field(name="Occupation", value=f"{job}", inline=True)
-            embed.add_field(name="Birthdate", value=f"{birthdate}", inline=True)
-            embed.add_field(name="Gender", value=f"{gender}", inline=True)
-            embed.add_field(name="Address", value=f"{address}", inline=True)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Identity Generator ]
 
 Full Name: {firstname} {lastname}
@@ -7113,13 +5727,7 @@ Address: {address}
     async def passwordgen(ctx, length: int):
         password = ''.join(random.choice(string.ascii_letters) for i in range(length))
 
-        if __embedmode__:
-            embed = discord.Embed(title="Password Generator", color=__embedcolour__, description=f"Your generated password is ||{password}||")
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"Password: ||{password}||")
+        await ctx.send(f"Password: ||{password}||")
 
     @Ghost.command(name="ccgen", description="Generate a fake Credit card.", usage="ccgen", aliases=["creditcardgenerate", "creditcardgen", "generatecc", "ccgenerate", "gencreditcard", "generatecreditcard"])
     async def ccgen(ctx):
@@ -7148,21 +5756,7 @@ Address: {address}
         string3 = random.randint(1000, 9999)
         string4 = random.randint(1000, 9999)
 
-        if __embedmode__:
-            embed = discord.Embed(title="Credit Card Generator", color=__embedcolour__)
-            embed.add_field(name="Number", value=f"{choice}{string1} {string2} {string3} {string4}", inline=True)
-            embed.add_field(name="Name", value=f"{name}", inline=True)
-            embed.add_field(name="CVV", value=f"{cvv}", inline=True)
-            embed.add_field(name="Expire Date", value=f"{expiremonth}/{expireyear}", inline=True)
-            embed.add_field(name="Type", value=f"{type}", inline=True)
-            embed.add_field(name="Address", value=f"{address}", inline=True)
-
-            embed.set_thumbnail(url=typeimg)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Credit Card Generator ]
 
 Number: {choice}{string1} {string2} {string3} {string4}
@@ -7177,23 +5771,11 @@ Address: {address}
 
     @Ghost.command(name="cembed", description="Create a custom embedded message.", usage='cembed [title] [description] [colour]', aliases=["customembed"])
     async def cembed(ctx, title, description, colour):
-        if __embedmode__:
-            colour = int(colour.replace('#', '0x'), 0)
-            embed = discord.Embed(title=title, description=description, color=colour)
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send("This command can only be used in embed mode.")
+        await ctx.send("This command can only be used in embed mode.")
 
     @Ghost.command(name="embed", description="Create an embedded message.", usage="embed [title]")
     async def embed(ctx, *, title):
-        if __embedmode__:
-            embed = discord.Embed(title=title, color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send("This command can only be used in embed mode.")
+        await ctx.send("This command can only be used in embed mode.")
 
     @Ghost.command(name="leet", description="Turn your text into 1337 text.", usage="leet [text]", aliases=["1337", "leetspeak"])
     async def leet(ctx, *, text):
@@ -7433,14 +6015,7 @@ Address: {address}
                 except:
                     pass
         else:
-            if __embedmode__:
-                embed = discord.Embed(title=f"Abusive Commands", color=__embedcolour__, description=f"You have risk mode disabled, you cant use this command.")
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)      
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ Abuse Commands ]
 
 You have risk mode disabled, you cant use this command.
@@ -7477,14 +6052,7 @@ You have risk mode disabled, you cant use this command.
             for ban in banlist:
                 #username = user[0].name
                 msg += f"{ban.user.name}#{ban.user.discriminator} ({ban.user.id})\n"
-            if __embedmode__:
-                embed = discord.Embed(title=ctx.guild.name + "'s banned member list", description=msg, color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"""```ini
+            await ctx.send(f"""```ini
 [ {ctx.guild.name}'s banned member list ]
 
 {msg}
@@ -7493,81 +6061,32 @@ You have risk mode disabled, you cant use this command.
 # {__embedfooter__}```""", delete_after=__deletetimeout__)
 
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="ban", description="Ban the mentioned user.", usage="ban [@user]")
     async def ban(ctx, *, user: discord.Member):
         if ctx.author.guild_permissions.ban_members:
             await user.ban()
-            if __embedmode__:
-                embed = discord.Embed(title=user.name + " has been banned", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"{user.name} has been banned")
+            await ctx.send(f"{user.name} has been banned")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="unban", description="Unban the mentioned id.", usage="unban [id]")
     async def unban(ctx, *, id: int):
         if ctx.author.guild_permissions.ban_members:
             user = await Ghost.fetch_user(id)
             await ctx.guild.unban(user)
-            if __embedmode__:
-                embed = discord.Embed(title=user.name + " has been unbanned", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"{user.name} has been unbanned")
+            await ctx.send(f"{user.name} has been unbanned")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="kick", description="Kick the mentioned user.", usage="kick [@user]")
     async def kick(ctx, user: discord.Member):
         if ctx.author.guild_permissions.kick_members:
             await user.kick()
-            if __embedmode__:
-                embed = discord.Embed(title=user.name + " has been kicked", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"{user.name} has been kicked")
+            await ctx.send(f"{user.name} has been kicked")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="mute", description="Mute the menitioned user.", usage="mute [@user]")
     async def mute(ctx, user: discord.Member):
@@ -7585,100 +6104,36 @@ You have risk mode disabled, you cant use this command.
                     await channel.set_permissions(mutedrole, send_messages=False, connect=False)
             await user.add_roles(mutedrole)
 
-            if __embedmode__:
-                embed = discord.Embed(title=user.name + " has been muted", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"{user.name} has been muted")
+            await ctx.send(f"{user.name} has been muted")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="unmute", description="Unmute the mentioned user.", usage="unmute [@user]")
     async def unmute(ctx, user: discord.Member):
         if ctx.author.guild_permissions.mute_members:
             mutedrole = get(ctx.guild.roles, name="Muted")
             if mutedrole in user.roles:
-                if __embedmode__:
-                    await user.remove_roles(mutedrole)
-                    embed = discord.Embed(title=user.name + " has been unmuted", color=__embedcolour__)
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    await ctx.send(f"{user.name} has been unmuted")
+                await ctx.send(f"{user.name} has been unmuted")
             else:
-                if __embedmode__:
-                    embed = discord.Embed(title=user.name + " is not muted", color=__embedcolour__)
-                    embed.set_thumbnail(url=__embedimage__)
-                    embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                    embed.timestamp = datetime.now()
-                    await ctx.send(embed=embed, delete_after=__deletetimeout__)
-                else:
-                    await ctx.send(f"{user.name} is not muted")
+                await ctx.send(f"{user.name} is not muted")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="newrole", description="Create a new role.", usage="newrole [name]", aliases=["createrole"])
     async def newrole(ctx, *, name):
         if ctx.author.guild_permissions.manage_roles:
             await ctx.guild.create_role(name=name)
-            if __embedmode__:
-                embed = discord.Embed(title="@" + name + " has been created", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"@{name} has been created")
+            await ctx.send(f"@{name} has been created")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="delrole", description="Delete the mentioned role.", usage="delrole [@role]", aliases=["deleterole"])
     async def delrole(ctx, *, role: discord.Role):
         if ctx.author.guild_permissions.manage_roles:
             await role.delete()
-            if __embedmode__:
-                embed = discord.Embed(title="@" + role.name + " has been deleted", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"@{role.name} has been deleted")
+            await ctx.send(f"@{role.name} has been deleted")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="purge", description="Purge X amount of messages.", usage="purge [amount]")
     async def purge(ctx, amount: int):
@@ -7692,23 +6147,9 @@ You have risk mode disabled, you cant use this command.
                     await asyncio.sleep(1)
                 except:
                     pass
-            if __embedmode__:
-                embed = discord.Embed(title=f"Deleted {deletedamount} messages", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send(f"Deleted {deletedamount} messages")
+            await ctx.send(f"Deleted {deletedamount} messages")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="purgeself", description="Purge your messages.", usage="purgeself [amount]")
     async def purge(ctx, amount: int):
@@ -7722,58 +6163,23 @@ You have risk mode disabled, you cant use this command.
                     await asyncio.sleep(1)
                 except:
                     pass
-        if __embedmode__:
-            embed = discord.Embed(title=f"Deleted {deletedamount} messages", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"Deleted {deletedamount} messages")                       
+        await ctx.send(f"Deleted {deletedamount} messages")                       
 
     @Ghost.command(name="lock", description="Lock the command channel.", usage="lock")
     async def lock(ctx):
         if ctx.author.guild_permissions.manage_channels:
             await ctx.channel.set_permissions(ctx.guild.default_role, read_messages=False)
-            if __embedmode__:
-                embed = discord.Embed(title=f"Channel Locked", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Channel Locked")
+            await ctx.send("Channel Locked")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="unlock", description="Unlock the command channel.", usage="unlock")
     async def unlock(ctx):
         if ctx.author.guild_permissions.manage_channels:
             await ctx.channel.set_permissions(ctx.guild.default_role, read_messages=True)
-            if __embedmode__:
-                embed = discord.Embed(title=f"Channel Unlocked", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Channel Unlocked")
+            await ctx.send("Channel Unlocked")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="lockdown", description="Lock the entire server.", usage="lockdown")
     async def lockdown(ctx):
@@ -7781,46 +6187,18 @@ You have risk mode disabled, you cant use this command.
             for channel in ctx.guild.channels:
                 await channel.set_permissions(ctx.guild.default_role, read_messages=False)
             channel = await ctx.guild.create_text_channel('lockdown-chat')
-            if __embedmode__:
-                embed = discord.Embed(title=f"Server Lockdown Enabled!", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await channel.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await channel.send("Server Lockdown Enabled!")
+            await channel.send("Server Lockdown Enabled!")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="unlockdown", description="Unlock the entire server.", usage="lockdown")
     async def unlockdown(ctx):
         if ctx.author.guild_permissions.manage_guild:
             for channel in ctx.guild.channels:
                 await channel.set_permissions(ctx.guild.default_role, read_messages=True)
-            if __embedmode__:
-                embed = discord.Embed(title=f"Server Lockdown Disabled!", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Server Lockdown Disabled")
+            await ctx.send("Server Lockdown Disabled")
         else:
-            if __embedmode__:
-                embed = discord.Embed(title="You dont have the required permissions", color=__embedcolour__)
-                embed.set_thumbnail(url=__embedimage__)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed, delete_after=__deletetimeout__)
-            else:
-                await ctx.send("Invalid permissions.")
+            await ctx.send("Invalid permissions.")
 
     @Ghost.command(name="tokeninfo", description="Information about a token.", usage="tokeninfo [token]")
     async def tokeninfo(ctx, *, token):
@@ -7851,23 +6229,8 @@ You have risk mode disabled, you cant use this command.
             if bio == "":
                 bio = " "
 
-            if __embedmode__:
-                embed = discord.Embed(title=user.name + " token information", color=__embedcolour__)
-                embed.add_field(name="Token", value="```" + str(token) + "```", inline=False)
-                embed.add_field(name="Username", value="```" + str(username) + "```")
-                embed.add_field(name="Email", value="```" + str(email) + "```")
-                embed.add_field(name="Phone", value="```" + str(phone) + "```")
-                embed.add_field(name="Discriminator", value="```" + str(discriminator) + "```")
-                embed.add_field(name="User ID", value="```" + str(id) + "```")
-                embed.add_field(name="Bio", value="```" + str(bio) + "```")
-                embed.add_field(name="Nitro", value="```" + str(nitro) + "```")
-                embed.set_thumbnail(url=avatar)
-                embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                embed.timestamp = datetime.now()
-                await ctx.send(embed=embed)
-            else:
-                createdAt = user.created_at.strftime("%d %B, %Y")
-                await ctx.send(f"""```ini
+            createdAt = user.created_at.strftime("%d %B, %Y")
+            await ctx.send(f"""```ini
 [ {username}'s token Information ]
 
 Token: {token}
@@ -7887,19 +6250,8 @@ Nitro: {nitro}
 
     @Ghost.command(name="userinfo", description="Information about the mentioned user.", usage="userinfo [@user]", aliases=["userlookup", "lookupuser"])
     async def userinfo(ctx, *, user: discord.User):
-        if __embedmode__:
-            embed = discord.Embed(title=user.name + " Information", color=__embedcolour__)
-            embed.add_field(name="Username", value="```" + str(user.name) + "```")
-            embed.add_field(name="Discriminator", value="```" + str(user.discriminator) + "```")
-            embed.add_field(name="User ID", value="```" + str(user.id) + "```")
-            embed.add_field(name="Created At", value="```" + str(user.created_at.strftime("%d %B, %Y")) + "```")
-            embed.set_thumbnail(url=avatarUrl(user.id, user.avatar))
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            createdAt = user.created_at.strftime("%d %B, %Y")
-            await ctx.send(f"""```ini
+        createdAt = user.created_at.strftime("%d %B, %Y")
+        await ctx.send(f"""```ini
 [ {user.name} Information ]
 
 Username: {user.name}
@@ -7916,24 +6268,9 @@ Created At: {createdAt}
             server = ctx.message.guild
         else:
             server = await Ghost.fetch_guild(int(guild))
-        if __embedmode__:
-            embed = discord.Embed(title=server.name + " Information", color=__embedcolour__)
-            embed.add_field(name="Name", value="```" + str(server.name) + "```")
-            embed.add_field(name="Owner", value="```" + str(server.owner) + "```")
-            try:
-                embed.add_field(name="Member Count", value="```" + str(server.member_count) + "```")
-            except:
-                pass
-            embed.add_field(name="Server ID", value="```" + str(server.id) + "```")
-            embed.add_field(name="Created At", value="```" + str(server.created_at.strftime("%d %B, %Y")) + "```")
-            embed.set_thumbnail(url=str(server.icon))
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            createdAt = server.created_at.strftime("%d %B, %Y")
-            try:
-                await ctx.send(f"""```ini
+        createdAt = server.created_at.strftime("%d %B, %Y")
+        try:
+            await ctx.send(f"""```ini
 [ {server.name} Information ]
 
 Name: {server.name}
@@ -7944,8 +6281,8 @@ Created At: {createdAt}
 
 
 # {__embedfooter__}```{str(server.icon)}""")
-            except:
-                await ctx.send(f"""```ini
+        except:
+            await ctx.send(f"""```ini
 [ {server.name} Information ]
 
 Name: {server.name}
@@ -7958,25 +6295,11 @@ Created At: {createdAt}
 
     @Ghost.command(name="avatar", description="Get the mentioned user's avatar.", usage="avatar [@user]", aliases=["pfp", "profilepicture"])
     async def avatar(ctx, *, user: discord.User):
-        if __embedmode__:
-            embed = discord.Embed(title=user.name + "'s Avatar", color=__embedcolour__)#
-            embed.set_image(url=avatarUrl(user.id, user.avatar))
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(avatarUrl(user.id, user.avatar))
+        await ctx.send(avatarUrl(user.id, user.avatar))
 
     @Ghost.command(name="servericon", description="Get the server's icon.", usage="servericon", aliases=["guildicon"])
     async def servericon(ctx):
-        if __embedmode__:
-            embed = discord.Embed(title=ctx.guild.name + "'s Icon", color=__embedcolour__)
-            embed.set_image(url=iconUrl(ctx.guild.id, ctx.guild.icon))
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed)
-        else:
-            await ctx.send(iconUrl(ctx.guild.id, ctx.guild.icon))
+        await ctx.send(iconUrl(ctx.guild.id, ctx.guild.icon))
 
     @Ghost.command(name="afkmode", description="Toggle afk mode.", usage="afkmode")
     async def afkmode(ctx):
@@ -8010,21 +6333,7 @@ Created At: {createdAt}
         message_bytes = base64.b64decode(base64_bytes)
         logindata_decoded = message_bytes.decode('ascii')
 
-        if __embedmode__:
-            embed = discord.Embed(title=f"Settings", color=__embedcolour__)
-            embed.add_field(name="Commands", value=f"```{totalcommands}```")
-            embed.add_field(name="Logins", value=f"```{logindata_decoded}```")
-            embed.add_field(name="Version", value=f"```{version}```")
-            embed.add_field(name="Prefix", value=f"```{Ghost.command_prefix}```")
-            embed.add_field(name="Servers", value=f"```{totalguilds}```")
-            #embed.add_field(name="Uptime", value=f"```{days}d, {hours}h, {minutes}m, {seconds}s```")
-            embed.add_field(name="Uptime", value=f"```{uptimeText}```")
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"""```ini
+        await ctx.send(f"""```ini
 [ Settings ]
 
 Commands: {totalcommands}
@@ -8174,27 +6483,13 @@ Status changed to: Watching {text}
     @Ghost.command(name="nickname", description="Set your nickname to anything.", usage="nickname [text]")
     async def nickname(ctx, *, text):
         await ctx.author.edit(nick=nickname)
-        if __embedmode__:
-            embed = discord.Embed(title=f"Nickname changed to {text}", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send(f"Nickname changed to {text}")
+        await ctx.send(f"Nickname changed to {text}")
     print(fg.cWhite + "")
 
     @Ghost.command(name="clearnickname", description="Clear your nickname.", usage="clearnickname")
     async def clearnickname(ctx):
         await ctx.author.edit(nick="")
-        if __embedmode__:
-            embed = discord.Embed(title=f"Nickname cleared", color=__embedcolour__)
-            embed.set_thumbnail(url=__embedimage__)
-            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-            embed.timestamp = datetime.now()
-            await ctx.send(embed=embed, delete_after=__deletetimeout__)
-        else:
-            await ctx.send("Nickname cleared")
+        await ctx.send("Nickname cleared")
 
     Ghost.run(__token__)
 
