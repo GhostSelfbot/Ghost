@@ -245,6 +245,8 @@ try:
     
     import brainfuckery
     import colorama
+    from colorama import Fore, init
+    init(autoreset=True) # Allows colorama colours to work on Windows.
     import discord_emoji
     import threading
     import pygame
@@ -1012,7 +1014,7 @@ async def example(Ghost):
         fg.cPink = colorama.Fore.MAGENTA
         fg.cGrey = colorama.Fore.WHITE
         fg.cBlack = colorama.Fore.BLACK
-        fg.cWhite = colorama.Fore.RESET
+        fg.cWhite = colorama.Fore.WHITE
 
     if is_windows():
         os.system("cls")
@@ -1043,7 +1045,7 @@ async def example(Ghost):
     rickRollEnabled = False
     nukingToken = False
     consoleMode = __consolemode__
-    consoleModes = ["new", "new2", "new3", "new4", "bear", "old", "react", "rise", "nighty", "rainbow"]
+    consoleModes = ["new", "new2", "new3", "new4", "bear", "old", "react", "rise", "riseold", "nighty", "rainbow"]
     scriptsList = []
     afkMode = CONFIG["afkmode"]["enabled"]
 
@@ -1216,7 +1218,7 @@ async def example(Ghost):
             print(fg.cWhite + f"{motd}".center(width))
             print(fg.consoleColour + '─'*width)
             print("")  
-        if consoleMode.lower() == "rise":
+        if consoleMode.lower() == "riseold":
             print(fg.cBlue + "")                    
             print("██████╗ ██╗███████╗███████╗    ███████╗███████╗██╗     ███████╗██████╗  ██████╗ ████████╗".center(width))
             print("██╔══██╗██║██╔════╝██╔════╝    ██╔════╝██╔════╝██║     ██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝".center(width))
@@ -1224,12 +1226,24 @@ async def example(Ghost):
             print("██╔══██╗██║╚════██║██╔══╝      ╚════██║██╔══╝  ██║     ██╔══╝  ██╔══██╗██║   ██║   ██║   ".center(width))
             print("██║  ██║██║███████║███████╗    ███████║███████╗███████╗██║     ██████╔╝╚██████╔╝   ██║   ".center(width))
             print("╚═╝  ╚═╝╚═╝╚══════╝╚══════╝    ╚══════╝╚══════╝╚══════╝╚═╝     ╚═════╝  ╚═════╝    ╚═╝   ".center(width))
-            print("╭─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─╮")
-            print(fg.cGrey + f"Connected: {Ghost.user} | Prefix: {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}".center(width))
-            print(fg.cBlue + "╰─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─╯")
+            adjustedwidth = (1 * width) - 4
+
+            print(fg.cBlue + "╭─" + '━'*adjustedwidth + "─╮")
+            print(f"                       {Fore.BLUE}Connected:{Fore.WHITE} {Ghost.user} | {Fore.BLUE}Prefix:{Fore.WHITE} {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}")
+            print(fg.cBlue + "╰─" + '━'*adjustedwidth + "─╯")
             print("")
-            print(fg.cBlue + '━'*width)
-            print("")         
+        if consoleMode.lower() == "rise":
+            print(fg.cBlue + "")                    
+            print(f"                                    {Fore.WHITE}██████{Fore.CYAN}╗ {Fore.WHITE}██{Fore.CYAN}╗ {Fore.WHITE}██████{Fore.CYAN}╗{Fore.WHITE}███████{Fore.CYAN}╗")
+            print(f"                                    {Fore.WHITE}██{Fore.CYAN}╔══{Fore.WHITE}██{Fore.CYAN}╗{Fore.WHITE}██{Fore.CYAN}║{Fore.WHITE}██{Fore.CYAN}╔════╝{Fore.WHITE}██{Fore.CYAN}╔════╝")
+            print(f"                                    {Fore.WHITE}██████{Fore.CYAN}╔╝{Fore.WHITE}██{Fore.CYAN}║╚{Fore.WHITE}█████{Fore.CYAN}╗ {Fore.WHITE}█████{Fore.CYAN}╗")
+            print(f"                                    {Fore.WHITE}██{Fore.CYAN}╔══{Fore.WHITE}██{Fore.CYAN}╗{Fore.WHITE}██{Fore.CYAN}║ ╚═══{Fore.WHITE}██{Fore.CYAN}╗{Fore.WHITE}██{Fore.CYAN}╔══╝")
+            print(f"                                    {Fore.WHITE}██{Fore.CYAN}║  {Fore.WHITE}██{Fore.CYAN}║{Fore.WHITE}██{Fore.CYAN}║{Fore.WHITE}██████{Fore.CYAN}╔╝{Fore.WHITE}███████{Fore.CYAN}╗")
+            print(f"                                    {Fore.CYAN}╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝")
+            print("")
+            print(f"                       {Fore.BLUE}Connected:{Fore.WHITE} {Ghost.user} | {Fore.BLUE}Prefix:{Fore.WHITE} {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}")
+            print("━"*width)
+            print("")
 
         if consoleMode.lower() == "nighty":
             if is_windows():
@@ -3197,7 +3211,7 @@ There is a total of {len(hiddenChannels)} hidden channels.
             print(fg.cWhite + f"{motd}".center(width))
             print(fg.consoleColour + '─'*width)
             print("")  
-        if consoleMode.lower() == "rise":
+        if consoleMode.lower() == "riseold":
             print(fg.cBlue + "")                    
             print("██████╗ ██╗███████╗███████╗    ███████╗███████╗██╗     ███████╗██████╗  ██████╗ ████████╗".center(width))
             print("██╔══██╗██║██╔════╝██╔════╝    ██╔════╝██╔════╝██║     ██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝".center(width))
@@ -3205,13 +3219,24 @@ There is a total of {len(hiddenChannels)} hidden channels.
             print("██╔══██╗██║╚════██║██╔══╝      ╚════██║██╔══╝  ██║     ██╔══╝  ██╔══██╗██║   ██║   ██║   ".center(width))
             print("██║  ██║██║███████║███████╗    ███████║███████╗███████╗██║     ██████╔╝╚██████╔╝   ██║   ".center(width))
             print("╚═╝  ╚═╝╚═╝╚══════╝╚══════╝    ╚══════╝╚══════╝╚══════╝╚═╝     ╚═════╝  ╚═════╝    ╚═╝   ".center(width))
-            print("╭─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─╮")
-            print(fg.cGrey + f"Connected: {Ghost.user} | Prefix: {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}".center(width))
-            print(fg.cBlue + "╰─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─╯")
-            print("")
-            print(fg.cBlue + '━'*width)
-            print("")         
+            adjustedwidth = (1 * width) - 4
 
+            print(fg.cBlue + "╭─" + '━'*adjustedwidth + "─╮")
+            print(f"                       {Fore.BLUE}Connected:{Fore.WHITE} {Ghost.user} | {Fore.BLUE}Prefix:{Fore.WHITE} {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}")
+            print(fg.cBlue + "╰─" + '━'*adjustedwidth + "─╯")
+            print("")
+        if consoleMode.lower() == "rise":
+            print(fg.cBlue + "")                    
+            print(f"                                    {Fore.WHITE}██████{Fore.CYAN}╗ {Fore.WHITE}██{Fore.CYAN}╗ {Fore.WHITE}██████{Fore.CYAN}╗{Fore.WHITE}███████{Fore.CYAN}╗")
+            print(f"                                    {Fore.WHITE}██{Fore.CYAN}╔══{Fore.WHITE}██{Fore.CYAN}╗{Fore.WHITE}██{Fore.CYAN}║{Fore.WHITE}██{Fore.CYAN}╔════╝{Fore.WHITE}██{Fore.CYAN}╔════╝")
+            print(f"                                    {Fore.WHITE}██████{Fore.CYAN}╔╝{Fore.WHITE}██{Fore.CYAN}║╚{Fore.WHITE}█████{Fore.CYAN}╗ {Fore.WHITE}█████{Fore.CYAN}╗")
+            print(f"                                    {Fore.WHITE}██{Fore.CYAN}╔══{Fore.WHITE}██{Fore.CYAN}╗{Fore.WHITE}██{Fore.CYAN}║ ╚═══{Fore.WHITE}██{Fore.CYAN}╗{Fore.WHITE}██{Fore.CYAN}╔══╝")
+            print(f"                                    {Fore.WHITE}██{Fore.CYAN}║  {Fore.WHITE}██{Fore.CYAN}║{Fore.WHITE}██{Fore.CYAN}║{Fore.WHITE}██████{Fore.CYAN}╔╝{Fore.WHITE}███████{Fore.CYAN}╗")
+            print(f"                                    {Fore.CYAN}╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝")
+            print("")
+            print(f"                       {Fore.BLUE}Connected:{Fore.WHITE} {Ghost.user} | {Fore.BLUE}Prefix:{Fore.WHITE} {Ghost.command_prefix} | Servers: {len(Ghost.guilds)}")
+            print("━"*width)
+            print("")
         if consoleMode.lower() == "nighty":
             if is_windows():
                 os.system("mode con: cols=90 lines=24")
