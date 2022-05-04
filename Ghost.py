@@ -765,6 +765,7 @@ async def example(Ghost):
     __guildleaveignoredservers__ = CONFIG["ignored_servers"]["guildleave"]
 
     nsfwTypes = ["boobs", "ass", "hentai", "porngif", "pussy", "tits", "tittydrop", "tittypop", "titty", "femboy"]
+    typinghistory = {}
     now = datetime.now()
     fake = Faker()
     def getCurrentTime():
@@ -1553,25 +1554,38 @@ async def example(Ghost):
     async def on_typing(channel, user, when):
         if __ghostloaded__:
             if isinstance(channel, discord.DMChannel):
-                if Config.getConfig()["detections"]["dmtyping"]:
-                    print_detect(f"DM Typing")
-                    print_sniper_info("User", user)
-                    if Config.getConfig()["sounds"]:   
-                        if str(sounddevice.query_devices()) != "":          
-                            pygame.mixer.music.load(resource_path("sounds/notification.mp3"))
-                            pygame.mixer.music.play(1)  
-                    send_notification("DM Typing", f"{user} is typing in their DMs.", 10)     
-                    if __dmtypingwebhook__ != "":
-                        webhook = DiscordWebhook(url=__dmtypingwebhook__)
-                        embed = DiscordEmbed(title='DM Typing', color=__embedcolourraw__[1:])
-                        embed.set_thumbnail(url=__embedimage__)
-                        embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                        embed.set_timestamp()
-                        embed.add_embed_field(name='User', value=str(user), inline=False)
-                        embed.add_embed_field(name='ID', value=str(user.id), inline=False)
-                        embed.add_embed_field(name='When', value=str(when), inline=False)
-                        webhook.add_embed(embed)
-                        response = webhook.execute()                                                         
+                global typinghistory
+                
+                current_time = when
+                userid = int(user.id)
+
+                if userid not in typinghistory:
+                    typinghistory[userid] = current_time
+                    
+                timedifference = (current_time - typinghistory[userid]).total_seconds()
+                
+                if timedifference >= 120 or timedifference == 0:
+                    typinghistory[userid] = current_time
+
+                    if Config.getConfig()["detections"]["dmtyping"]:
+                        print_detect(f"DM Typing")
+                        print_sniper_info("User", user)
+                        if Config.getConfig()["sounds"]:   
+                            if str(sounddevice.query_devices()) != "":          
+                                pygame.mixer.music.load(resource_path("sounds/notification.mp3"))
+                                pygame.mixer.music.play(1)  
+                        send_notification("DM Typing", f"{user} is typing in their DMs.", 10)     
+                        if __dmtypingwebhook__ != "":
+                            webhook = DiscordWebhook(url=__dmtypingwebhook__)
+                            embed = DiscordEmbed(title='DM Typing', color=__embedcolourraw__[1:])
+                            embed.set_thumbnail(url=__embedimage__)
+                            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                            embed.set_timestamp()
+                            embed.add_embed_field(name='User', value=str(user), inline=False)
+                            embed.add_embed_field(name='ID', value=str(user.id), inline=False)
+                            embed.add_embed_field(name='When', value=str(when), inline=False)
+                            webhook.add_embed(embed)
+                            response = webhook.execute()                                                         
 
     @Ghost.event
     async def on_guild_channel_create(channel):
