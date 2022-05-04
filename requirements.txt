@@ -24,3 +24,4 @@ sounddevice
 discord-emoji
 pync
 WMI
+winshell

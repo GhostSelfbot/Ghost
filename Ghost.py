@@ -1,28 +1,28 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+"""
+MIT License
 
-# Copyright (C) 2021 Ben Tettmar
+Copyright (c) 2022 Ben Tettmar
 
-# Permission is hereby granted, free of charge, to any person obtaining a copy of
-# this software and associated documentation files (the "Software"), to deal in
-# the Software without restriction, including without limitation the rights to
-# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-# of the Software, and to permit persons to whom the Software is furnished to do
-# so, subject to the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-# THE SOFTWARE IS ALSO NOT PROVIDED WITH SUPPORT AND IF YOU REQUIRE SUPPORT 
-# THEN PLEASE EITHER USE A DIFFERENT PEICE OF SOFTWARE OR PAY THE DEVELOPER
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
 
 import os
 from re import T
@@ -765,6 +765,7 @@ async def example(Ghost):
     __guildleaveignoredservers__ = CONFIG["ignored_servers"]["guildleave"]
 
     nsfwTypes = ["boobs", "ass", "hentai", "porngif", "pussy", "tits", "tittydrop", "tittypop", "titty", "femboy"]
+    typinghistory = {}
     now = datetime.now()
     fake = Faker()
     def getCurrentTime():
@@ -1553,25 +1554,38 @@ async def example(Ghost):
     async def on_typing(channel, user, when):
         if __ghostloaded__:
             if isinstance(channel, discord.DMChannel):
-                if Config.getConfig()["detections"]["dmtyping"]:
-                    print_detect(f"DM Typing")
-                    print_sniper_info("User", user)
-                    if Config.getConfig()["sounds"]:   
-                        if str(sounddevice.query_devices()) != "":          
-                            pygame.mixer.music.load(resource_path("sounds/notification.mp3"))
-                            pygame.mixer.music.play(1)  
-                    send_notification("DM Typing", f"{user} is typing in their DMs.", 10)     
-                    if __dmtypingwebhook__ != "":
-                        webhook = DiscordWebhook(url=__dmtypingwebhook__)
-                        embed = DiscordEmbed(title='DM Typing', color=__embedcolourraw__[1:])
-                        embed.set_thumbnail(url=__embedimage__)
-                        embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
-                        embed.set_timestamp()
-                        embed.add_embed_field(name='User', value=str(user), inline=False)
-                        embed.add_embed_field(name='ID', value=str(user.id), inline=False)
-                        embed.add_embed_field(name='When', value=str(when), inline=False)
-                        webhook.add_embed(embed)
-                        response = webhook.execute()                                                         
+                global typinghistory
+                
+                current_time = when
+                userid = int(user.id)
+
+                if userid not in typinghistory:
+                    typinghistory[userid] = current_time
+                    
+                timedifference = (current_time - typinghistory[userid]).total_seconds()
+                
+                if timedifference >= 120 or timedifference == 0:
+                    typinghistory[userid] = current_time
+
+                    if Config.getConfig()["detections"]["dmtyping"]:
+                        print_detect(f"DM Typing")
+                        print_sniper_info("User", user)
+                        if Config.getConfig()["sounds"]:   
+                            if str(sounddevice.query_devices()) != "":          
+                                pygame.mixer.music.load(resource_path("sounds/notification.mp3"))
+                                pygame.mixer.music.play(1)  
+                        send_notification("DM Typing", f"{user} is typing in their DMs.", 10)     
+                        if __dmtypingwebhook__ != "":
+                            webhook = DiscordWebhook(url=__dmtypingwebhook__)
+                            embed = DiscordEmbed(title='DM Typing', color=__embedcolourraw__[1:])
+                            embed.set_thumbnail(url=__embedimage__)
+                            embed.set_footer(text=__embedfooter__, icon_url=__embedfooterimage__)
+                            embed.set_timestamp()
+                            embed.add_embed_field(name='User', value=str(user), inline=False)
+                            embed.add_embed_field(name='ID', value=str(user.id), inline=False)
+                            embed.add_embed_field(name='When', value=str(when), inline=False)
+                            webhook.add_embed(embed)
+                            response = webhook.execute()                                                         
 
     @Ghost.event
     async def on_guild_channel_create(channel):
@@ -6367,7 +6381,7 @@ You have risk mode disabled, you cant use this command.
         else:
             await ctx.send(data[0])                    
 
-    @Ghost.command(name="fox", description="A random fox image. (Thanks Imf44 <3)", usage="fox", aliases=["randomfox", "ranfox"])
+    @Ghost.command(name="fox", description="A random fox image. (Thanks drag#6311 for fixing it :/)", usage="fox", aliases=["randomfox", "ranfox"])
     async def fox(ctx):
         response = requests.get('https://randomfox.ca/floof/')
         data = response.json()
@@ -6378,7 +6392,7 @@ You have risk mode disabled, you cant use this command.
             embed.set_image(url=data['image'])
             await ctx.send(embed=embed)
         else:
-            await ctx.send(data['message'])
+            await ctx.send(data['image'])
 
     @Ghost.command(name="achievement", description="Create a fake minecraft achievement image.", usage='achievement ["text"] (icon)', aliases=["minecraftachievement", "mcachievement"])
     async def achievement(ctx, text, icon=10):
